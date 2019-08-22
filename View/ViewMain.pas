@@ -9,7 +9,7 @@ uses
   MyUtils, Data.DB, Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, Datasnap.DBClient;
+  FireDAC.Comp.Client, Datasnap.DBClient, Vcl.DBCtrls;
 
 type
   TWindowMain = class(TForm)
@@ -32,12 +32,17 @@ type
     BtnCommit: TSpeedButton;
     BtnCheckout: TSpeedButton;
     BtnPush: TSpeedButton;
-    GridRepositories: TStringGrid;
     OpenFile: TFileOpenDialog;
-    Label1: TLabel;
-    Label2: TLabel;
     ProgressBar1: TProgressBar;
-    Label3: TLabel;
+    Table: TFDMemTable;
+    GridRepositories: TDBGrid;
+    CheckSelect: TDBCheckBox;
+    Source: TDataSource;
+    TableCheck: TBooleanField;
+    TableNome: TStringField;
+    TableStatus: TStringField;
+    TableMsg: TStringField;
+    TablePath: TStringField;
     procedure ActConfigAccountExecute(Sender: TObject);
     procedure ActAddRepositoryExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
@@ -47,6 +52,10 @@ type
     procedure ActCheckoutExecute(Sender: TObject);
     procedure ActPushExecute(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure GridRepositoriesDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure GridRepositoriesColExit(Sender: TObject);
+    procedure GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
   private
     procedure AddRepository(Name, Path: string);
   public
@@ -62,7 +71,62 @@ implementation
 
 procedure TWindowMain.FormActivate(Sender: TObject);
 begin
-  AddRepository('GetHub', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub');
+  AddRepository('ProjectBooklin', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectBooklin');
+  AddRepository('ProjectGethub', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub');
+  AddRepository('ProjectMigrator', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectMigrator');
+  AddRepository('ProjectReport', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectReport');
+end;
+
+procedure TWindowMain.GridRepositoriesDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+const
+  IsChecked : array[Boolean] of Integer =(DFCS_BUTTONCHECK, DFCS_BUTTONCHECK or DFCS_CHECKED);
+var
+  DrawState: Integer;
+  DrawRect: TRect;
+begin
+  if (gdFocused in State) then
+  begin
+    //if (Column.Field.FieldName = CheckSelect.DataField) then
+    //begin
+      CheckSelect.Left := 12 {Rect.Left} + GridRepositories.Left + 2;
+      CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
+      CheckSelect.Width := 15 {Rect.Right - Rect.Left};
+      CheckSelect.Height := Rect.Bottom - Rect.Top;
+      CheckSelect.Visible := True;
+    //end;
+  end
+  else
+  begin
+    if (Column.Field.FieldName = CheckSelect.DataField) then
+    begin
+      DrawRect:=Rect;
+      InflateRect(DrawRect,-1,-1);
+      DrawState := ISChecked[Column.Field.AsBoolean];
+      GridRepositories.Canvas.FillRect(Rect);
+      DrawFrameControl(GridRepositories.Canvas.Handle, DrawRect, DFC_BUTTON, DrawState);
+    end;
+  end;
+end;
+
+procedure TWindowMain.GridRepositoriesColExit(Sender: TObject);
+begin
+  if GridRepositories.SelectedField.FieldName = CheckSelect.DataField then
+  begin
+    CheckSelect.Visible := False
+  end;
+end;
+
+procedure TWindowMain.GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (key = Chr(9)) then
+  begin
+    Exit;
+  end;
+  if (GridRepositories.SelectedField.FieldName = CheckSelect.DataField) then
+  begin
+    CheckSelect.SetFocus;
+    SendMessage(CheckSelect.Handle, WM_Char, word(Key), 0);
+  end;
 end;
 
 procedure TWindowMain.ActConfigAccountExecute(Sender: TObject);
@@ -72,10 +136,7 @@ end;
 
 procedure TWindowMain.ActAddRepositoryExecute(Sender: TObject);
 begin
-  if OpenFile.Execute then
-  begin
-
-  end;
+  //
 end;
 
 procedure TWindowMain.ActEditExecute(Sender: TObject);
@@ -110,9 +171,13 @@ end;
 
 procedure TWindowMain.AddRepository(Name, Path: string);
 begin
-  GridRepositories.RowCount := GridRepositories.RowCount + TUtils.Iif(GridRepositories.RowCount = 1, 0, 1);
-
-  GridRepositories.Rows[GridRepositories.RowCount - 1].Add(Name);
+  Table.Insert;
+  TableCheck.AsBoolean := false;
+  TableNome.AsString := Name;
+  TablePath.AsString := Path;
+  TableStatus.AsString := '';
+  TableMsg.AsString := '';
+  Table.Post;
 end;
 
 end.

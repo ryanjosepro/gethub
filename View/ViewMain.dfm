@@ -3,7 +3,7 @@ object WindowMain: TWindowMain
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Gethub'
-  ClientHeight = 508
+  ClientHeight = 474
   ClientWidth = 577
   Color = clBtnFace
   Constraints.MaxWidth = 583
@@ -17,7 +17,7 @@ object WindowMain: TWindowMain
   OnActivate = FormActivate
   DesignSize = (
     577
-    508)
+    474)
   PixelsPerInch = 96
   TextHeight = 13
   object LblLogo: TLabel
@@ -45,7 +45,7 @@ object WindowMain: TWindowMain
   end
   object BtnEdit: TSpeedButton
     Left = 8
-    Top = 465
+    Top = 431
     Width = 68
     Height = 26
     Action = ActEdit
@@ -54,7 +54,7 @@ object WindowMain: TWindowMain
   end
   object BtnDel: TSpeedButton
     Left = 82
-    Top = 465
+    Top = 431
     Width = 68
     Height = 26
     Action = ActDel
@@ -71,7 +71,7 @@ object WindowMain: TWindowMain
   end
   object BtnAdd: TSpeedButton
     Left = 271
-    Top = 465
+    Top = 431
     Width = 70
     Height = 34
     Action = ActAdd
@@ -80,7 +80,7 @@ object WindowMain: TWindowMain
   end
   object BtnCommit: TSpeedButton
     Left = 347
-    Top = 465
+    Top = 431
     Width = 70
     Height = 34
     Action = ActCommit
@@ -89,7 +89,7 @@ object WindowMain: TWindowMain
   end
   object BtnCheckout: TSpeedButton
     Left = 423
-    Top = 465
+    Top = 431
     Width = 70
     Height = 34
     Action = ActCheckout
@@ -98,67 +98,70 @@ object WindowMain: TWindowMain
   end
   object BtnPush: TSpeedButton
     Left = 499
-    Top = 465
+    Top = 431
     Width = 70
     Height = 34
     Action = ActPush
     Anchors = [akLeft, akBottom]
     ExplicitTop = 493
   end
-  object Label1: TLabel
-    Left = 8
-    Top = 76
-    Width = 185
-    Height = 14
-    Alignment = taCenter
-    AutoSize = False
-    Caption = 'Nome do Reposit'#243'rio'
-  end
-  object Label2: TLabel
-    Left = 196
-    Top = 76
-    Width = 185
-    Height = 14
-    Alignment = taCenter
-    AutoSize = False
-    Caption = 'Status do Reposit'#243'rio'
-  end
-  object Label3: TLabel
-    Left = 384
-    Top = 76
-    Width = 185
-    Height = 14
-    Alignment = taCenter
-    AutoSize = False
-    Caption = 'Mensagem do Commit'
-  end
-  object GridRepositories: TStringGrid
-    Left = 8
-    Top = 96
-    Width = 561
-    Height = 335
-    ColCount = 3
-    DefaultColWidth = 185
-    FixedCols = 2
-    RowCount = 1
-    FixedRows = 0
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goDrawFocusSelected, goEditing, goThumbTracking]
-    ParentFont = False
-    TabOrder = 0
-    RowHeights = (
-      24)
-  end
   object ProgressBar1: TProgressBar
     Left = 8
-    Top = 437
+    Top = 408
     Width = 561
     Height = 17
+    Anchors = [akLeft, akBottom]
+    TabOrder = 0
+  end
+  object GridRepositories: TDBGrid
+    Left = 8
+    Top = 68
+    Width = 561
+    Height = 335
+    DataSource = Source
+    Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    OnColExit = GridRepositoriesColExit
+    OnDrawColumnCell = GridRepositoriesDrawColumnCell
+    OnKeyPress = GridRepositoriesKeyPress
+    Columns = <
+      item
+        Expanded = False
+        FieldName = ' '
+        Width = 15
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Nome'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Status'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Msg'
+        Visible = True
+      end>
+  end
+  object CheckSelect: TDBCheckBox
+    Left = 23
+    Top = 88
+    Width = 15
+    Height = 17
+    Ctl3D = True
+    DataField = ' '
+    DataSource = Source
+    ParentCtl3D = False
+    TabOrder = 2
   end
   object Actions: TActionList
     Images = Images
@@ -207,7 +210,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C0101020014006C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400740020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49
@@ -750,5 +753,66 @@ object WindowMain: TWindowMain
     Title = 'Escolher Diret'#243'rio'
     Left = 104
     Top = 16
+  end
+  object Table: TFDMemTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = ' '
+        DataType = ftBoolean
+      end
+      item
+        Name = 'Nome'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Status'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Msg'
+        DataType = ftString
+        Size = 20
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 64
+    Top = 352
+    object TableCheck: TBooleanField
+      FieldName = ' '
+    end
+    object TableNome: TStringField
+      DisplayLabel = 'Nome do Reposit'#243'rio'
+      FieldName = 'Nome'
+    end
+    object TablePath: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'Path'
+      ReadOnly = True
+      Visible = False
+      Calculated = True
+    end
+    object TableStatus: TStringField
+      DisplayLabel = 'Status do Reposit'#243'rio'
+      FieldName = 'Status'
+    end
+    object TableMsg: TStringField
+      DisplayLabel = 'Mensagem do Commit'
+      FieldName = 'Msg'
+    end
+  end
+  object Source: TDataSource
+    DataSet = Table
+    Left = 16
+    Top = 352
   end
 end
