@@ -35,7 +35,6 @@ type
     OpenFile: TFileOpenDialog;
     ProgressBar1: TProgressBar;
     Table: TFDMemTable;
-    GridRepositories: TDBGrid;
     CheckSelect: TDBCheckBox;
     Source: TDataSource;
     TableCheck: TBooleanField;
@@ -43,8 +42,8 @@ type
     TableStatus: TStringField;
     TableMsg: TStringField;
     TablePath: TStringField;
+    GridRepositories: TDBGrid;
     procedure ActConfigAccountExecute(Sender: TObject);
-    procedure ActAddRepositoryExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
     procedure ActAddExecute(Sender: TObject);
@@ -52,14 +51,12 @@ type
     procedure ActCheckoutExecute(Sender: TObject);
     procedure ActPushExecute(Sender: TObject);
     procedure FormActivate(Sender: TObject);
-    procedure GridRepositoriesDrawColumnCell(Sender: TObject; const Rect: TRect;
-      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure GridRepositoriesDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure GridRepositoriesColExit(Sender: TObject);
     procedure GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
+    procedure ActAddRepositoryExecute(Sender: TObject);
   private
     procedure AddRepository(Name, Path: string);
-  public
-    { Public declarations }
   end;
 
 var
@@ -76,6 +73,8 @@ begin
   AddRepository('ProjectMigrator', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectMigrator');
   AddRepository('ProjectReport', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectReport');
 end;
+
+//GRID DRAWN
 
 procedure TWindowMain.GridRepositoriesDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 const
@@ -129,12 +128,14 @@ begin
   end;
 end;
 
-procedure TWindowMain.ActConfigAccountExecute(Sender: TObject);
+//GRID DRAWN
+
+procedure TWindowMain.ActAddRepositoryExecute(Sender: TObject);
 begin
   //
 end;
 
-procedure TWindowMain.ActAddRepositoryExecute(Sender: TObject);
+procedure TWindowMain.ActConfigAccountExecute(Sender: TObject);
 begin
   //
 end;

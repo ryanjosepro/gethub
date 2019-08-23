@@ -42,6 +42,8 @@ object WindowMain: TWindowMain
     Height = 54
     Action = ActConfigAccount
     Flat = True
+    ParentShowHint = False
+    ShowHint = True
   end
   object BtnEdit: TSpeedButton
     Left = 8
@@ -50,6 +52,8 @@ object WindowMain: TWindowMain
     Height = 26
     Action = ActEdit
     Anchors = [akLeft, akBottom]
+    ParentShowHint = False
+    ShowHint = True
     ExplicitTop = 493
   end
   object BtnDel: TSpeedButton
@@ -59,6 +63,8 @@ object WindowMain: TWindowMain
     Height = 26
     Action = ActDel
     Anchors = [akLeft, akBottom]
+    ParentShowHint = False
+    ShowHint = True
     ExplicitTop = 493
   end
   object BtnAddRepository: TSpeedButton
@@ -68,6 +74,8 @@ object WindowMain: TWindowMain
     Height = 54
     Action = ActAddRepository
     Flat = True
+    ParentShowHint = False
+    ShowHint = True
   end
   object BtnAdd: TSpeedButton
     Left = 271
@@ -105,14 +113,6 @@ object WindowMain: TWindowMain
     Anchors = [akLeft, akBottom]
     ExplicitTop = 493
   end
-  object ProgressBar1: TProgressBar
-    Left = 8
-    Top = 408
-    Width = 561
-    Height = 17
-    Anchors = [akLeft, akBottom]
-    TabOrder = 0
-  end
   object GridRepositories: TDBGrid
     Left = 8
     Top = 68
@@ -120,7 +120,7 @@ object WindowMain: TWindowMain
     Height = 335
     DataSource = Source
     Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-    TabOrder = 1
+    TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
@@ -133,35 +133,50 @@ object WindowMain: TWindowMain
       item
         Expanded = False
         FieldName = ' '
+        ReadOnly = True
         Width = 15
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Nome'
+        ReadOnly = True
+        Width = 158
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Status'
+        ReadOnly = True
+        Title.Alignment = taCenter
+        Width = 146
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Msg'
+        Width = 202
         Visible = True
       end>
+  end
+  object ProgressBar1: TProgressBar
+    Left = 8
+    Top = 408
+    Width = 561
+    Height = 17
+    Anchors = [akLeft, akBottom]
+    TabOrder = 0
   end
   object CheckSelect: TDBCheckBox
     Left = 23
     Top = 88
-    Width = 15
+    Width = 14
     Height = 17
     Ctl3D = True
     DataField = ' '
     DataSource = Source
     ParentCtl3D = False
-    TabOrder = 2
+    TabOrder = 1
   end
   object Actions: TActionList
     Images = Images
@@ -210,7 +225,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400740020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400780020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49
@@ -788,25 +803,28 @@ object WindowMain: TWindowMain
     Left = 64
     Top = 352
     object TableCheck: TBooleanField
+      DisplayWidth = 2
       FieldName = ' '
     end
     object TableNome: TStringField
       DisplayLabel = 'Nome do Reposit'#243'rio'
+      DisplayWidth = 20
       FieldName = 'Nome'
     end
     object TablePath: TStringField
       FieldKind = fkCalculated
       FieldName = 'Path'
-      ReadOnly = True
       Visible = False
       Calculated = True
     end
     object TableStatus: TStringField
       DisplayLabel = 'Status do Reposit'#243'rio'
+      DisplayWidth = 20
       FieldName = 'Status'
     end
     object TableMsg: TStringField
       DisplayLabel = 'Mensagem do Commit'
+      DisplayWidth = 20
       FieldName = 'Msg'
     end
   end

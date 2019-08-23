@@ -108,6 +108,10 @@
         <DCCReference Include="Code\DataFlex.pas"/>
         <DCCReference Include="Code\MyDialogs.pas"/>
         <DCCReference Include="Code\MyUtils.pas"/>
+        <DCCReference Include="View\ViewAddRepository.pas">
+            <Form>Form1</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
