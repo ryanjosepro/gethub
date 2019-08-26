@@ -1,9 +1,10 @@
-object Form1: TForm1
+object WindowAccount: TWindowAccount
   Left = 0
   Top = 0
-  Caption = 'Adicionar Reposit'#243'rio'
-  ClientHeight = 289
-  ClientWidth = 554
+  BorderStyle = bsDialog
+  Caption = 'Conta Github'
+  ClientHeight = 299
+  ClientWidth = 564
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

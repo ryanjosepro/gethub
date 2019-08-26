@@ -120,6 +120,7 @@ object WindowMain: TWindowMain
     Height = 335
     DataSource = Source
     Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    ReadOnly = True
     TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -133,21 +134,18 @@ object WindowMain: TWindowMain
       item
         Expanded = False
         FieldName = ' '
-        ReadOnly = True
         Width = 15
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Nome'
-        ReadOnly = True
         Width = 158
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Status'
-        ReadOnly = True
         Title.Alignment = taCenter
         Width = 146
         Visible = True
@@ -159,7 +157,7 @@ object WindowMain: TWindowMain
         Visible = True
       end>
   end
-  object ProgressBar1: TProgressBar
+  object BarStatus: TProgressBar
     Left = 8
     Top = 408
     Width = 561
@@ -225,7 +223,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400780020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400840020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49
@@ -770,27 +768,7 @@ object WindowMain: TWindowMain
     Top = 16
   end
   object Table: TFDMemTable
-    Active = True
-    FieldDefs = <
-      item
-        Name = ' '
-        DataType = ftBoolean
-      end
-      item
-        Name = 'Nome'
-        DataType = ftString
-        Size = 20
-      end
-      item
-        Name = 'Status'
-        DataType = ftString
-        Size = 20
-      end
-      item
-        Name = 'Msg'
-        DataType = ftString
-        Size = 20
-      end>
+    FieldDefs = <>
     IndexDefs = <>
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
@@ -806,16 +784,20 @@ object WindowMain: TWindowMain
       DisplayWidth = 2
       FieldName = ' '
     end
-    object TableNome: TStringField
-      DisplayLabel = 'Nome do Reposit'#243'rio'
-      DisplayWidth = 20
-      FieldName = 'Nome'
+    object TableLink: TStringField
+      FieldName = 'Link'
+      Visible = False
     end
     object TablePath: TStringField
       FieldKind = fkCalculated
       FieldName = 'Path'
       Visible = False
       Calculated = True
+    end
+    object TableNome: TStringField
+      DisplayLabel = 'Nome do Reposit'#243'rio'
+      DisplayWidth = 20
+      FieldName = 'Nome'
     end
     object TableStatus: TStringField
       DisplayLabel = 'Status do Reposit'#243'rio'

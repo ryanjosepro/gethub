@@ -104,12 +104,14 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Code\Arrays.pas"/>
-        <DCCReference Include="Code\Config.pas"/>
-        <DCCReference Include="Code\DataFlex.pas"/>
-        <DCCReference Include="Code\MyDialogs.pas"/>
         <DCCReference Include="Code\MyUtils.pas"/>
-        <DCCReference Include="View\ViewAddRepository.pas">
-            <Form>Form1</Form>
+        <DCCReference Include="View\ViewAddRepo.pas">
+            <Form>WindowAddRepo</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Code\Repositories.pas"/>
+        <DCCReference Include="View\ViewAccount.pas">
+            <Form>WindowAccount</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

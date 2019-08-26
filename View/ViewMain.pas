@@ -6,10 +6,10 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, System.ImageList,
   Vcl.ImgList, System.Actions, Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls,
-  MyUtils, Data.DB, Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option,
-  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, Datasnap.DBClient, Vcl.DBCtrls;
+  Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids,
+  MyUtils;
 
 type
   TWindowMain = class(TForm)
@@ -33,7 +33,7 @@ type
     BtnCheckout: TSpeedButton;
     BtnPush: TSpeedButton;
     OpenFile: TFileOpenDialog;
-    ProgressBar1: TProgressBar;
+    BarStatus: TProgressBar;
     Table: TFDMemTable;
     CheckSelect: TDBCheckBox;
     Source: TDataSource;
@@ -43,6 +43,7 @@ type
     TableMsg: TStringField;
     TablePath: TStringField;
     GridRepositories: TDBGrid;
+    TableLink: TStringField;
     procedure ActConfigAccountExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
