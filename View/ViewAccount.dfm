@@ -3,8 +3,8 @@ object WindowAccount: TWindowAccount
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Conta Github'
-  ClientHeight = 295
-  ClientWidth = 360
+  ClientHeight = 216
+  ClientWidth = 249
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,10 +12,14 @@ object WindowAccount: TWindowAccount
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poMainFormCenter
+  DesignSize = (
+    249
+    216)
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
-    Left = 72
+    Left = 8
     Top = 8
     Width = 233
     Height = 65
@@ -279,5 +283,103 @@ object WindowAccount: TWindowAccount
       DCF80C0AF50CAE36335742A9E41C81F80FB3CC9009980FD9B6FDE7F8266EA4F7
       0240F933D7716EC6F397A3D3C32AEF9BC06C0273EB05E6FF03F6366989DBF715
       560000000049454E44AE426082}
+  end
+  object LblEmail: TLabel
+    Left = 8
+    Top = 131
+    Width = 233
+    Height = 16
+    Caption = 'Email:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object LblName: TLabel
+    Left = 8
+    Top = 79
+    Width = 233
+    Height = 16
+    Caption = 'Nome:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object BtnDBFile: TSpeedButton
+    Left = 294
+    Top = 173
+    Width = 27
+    Height = 24
+    Cursor = crHandPoint
+    Anchors = [akTop]
+    ParentShowHint = False
+    ShowHint = True
+  end
+  object BtnSave: TSpeedButton
+    Left = 144
+    Top = 183
+    Width = 97
+    Height = 25
+    Action = ActSave
+    Anchors = [akTop, akRight]
+  end
+  object BtnDiscard: TSpeedButton
+    Left = 8
+    Top = 183
+    Width = 97
+    Height = 25
+    Action = ActDiscard
+  end
+  object TxtLink: TEdit
+    Left = 9
+    Top = 101
+    Width = 232
+    Height = 24
+    Anchors = [akLeft, akTop, akRight]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    ExplicitWidth = 233
+  end
+  object TxtPath: TEdit
+    Left = 9
+    Top = 153
+    Width = 232
+    Height = 24
+    Anchors = [akLeft, akTop, akRight]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    ExplicitWidth = 233
+  end
+  object Actions: TActionList
+    Left = 112
+    Top = 168
+    object ActSave: TAction
+      Caption = 'Salvar (Ctrl + S)'
+      ShortCut = 16467
+      OnExecute = ActSaveExecute
+    end
+    object ActDiscard: TAction
+      Caption = 'Descartar (Esc)'
+      OnExecute = ActDiscardExecute
+    end
+    object ActEsc: TAction
+      ShortCut = 27
+      OnExecute = ActEscExecute
+    end
   end
 end

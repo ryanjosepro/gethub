@@ -22,17 +22,13 @@ type
     Actions: TActionList;
     ActDBFile: TAction;
     ActAdd: TAction;
-    ActDiscard: TAction;
+    ActCancel: TAction;
     ActEsc: TAction;
     OpenFile: TFileOpenDialog;
     procedure ActDBFileExecute(Sender: TObject);
     procedure ActAddExecute(Sender: TObject);
-    procedure ActDiscardExecute(Sender: TObject);
+    procedure ActCancelExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
-  private
-    { Private declarations }
-  public
-    { Public declarations }
   end;
 
 var
@@ -55,7 +51,7 @@ begin
   //
 end;
 
-procedure TWindowAddRepo.ActDiscardExecute(Sender: TObject);
+procedure TWindowAddRepo.ActCancelExecute(Sender: TObject);
 begin
   Close;
 end;

@@ -1,0 +1,44 @@
+unit DAO;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, FireDAC.Comp.Client,
+  Datas;
+
+type
+  TDAO = class
+  private
+    class function Table: TFDTable;
+    class procedure SetField(Name, Value: string);
+  public
+    class procedure Insert(Link, Path, Nome, Status, Msg);
+
+  end;
+
+implementation
+
+{ TDAO }
+
+class function TDAO.Table: TFDTable;
+begin
+  Result := DataFactory.Table;
+end;
+
+class procedure TDAO.SetField(Name, Value: string);
+begin
+  Table.FieldByName(Name).AsString := Value;
+end;
+
+class procedure TDAO.Insert(Link, Path, Nome, Status, Msg);
+begin
+  Table.Insert;
+  SetField('Link', Link);
+  SetField('Path', Path);
+  SetField('Nome', Nome);
+  SetField('Status', Status);
+  SetField('Msg', Msg);
+  Table.Post;
+end;
+
+end.

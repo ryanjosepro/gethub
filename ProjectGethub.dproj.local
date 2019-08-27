@@ -4,28 +4,38 @@
     <Transaction>2019/08/23 17:34:41.000.044,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
     <Transaction>2019/08/23 17:35:14.000.958,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepository.dfm</Transaction>
     <Transaction>2019/08/23 17:35:14.000.958,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepository.pas</Transaction>
-    <Transaction>2019/08/26 12:44:01.000.802,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepo.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepository.dfm</Transaction>
     <Transaction>2019/08/26 12:44:01.000.802,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepo.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepository.pas</Transaction>
+    <Transaction>2019/08/26 12:44:01.000.802,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepo.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepository.dfm</Transaction>
     <Transaction>2019/08/26 16:29:28.000.906,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
     <Transaction>2019/08/26 16:29:42.000.467,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Repositories.pas</Transaction>
     <Transaction>2019/08/26 17:00:44.000.389,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\MyDialogs.pas=</Transaction>
     <Transaction>2019/08/26 17:00:52.000.650,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Config.pas=</Transaction>
     <Transaction>2019/08/26 17:00:54.000.400,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\DataFlex.pas=</Transaction>
-    <Transaction>2019/08/26 17:48:30.975,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
-    <Transaction>2019/08/26 17:49:00.923,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.dfm</Transaction>
-    <Transaction>2019/08/26 17:49:00.923,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/08/26 17:48:30.000.975,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/08/26 17:49:00.000.923,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.dfm</Transaction>
+    <Transaction>2019/08/26 17:49:00.000.923,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/08/27 15:10:26.000.776,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/08/27 15:11:15.000.722,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Data\Datas.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.dfm</Transaction>
+    <Transaction>2019/08/27 15:11:15.000.722,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Data\Datas.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/08/27 15:13:09.000.618,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Datas\Datas.pas</Transaction>
+    <Transaction>2019/08/27 15:14:41.000.189,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/08/27 15:14:48.000.544,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Datas\DAO.pas</Transaction>
+    <Transaction>2019/08/27 16:29:00.553,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Repositories.pas=</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="Code"/>
     <File Path="Code\Arrays.pas"/>
     <File Path="Code\MyUtils.pas"/>
-    <File Path="Code\Repositories.pas"/>
+    <File Path="Datas"/>
+    <File Path="Datas\Datas.pas"/>
+    <File Path="Datas\Datas.dfm"/>
+    <File Path="Datas\DAO.pas"/>
     <File Path="View"/>
-    <File Path="View\ViewAddRepo.pas"/>
-    <File Path="View\ViewAddRepo.dfm"/>
     <File Path="View\ViewMain.pas"/>
     <File Path="View\ViewMain.dfm"/>
     <File Path="View\ViewAccount.pas"/>
     <File Path="View\ViewAccount.dfm"/>
+    <File Path="View\ViewAddRepo.pas"/>
+    <File Path="View\ViewAddRepo.dfm"/>
   </ProjectSortOrder>
 </BorlandProject>

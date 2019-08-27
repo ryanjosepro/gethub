@@ -4,12 +4,11 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, System.ImageList,
-  Vcl.ImgList, System.Actions, Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls,
-  Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
-  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, System.ImageList, Vcl.ImgList, System.Actions,
+  Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids,
-  MyUtils;
+  ViewAccount, ViewAddRepo, MyUtils, DAO;
 
 type
   TWindowMain = class(TForm)
@@ -34,16 +33,10 @@ type
     BtnPush: TSpeedButton;
     OpenFile: TFileOpenDialog;
     BarStatus: TProgressBar;
-    Table: TFDMemTable;
     CheckSelect: TDBCheckBox;
     Source: TDataSource;
-    TableCheck: TBooleanField;
-    TableNome: TStringField;
-    TableStatus: TStringField;
-    TableMsg: TStringField;
-    TablePath: TStringField;
     GridRepositories: TDBGrid;
-    TableLink: TStringField;
+    ActEsc: TAction;
     procedure ActConfigAccountExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -56,8 +49,7 @@ type
     procedure GridRepositoriesColExit(Sender: TObject);
     procedure GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
     procedure ActAddRepositoryExecute(Sender: TObject);
-  private
-    procedure AddRepository(Name, Path: string);
+    procedure ActEscExecute(Sender: TObject);
   end;
 
 var
@@ -69,7 +61,7 @@ implementation
 
 procedure TWindowMain.FormActivate(Sender: TObject);
 begin
-  AddRepository('ProjectBooklin', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectBooklin');
+  TDAO.Insert('https://github.com/buckcell/ProjectBooklin', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectBooklin', 'ProjectBooklin');
   AddRepository('ProjectGethub', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub');
   AddRepository('ProjectMigrator', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectMigrator');
   AddRepository('ProjectReport', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectReport');
@@ -133,12 +125,12 @@ end;
 
 procedure TWindowMain.ActAddRepositoryExecute(Sender: TObject);
 begin
-  //
+  WindowAddRepo.ShowModal;
 end;
 
 procedure TWindowMain.ActConfigAccountExecute(Sender: TObject);
 begin
-  //
+  WindowAccount.ShowModal;
 end;
 
 procedure TWindowMain.ActEditExecute(Sender: TObject);
@@ -171,15 +163,9 @@ begin
   //
 end;
 
-procedure TWindowMain.AddRepository(Name, Path: string);
+procedure TWindowMain.ActEscExecute(Sender: TObject);
 begin
-  Table.Insert;
-  TableCheck.AsBoolean := false;
-  TableNome.AsString := Name;
-  TablePath.AsString := Path;
-  TableStatus.AsString := '';
-  TableMsg.AsString := '';
-  Table.Post;
+  Close;
 end;
 
 end.

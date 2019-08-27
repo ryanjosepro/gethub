@@ -109,11 +109,16 @@
             <Form>WindowAddRepo</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Code\Repositories.pas"/>
         <DCCReference Include="View\ViewAccount.pas">
             <Form>WindowAccount</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Datas\Datas.pas">
+            <Form>DataFactory</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Datas\DAO.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

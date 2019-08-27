@@ -216,6 +216,10 @@ object WindowMain: TWindowMain
       Caption = 'Push'
       OnExecute = ActPushExecute
     end
+    object ActEsc: TAction
+      ShortCut = 27
+      OnExecute = ActEscExecute
+    end
   end
   object Images: TImageList
     Height = 32
@@ -223,7 +227,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400840020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400900020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49
@@ -767,51 +771,7 @@ object WindowMain: TWindowMain
     Left = 104
     Top = 16
   end
-  object Table: TFDMemTable
-    FieldDefs = <>
-    IndexDefs = <>
-    FetchOptions.AssignedValues = [evMode]
-    FetchOptions.Mode = fmAll
-    ResourceOptions.AssignedValues = [rvSilentMode]
-    ResourceOptions.SilentMode = True
-    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
-    UpdateOptions.CheckRequired = False
-    UpdateOptions.AutoCommitUpdates = True
-    StoreDefs = True
-    Left = 64
-    Top = 352
-    object TableCheck: TBooleanField
-      DisplayWidth = 2
-      FieldName = ' '
-    end
-    object TableLink: TStringField
-      FieldName = 'Link'
-      Visible = False
-    end
-    object TablePath: TStringField
-      FieldKind = fkCalculated
-      FieldName = 'Path'
-      Visible = False
-      Calculated = True
-    end
-    object TableNome: TStringField
-      DisplayLabel = 'Nome do Reposit'#243'rio'
-      DisplayWidth = 20
-      FieldName = 'Nome'
-    end
-    object TableStatus: TStringField
-      DisplayLabel = 'Status do Reposit'#243'rio'
-      DisplayWidth = 20
-      FieldName = 'Status'
-    end
-    object TableMsg: TStringField
-      DisplayLabel = 'Mensagem do Commit'
-      DisplayWidth = 20
-      FieldName = 'Msg'
-    end
-  end
   object Source: TDataSource
-    DataSet = Table
     Left = 16
     Top = 352
   end

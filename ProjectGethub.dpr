@@ -6,8 +6,9 @@ uses
   Arrays in 'Code\Arrays.pas',
   MyUtils in 'Code\MyUtils.pas',
   ViewAddRepo in 'View\ViewAddRepo.pas' {WindowAddRepo},
-  Repositories in 'Code\Repositories.pas',
-  ViewAccount in 'View\ViewAccount.pas' {WindowAccount};
+  ViewAccount in 'View\ViewAccount.pas' {WindowAccount},
+  Datas in 'Datas\Datas.pas' {DataFactory: TDataModule},
+  DAO in 'Datas\DAO.pas';
 
 {$R *.res}
 
@@ -17,5 +18,6 @@ begin
   Application.CreateForm(TWindowMain, WindowMain);
   Application.CreateForm(TWindowAddRepo, WindowAddRepo);
   Application.CreateForm(TWindowAccount, WindowAccount);
+  Application.CreateForm(TDataFactory, DataFactory);
   Application.Run;
 end.

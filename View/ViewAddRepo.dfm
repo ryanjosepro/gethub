@@ -4,7 +4,7 @@ object WindowAddRepo: TWindowAddRepo
   BorderStyle = bsDialog
   Caption = 'Adicionar Reposit'#243'rio'
   ClientHeight = 215
-  ClientWidth = 346
+  ClientWidth = 341
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,7 +14,7 @@ object WindowAddRepo: TWindowAddRepo
   OldCreateOrder = False
   Position = poMainFormCenter
   DesignSize = (
-    346
+    341
     215)
   PixelsPerInch = 96
   TextHeight = 13
@@ -58,23 +58,25 @@ object WindowAddRepo: TWindowAddRepo
     ParentFont = False
   end
   object BtnSave: TSpeedButton
-    Left = 244
+    Left = 239
     Top = 173
     Width = 97
     Height = 34
     Action = ActAdd
     Anchors = [akTop, akRight]
+    ExplicitLeft = 244
   end
   object BtnDiscard: TSpeedButton
-    Left = 141
+    Left = 136
     Top = 173
     Width = 97
     Height = 34
-    Action = ActDiscard
+    Action = ActCancel
     Anchors = [akTop, akRight]
+    ExplicitLeft = 141
   end
   object BtnDBFile: TSpeedButton
-    Left = 314
+    Left = 309
     Top = 85
     Width = 27
     Height = 24
@@ -88,9 +90,9 @@ object WindowAddRepo: TWindowAddRepo
   object TxtLink: TEdit
     Left = 8
     Top = 30
-    Width = 333
+    Width = 326
     Height = 24
-    Anchors = [akTop, akRight]
+    Anchors = [akLeft, akTop, akRight]
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -98,13 +100,14 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 329
   end
   object TxtPath: TEdit
     Left = 8
     Top = 85
-    Width = 305
+    Width = 298
     Height = 24
-    Anchors = [akTop, akRight]
+    Anchors = [akLeft, akTop, akRight]
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -112,13 +115,14 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 1
+    ExplicitWidth = 301
   end
   object TxtName: TEdit
     Left = 8
     Top = 140
-    Width = 333
+    Width = 326
     Height = 24
-    Anchors = [akTop, akRight]
+    Anchors = [akLeft, akTop, akRight]
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -126,6 +130,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 2
+    ExplicitWidth = 329
   end
   object Images: TImageList
     BlendColor = clWhite
@@ -133,7 +138,7 @@ object WindowAddRepo: TWindowAddRepo
     Left = 104
     Top = 168
     Bitmap = {
-      494C010101000800D40010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C010101000800D80010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -286,10 +291,10 @@ object WindowAddRepo: TWindowAddRepo
       ShortCut = 16467
       OnExecute = ActAddExecute
     end
-    object ActDiscard: TAction
-      Caption = 'Descartar (Esc)'
+    object ActCancel: TAction
+      Caption = 'Cancelar (Esc)'
       Enabled = False
-      OnExecute = ActDiscardExecute
+      OnExecute = ActCancelExecute
     end
     object ActEsc: TAction
       ShortCut = 27
@@ -298,9 +303,6 @@ object WindowAddRepo: TWindowAddRepo
   end
   object OpenFile: TFileOpenDialog
     FavoriteLinks = <>
-    FileName = 
-      'D:\Ryan\Documents\Embarcadero\Studio\Projects\ProjectMigration2.' +
-      '0\ProjectMigration.dpr'
     FileTypes = <>
     Options = []
     Left = 8
