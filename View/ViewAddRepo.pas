@@ -29,6 +29,7 @@ type
     procedure ActAddExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
+    procedure ActDBFileHint(var HintStr: string; var CanShow: Boolean);
   end;
 
 var
@@ -43,6 +44,14 @@ begin
   if OpenFile.Execute then
   begin
     TxtPath.Text := OpenFile.FileName;
+  end;
+end;
+
+procedure TWindowAddRepo.ActDBFileHint(var HintStr: string; var CanShow: Boolean);
+begin
+  if OpenFile.FileName <> '' then
+  begin
+    HintStr := OpenFile.FileName;
   end;
 end;
 

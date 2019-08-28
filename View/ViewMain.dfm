@@ -47,25 +47,23 @@ object WindowMain: TWindowMain
   end
   object BtnEdit: TSpeedButton
     Left = 8
-    Top = 431
+    Top = 432
     Width = 68
     Height = 26
     Action = ActEdit
     Anchors = [akLeft, akBottom]
     ParentShowHint = False
     ShowHint = True
-    ExplicitTop = 493
   end
   object BtnDel: TSpeedButton
     Left = 82
-    Top = 431
+    Top = 432
     Width = 68
     Height = 26
     Action = ActDel
     Anchors = [akLeft, akBottom]
     ParentShowHint = False
     ShowHint = True
-    ExplicitTop = 493
   end
   object BtnAddRepository: TSpeedButton
     Left = 8
@@ -106,12 +104,11 @@ object WindowMain: TWindowMain
   end
   object BtnPush: TSpeedButton
     Left = 499
-    Top = 431
+    Top = 432
     Width = 70
     Height = 34
     Action = ActPush
     Anchors = [akLeft, akBottom]
-    ExplicitTop = 493
   end
   object GridRepositories: TDBGrid
     Left = 8
@@ -159,7 +156,7 @@ object WindowMain: TWindowMain
   end
   object BarStatus: TProgressBar
     Left = 8
-    Top = 408
+    Top = 409
     Width = 561
     Height = 17
     Anchors = [akLeft, akBottom]
@@ -227,7 +224,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400900020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400980020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

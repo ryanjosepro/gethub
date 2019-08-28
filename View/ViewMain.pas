@@ -61,10 +61,11 @@ implementation
 
 procedure TWindowMain.FormActivate(Sender: TObject);
 begin
+  Source.DataSet := TDAO.Table;
   TDAO.Insert('https://github.com/buckcell/ProjectBooklin', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectBooklin', 'ProjectBooklin');
-  AddRepository('ProjectGethub', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub');
-  AddRepository('ProjectMigrator', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectMigrator');
-  AddRepository('ProjectReport', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectReport');
+  TDAO.Insert('https://github.com/buckcell/ProjectGethub', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub', 'ProjectGethub');
+  TDAO.Insert('https://github.com/buckcell/ProjectMigrator', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectMigrator', 'ProjectMigrator');
+  TDAO.Insert('https://github.com/buckcell/ProjectReport', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectReport', 'ProjectReport');
 end;
 
 //GRID DRAWN
@@ -78,14 +79,16 @@ var
 begin
   if (gdFocused in State) then
   begin
-    //if (Column.Field.FieldName = CheckSelect.DataField) then
-    //begin
-      CheckSelect.Left := 12 {Rect.Left} + GridRepositories.Left + 2;
-      CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
-      CheckSelect.Width := 15 {Rect.Right - Rect.Left};
-      CheckSelect.Height := Rect.Bottom - Rect.Top;
-      CheckSelect.Visible := True;
-    //end;
+    CheckSelect.Visible := true;
+    CheckSelect.Left := 12 + GridRepositories.Left + 2;
+    CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
+    CheckSelect.Width := 15;
+    CheckSelect.Height := Rect.Bottom - Rect.Top;
+
+    if Column.Field.FieldName = CheckSelect.Field.FieldName then
+    begin
+      TDAO.SetField(' ', not CheckSelect.Field.Value);
+    end;
   end
   else
   begin
@@ -104,7 +107,7 @@ procedure TWindowMain.GridRepositoriesColExit(Sender: TObject);
 begin
   if GridRepositories.SelectedField.FieldName = CheckSelect.DataField then
   begin
-    CheckSelect.Visible := False
+    CheckSelect.Visible := False;
   end;
 end;
 

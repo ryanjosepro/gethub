@@ -100,7 +100,6 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 329
   end
   object TxtPath: TEdit
     Left = 8
@@ -115,7 +114,6 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 1
-    ExplicitWidth = 301
   end
   object TxtName: TEdit
     Left = 8
@@ -130,7 +128,6 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 2
-    ExplicitWidth = 329
   end
   object Images: TImageList
     BlendColor = clWhite
@@ -138,7 +135,7 @@ object WindowAddRepo: TWindowAddRepo
     Left = 104
     Top = 168
     Bitmap = {
-      494C010101000800D80010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C010101000800DC0010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -284,6 +281,7 @@ object WindowAddRepo: TWindowAddRepo
     object ActDBFile: TAction
       ImageIndex = 0
       OnExecute = ActDBFileExecute
+      OnHint = ActDBFileHint
     end
     object ActAdd: TAction
       Caption = 'Adicionar (Ctrl+S)'
@@ -304,7 +302,7 @@ object WindowAddRepo: TWindowAddRepo
   object OpenFile: TFileOpenDialog
     FavoriteLinks = <>
     FileTypes = <>
-    Options = []
+    Options = [fdoPickFolders]
     Left = 8
     Top = 168
   end

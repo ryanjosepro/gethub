@@ -287,7 +287,7 @@ object WindowAccount: TWindowAccount
   object LblEmail: TLabel
     Left = 8
     Top = 131
-    Width = 233
+    Width = 36
     Height = 16
     Caption = 'Email:'
     Font.Charset = DEFAULT_CHARSET
@@ -300,7 +300,7 @@ object WindowAccount: TWindowAccount
   object LblName: TLabel
     Left = 8
     Top = 79
-    Width = 233
+    Width = 38
     Height = 16
     Caption = 'Nome:'
     Font.Charset = DEFAULT_CHARSET
@@ -327,6 +327,7 @@ object WindowAccount: TWindowAccount
     Height = 25
     Action = ActSave
     Anchors = [akTop, akRight]
+    Enabled = False
   end
   object BtnDiscard: TSpeedButton
     Left = 8
@@ -334,6 +335,7 @@ object WindowAccount: TWindowAccount
     Width = 97
     Height = 25
     Action = ActDiscard
+    Enabled = False
   end
   object TxtLink: TEdit
     Left = 9
@@ -348,7 +350,6 @@ object WindowAccount: TWindowAccount
     Font.Style = []
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 233
   end
   object TxtPath: TEdit
     Left = 9
@@ -363,7 +364,6 @@ object WindowAccount: TWindowAccount
     Font.Style = []
     ParentFont = False
     TabOrder = 1
-    ExplicitWidth = 233
   end
   object Actions: TActionList
     Left = 112
