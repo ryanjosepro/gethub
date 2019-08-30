@@ -3,11 +3,14 @@ unit DAO;
 interface
 
 uses
-  System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, FireDAC.Comp.Client,
+  System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, FireDAC.Comp.Client, Vcl.Forms,
+  FireDAC.Stan.Intf,
   Datas;
 
 type
   TDAO = class
+  private
+    class procedure Save;
   public
     class function Table: TFDMemTable;
     class function GetField(Name: string): variant;
@@ -44,6 +47,12 @@ begin
   Table.FieldByName('Path').AsVariant := Path;
   Table.FieldByName('Nome').AsVariant := Nome;
   Table.Post;
+  Save;
+end;
+
+class procedure TDAO.Save;
+begin
+  Table.SaveToFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
 end;
 
 end.

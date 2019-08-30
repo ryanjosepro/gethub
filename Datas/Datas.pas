@@ -5,7 +5,8 @@ interface
 uses
   System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  FireDAC.Stan.StorageBin, FireDAC.Stan.StorageJSON;
 
 type
   TDataFactory = class(TDataModule)
@@ -16,6 +17,7 @@ type
     TableNome: TStringField;
     TableStatus: TStringField;
     TableMsg: TStringField;
+    FDStanStorageJSON: TFDStanStorageJSONLink;
   end;
 
 var
