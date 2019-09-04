@@ -31,11 +31,11 @@
     <File Path="Datas\Datas.dfm"/>
     <File Path="Datas\DAO.pas"/>
     <File Path="View"/>
-    <File Path="View\ViewMain.pas"/>
-    <File Path="View\ViewMain.dfm"/>
     <File Path="View\ViewAccount.pas"/>
     <File Path="View\ViewAccount.dfm"/>
     <File Path="View\ViewAddRepo.pas"/>
     <File Path="View\ViewAddRepo.dfm"/>
+    <File Path="View\ViewMain.pas"/>
+    <File Path="View\ViewMain.dfm"/>
   </ProjectSortOrder>
 </BorlandProject>

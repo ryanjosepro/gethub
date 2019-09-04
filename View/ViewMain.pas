@@ -8,7 +8,7 @@ uses
   Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids,
-  ViewAccount, ViewAddRepo, MyUtils, DAO;
+  ViewAccount, ViewAddRepo, MyUtils, DAO, Datas;
 
 type
   TWindowMain = class(TForm)
@@ -62,6 +62,7 @@ implementation
 procedure TWindowMain.FormActivate(Sender: TObject);
 begin
   Source.DataSet := TDAO.Table;
+  //TDAO.Load;
   TDAO.Insert('https://github.com/buckcell/ProjectBooklin', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectBooklin', 'ProjectBooklin');
   TDAO.Insert('https://github.com/buckcell/ProjectGethub', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub', 'ProjectGethub');
   TDAO.Insert('https://github.com/buckcell/ProjectMigrator', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectMigrator', 'ProjectMigrator');
@@ -80,7 +81,7 @@ begin
   if (gdFocused in State) then
   begin
     CheckSelect.Visible := true;
-    CheckSelect.Left := 12 + GridRepositories.Left + 2;
+    CheckSelect.Left := 13 + GridRepositories.Left + 2;
     CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
     CheckSelect.Width := 15;
     CheckSelect.Height := Rect.Bottom - Rect.Top;

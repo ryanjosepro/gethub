@@ -131,26 +131,21 @@ object WindowMain: TWindowMain
       item
         Expanded = False
         FieldName = ' '
-        Width = 15
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'Nome'
-        Width = 158
+        FieldName = 'Name'
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Status'
-        Title.Alignment = taCenter
-        Width = 146
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Msg'
-        Width = 202
         Visible = True
       end>
   end
@@ -224,7 +219,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400A80020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400AC0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

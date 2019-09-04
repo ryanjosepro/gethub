@@ -14,10 +14,10 @@ type
     TableCheck: TBooleanField;
     TableLink: TStringField;
     TablePath: TStringField;
-    TableNome: TStringField;
+    TableName: TStringField;
     TableStatus: TStringField;
     TableMsg: TStringField;
-    FDStanStorageJSON: TFDStanStorageJSONLink;
+    JSON: TFDStanStorageJSONLink;
   end;
 
 var

@@ -76,7 +76,7 @@ object WindowAddRepo: TWindowAddRepo
     ExplicitLeft = 141
   end
   object BtnDBFile: TSpeedButton
-    Left = 309
+    Left = 306
     Top = 85
     Width = 27
     Height = 24
@@ -85,7 +85,6 @@ object WindowAddRepo: TWindowAddRepo
     Anchors = [akTop]
     ParentShowHint = False
     ShowHint = True
-    ExplicitLeft = 363
   end
   object TxtLink: TEdit
     Left = 8
@@ -135,7 +134,7 @@ object WindowAddRepo: TWindowAddRepo
     Left = 104
     Top = 168
     Bitmap = {
-      494C010101000800DC0010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C010101000800E00010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

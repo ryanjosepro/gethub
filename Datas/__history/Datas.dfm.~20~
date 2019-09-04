@@ -1,0 +1,58 @@
+object DataFactory: TDataFactory
+  OldCreateOrder = False
+  Height = 132
+  Width = 226
+  object Table: TFDMemTable
+    FieldDefs = <>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvPersistent, rvSilentMode]
+    ResourceOptions.Persistent = True
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 120
+    Top = 38
+    object TableCheck: TBooleanField
+      DisplayWidth = 2
+      FieldName = ' '
+    end
+    object TableLink: TStringField
+      FieldName = 'Link'
+      Visible = False
+      Size = 60
+    end
+    object TablePath: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'Path'
+      Visible = False
+      Size = 70
+      Calculated = True
+    end
+    object TableName: TStringField
+      DisplayLabel = 'Nome do Reposit'#243'rio'
+      DisplayWidth = 20
+      FieldName = 'Name'
+      Size = 30
+    end
+    object TableStatus: TStringField
+      DisplayLabel = 'Status do Reposit'#243'rio'
+      DisplayWidth = 20
+      FieldName = 'Status'
+      Size = 30
+    end
+    object TableMsg: TStringField
+      DisplayLabel = 'Mensagem do Commit'
+      DisplayWidth = 20
+      FieldName = 'Msg'
+      Size = 72
+    end
+  end
+  object JSON: TFDStanStorageJSONLink
+    Left = 56
+    Top = 40
+  end
+end
