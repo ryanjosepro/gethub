@@ -61,6 +61,7 @@ implementation
 
 procedure TWindowMain.FormActivate(Sender: TObject);
 begin
+  Source.DataSet := TDAO.Table;
   //TDAO.Load;
   TDAO.Insert('https://github.com/buckcell/ProjectBooklin', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectBooklin', 'ProjectBooklin');
   TDAO.Insert('https://github.com/buckcell/ProjectGethub', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub', 'ProjectGethub');
@@ -80,11 +81,10 @@ begin
   if (gdFocused in State) then
   begin
     CheckSelect.Visible := true;
-    CheckSelect.Left := 12 + GridRepositories.Left + 2;
+    CheckSelect.Left := 13 + GridRepositories.Left + 2;
     CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
     CheckSelect.Width := 15;
     CheckSelect.Height := Rect.Bottom - Rect.Top;
-
     if Column.Field.FieldName = CheckSelect.Field.FieldName then
     begin
       TDAO.SetField(' ', not CheckSelect.Field.Value);
@@ -101,6 +101,7 @@ begin
       DrawFrameControl(GridRepositories.Canvas.Handle, DrawRect, DFC_BUTTON, DrawState);
     end;
   end;
+
 end;
 
 procedure TWindowMain.GridRepositoriesColExit(Sender: TObject);

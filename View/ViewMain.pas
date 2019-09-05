@@ -85,10 +85,9 @@ begin
     CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
     CheckSelect.Width := 15;
     CheckSelect.Height := Rect.Bottom - Rect.Top;
-
     if Column.Field.FieldName = CheckSelect.Field.FieldName then
     begin
-      TDAO.SetField(' ', not CheckSelect.Field.Value);
+      //TDAO.SetField(' ', not CheckSelect.Field.Value);
     end;
   end
   else

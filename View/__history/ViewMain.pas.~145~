@@ -85,10 +85,10 @@ begin
     CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
     CheckSelect.Width := 15;
     CheckSelect.Height := Rect.Bottom - Rect.Top;
-
     if Column.Field.FieldName = CheckSelect.Field.FieldName then
     begin
-      TDAO.SetField(' ', not CheckSelect.Field.Value);
+      CheckSelect.Checked := not CheckSelect.Checked;
+      //TDAO.SetField(' ', not CheckSelect.Field.Value);
     end;
   end
   else
@@ -102,6 +102,7 @@ begin
       DrawFrameControl(GridRepositories.Canvas.Handle, DrawRect, DFC_BUTTON, DrawState);
     end;
   end;
+
 end;
 
 procedure TWindowMain.GridRepositoriesColExit(Sender: TObject);
