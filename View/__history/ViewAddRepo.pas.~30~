@@ -29,10 +29,8 @@ type
     procedure ActAddExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
-  private
-    { Private declarations }
-  public
-    { Public declarations }
+    procedure ActDBFileHint(var HintStr: string; var CanShow: Boolean);
+    procedure TxtLinkChange(Sender: TObject);
   end;
 
 var
@@ -50,6 +48,14 @@ begin
   end;
 end;
 
+procedure TWindowAddRepo.ActDBFileHint(var HintStr: string; var CanShow: Boolean);
+begin
+  if OpenFile.FileName <> '' then
+  begin
+    HintStr := OpenFile.FileName;
+  end;
+end;
+
 procedure TWindowAddRepo.ActAddExecute(Sender: TObject);
 begin
   //
@@ -63,6 +69,15 @@ end;
 procedure TWindowAddRepo.ActEscExecute(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TWindowAddRepo.TxtLinkChange(Sender: TObject);
+var
+  Link, Path, Name: boolean;
+begin
+  Link := Trim(TxtLink.Text) <> '';
+  Path := Trim(TxtPath.Text) <> '';
+  Name := Trim(TxtName.Text) <> '';
 end;
 
 end.

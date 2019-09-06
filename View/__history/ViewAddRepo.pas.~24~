@@ -30,6 +30,7 @@ type
     procedure ActCancelExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
     procedure ActDBFileHint(var HintStr: string; var CanShow: Boolean);
+    procedure TxtLinkChange(Sender: TObject);
   end;
 
 var
@@ -51,7 +52,7 @@ procedure TWindowAddRepo.ActDBFileHint(var HintStr: string; var CanShow: Boolean
 begin
   if OpenFile.FileName <> '' then
   begin
-
+    HintStr := OpenFile.FileName;
   end;
 end;
 
@@ -68,6 +69,13 @@ end;
 procedure TWindowAddRepo.ActEscExecute(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TWindowAddRepo.TxtLinkChange(Sender: TObject);
+var
+  Link, Path, Name: boolean;
+begin
+  Link = TxtLink.Text <> '';
 end;
 
 end.

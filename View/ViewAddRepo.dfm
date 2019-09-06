@@ -99,6 +99,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 0
+    OnChange = TxtLinkChange
   end
   object TxtPath: TEdit
     Left = 8
@@ -113,6 +114,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 1
+    OnChange = TxtLinkChange
   end
   object TxtName: TEdit
     Left = 8
@@ -127,6 +129,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 2
+    OnChange = TxtLinkChange
   end
   object Images: TImageList
     BlendColor = clWhite
@@ -134,7 +137,7 @@ object WindowAddRepo: TWindowAddRepo
     Left = 104
     Top = 168
     Bitmap = {
-      494C010101000800E00010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C010101000800E40010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -290,7 +293,6 @@ object WindowAddRepo: TWindowAddRepo
     end
     object ActCancel: TAction
       Caption = 'Cancelar (Esc)'
-      Enabled = False
       OnExecute = ActCancelExecute
     end
     object ActEsc: TAction

@@ -4,8 +4,9 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, System.Actions, Vcl.ActnList,
+  System.ImageList, Vcl.ImgList,
+  DAO;
 
 type
   TWindowAddRepo = class(TForm)
@@ -30,6 +31,7 @@ type
     procedure ActCancelExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
     procedure ActDBFileHint(var HintStr: string; var CanShow: Boolean);
+    procedure TxtLinkChange(Sender: TObject);
   end;
 
 var
@@ -57,7 +59,7 @@ end;
 
 procedure TWindowAddRepo.ActAddExecute(Sender: TObject);
 begin
-  //
+  TDAO.Insert(TxtLink.Text, TxtPath.Text, TxtName.Text);
 end;
 
 procedure TWindowAddRepo.ActCancelExecute(Sender: TObject);
@@ -68,6 +70,16 @@ end;
 procedure TWindowAddRepo.ActEscExecute(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TWindowAddRepo.TxtLinkChange(Sender: TObject);
+var
+  Link, Path, Name: boolean;
+begin
+  Link := Trim(TxtLink.Text) <> '';
+  Path := Trim(TxtPath.Text) <> '';
+  Name := Trim(TxtName.Text) <> '';
+  ActAdd.Enabled := Link and Path and Name;
 end;
 
 end.
