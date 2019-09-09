@@ -77,30 +77,27 @@ object WindowMain: TWindowMain
   end
   object BtnAdd: TSpeedButton
     Left = 271
-    Top = 431
+    Top = 432
     Width = 70
     Height = 34
     Action = ActAdd
     Anchors = [akLeft, akBottom]
-    ExplicitTop = 493
   end
   object BtnCommit: TSpeedButton
     Left = 347
     Top = 431
     Width = 70
-    Height = 34
+    Height = 35
     Action = ActCommit
     Anchors = [akLeft, akBottom]
-    ExplicitTop = 493
   end
   object BtnCheckout: TSpeedButton
     Left = 423
     Top = 431
     Width = 70
-    Height = 34
+    Height = 35
     Action = ActCheckout
     Anchors = [akLeft, akBottom]
-    ExplicitTop = 493
   end
   object BtnPush: TSpeedButton
     Left = 499
@@ -117,7 +114,6 @@ object WindowMain: TWindowMain
     Height = 335
     DataSource = Source
     Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-    ReadOnly = True
     TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -131,11 +127,13 @@ object WindowMain: TWindowMain
       item
         Expanded = False
         FieldName = ' '
+        ReadOnly = True
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Name'
+        ReadOnly = True
         Width = 169
         Visible = True
       end
@@ -143,6 +141,7 @@ object WindowMain: TWindowMain
         Alignment = taCenter
         Expanded = False
         FieldName = 'Status'
+        ReadOnly = True
         Width = 148
         Visible = True
       end
@@ -223,7 +222,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400B80020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400C40020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

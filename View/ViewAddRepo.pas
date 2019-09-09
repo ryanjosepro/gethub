@@ -31,7 +31,7 @@ type
     procedure ActCancelExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
     procedure ActDBFileHint(var HintStr: string; var CanShow: Boolean);
-    procedure TxtLinkChange(Sender: TObject);
+    procedure TxtChange(Sender: TObject);
   end;
 
 var
@@ -72,7 +72,7 @@ begin
   Close;
 end;
 
-procedure TWindowAddRepo.TxtLinkChange(Sender: TObject);
+procedure TWindowAddRepo.TxtChange(Sender: TObject);
 var
   Link, Path, Name: boolean;
 begin

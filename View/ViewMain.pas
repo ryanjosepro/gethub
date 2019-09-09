@@ -8,7 +8,7 @@ uses
   Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids,
-  ViewAccount, ViewAddRepo, MyUtils, DAO, Datas;
+  ViewAccount, ViewAddRepo, ViewEditRepo, MyUtils, DAO, Datas;
 
 type
   TWindowMain = class(TForm)
@@ -138,7 +138,7 @@ end;
 
 procedure TWindowMain.ActEditExecute(Sender: TObject);
 begin
-  //
+  WindowEditRepo.ShowModal;
 end;
 
 procedure TWindowMain.ActDelExecute(Sender: TObject);
