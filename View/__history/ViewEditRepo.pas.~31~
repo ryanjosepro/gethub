@@ -50,6 +50,9 @@ implementation
 procedure TWindowEditRepo.FormActivate(Sender: TObject);
 begin
   TxtLink.Text := TDAO.GetField('Link');
+  TxtPath.Text := TDAO.GetField('Path');
+  TxtName.Text := TDAO.GetField('Name');
+  ActSave.Enabled := false;
 end;
 
 procedure TWindowEditRepo.ActDBFileExecute(Sender: TObject);

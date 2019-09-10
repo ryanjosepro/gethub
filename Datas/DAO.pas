@@ -17,6 +17,7 @@ type
     class procedure SetField(Name: string; Value: variant);
     class procedure Insert(Link, Path, Name: string);
     class procedure Delete(Name: string);
+    class function Count: integer;
   end;
 
 implementation
@@ -61,9 +62,14 @@ begin
   Save;
 end;
 
+class function TDAO.Count: integer;
+begin
+  Result := Table.RecordCount;
+end;
+
 class procedure TDAO.Delete(Name: string);
 begin
-  Table.FieldByName('Name').AsString := Name;
+  Table.Delete;
 end;
 
 end.

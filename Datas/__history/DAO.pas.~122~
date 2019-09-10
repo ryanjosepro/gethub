@@ -13,7 +13,6 @@ type
     class function Table: TFDMemTable;
     class procedure Load;
     class procedure Save;
-
     class function GetField(Name: string): variant;
     class procedure SetField(Name: string; Value: variant);
     class procedure Insert(Link, Path, Name: string);
@@ -27,6 +26,16 @@ implementation
 class function TDAO.Table: TFDMemTable;
 begin
   Result := DataFactory.Table;
+end;
+
+class procedure TDAO.Load;
+begin
+  Table.LoadFromFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
+end;
+
+class procedure TDAO.Save;
+begin
+  Table.SaveToFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
 end;
 
 class function TDAO.GetField(Name: string): variant;
@@ -54,17 +63,7 @@ end;
 
 class procedure TDAO.Delete(Name: string);
 begin
-  Table.FieldByName('Name').AsString := Name;
-end;
-
-class procedure TDAO.Load;
-begin
-  Table.LoadFromFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
-end;
-
-class procedure TDAO.Save;
-begin
-  Table.SaveToFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
+  Table.Delete;
 end;
 
 end.

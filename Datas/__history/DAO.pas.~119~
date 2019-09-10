@@ -9,10 +9,8 @@ uses
 
 type
   TDAO = class
-  private
-    class function Table: TFDMemTable;
   public
-
+    class function Table: TFDMemTable;
     class procedure Load;
     class procedure Save;
     class function GetField(Name: string): variant;
@@ -65,6 +63,7 @@ end;
 
 class procedure TDAO.Delete(Name: string);
 begin
+  Table.Edit;
   Table.FieldByName('Name').AsString := Name;
 end;
 

@@ -187,28 +187,34 @@ object WindowMain: TWindowMain
     end
     object ActEdit: TAction
       Caption = 'Editar'
+      Enabled = False
       Hint = 'Editar Reposit'#243'rio'
       OnExecute = ActEditExecute
     end
     object ActDel: TAction
       Caption = 'Remover'
+      Enabled = False
       Hint = 'Remover Reposit'#243'rio'
       OnExecute = ActDelExecute
     end
     object ActAdd: TAction
       Caption = 'Add .'
+      Enabled = False
       OnExecute = ActAddExecute
     end
     object ActCommit: TAction
       Caption = 'Commit'
+      Enabled = False
       OnExecute = ActCommitExecute
     end
     object ActCheckout: TAction
       Caption = 'Checkout'
+      Enabled = False
       OnExecute = ActCheckoutExecute
     end
     object ActPush: TAction
       Caption = 'Push'
+      Enabled = False
       OnExecute = ActPushExecute
     end
     object ActEsc: TAction
@@ -222,7 +228,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400C40020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400CC0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

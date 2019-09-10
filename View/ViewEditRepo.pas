@@ -27,12 +27,12 @@ type
     ActEsc: TAction;
     OpenFile: TFileOpenDialog;
     procedure ActDBFileExecute(Sender: TObject);
-    procedure ActSaveExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
     procedure ActDBFileHint(var HintStr: string; var CanShow: Boolean);
     procedure TxtChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
 
   private
     procedure Changed;
@@ -52,6 +52,7 @@ begin
   TxtLink.Text := TDAO.GetField('Link');
   TxtPath.Text := TDAO.GetField('Path');
   TxtName.Text := TDAO.GetField('Name');
+  ActSave.Enabled := false;
 end;
 
 procedure TWindowEditRepo.ActDBFileExecute(Sender: TObject);
@@ -70,14 +71,14 @@ begin
   end;
 end;
 
-procedure TWindowEditRepo.ActSaveExecute(Sender: TObject);
-begin
-  TDAO.Insert(TxtLink.Text, TxtPath.Text, TxtName.Text);
-end;
-
 procedure TWindowEditRepo.ActCancelExecute(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TWindowEditRepo.ActSaveExecute(Sender: TObject);
+begin
+  //
 end;
 
 procedure TWindowEditRepo.ActEscExecute(Sender: TObject);

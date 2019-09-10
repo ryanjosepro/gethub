@@ -13,6 +13,7 @@ object WindowEditRepo: TWindowEditRepo
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnActivate = FormActivate
   DesignSize = (
     341
     215)
@@ -62,8 +63,9 @@ object WindowEditRepo: TWindowEditRepo
     Top = 173
     Width = 97
     Height = 34
-    Action = ActAdd
+    Action = ActSave
     Anchors = [akTop, akRight]
+    Caption = 'Salvar (Ctrl+S)'
     ExplicitLeft = 244
   end
   object BtnDiscard: TSpeedButton
@@ -99,7 +101,7 @@ object WindowEditRepo: TWindowEditRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 0
-    OnChange = TxtLinkChange
+    OnChange = TxtChange
   end
   object TxtPath: TEdit
     Left = 8
@@ -114,7 +116,7 @@ object WindowEditRepo: TWindowEditRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 1
-    OnChange = TxtLinkChange
+    OnChange = TxtChange
   end
   object TxtName: TEdit
     Left = 8
@@ -129,7 +131,7 @@ object WindowEditRepo: TWindowEditRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 2
-    OnChange = TxtLinkChange
+    OnChange = TxtChange
   end
   object Images: TImageList
     BlendColor = clWhite
@@ -137,7 +139,7 @@ object WindowEditRepo: TWindowEditRepo
     Left = 104
     Top = 168
     Bitmap = {
-      494C010101000800EC0010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C010101000800F40010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -285,11 +287,11 @@ object WindowEditRepo: TWindowEditRepo
       OnExecute = ActDBFileExecute
       OnHint = ActDBFileHint
     end
-    object ActAdd: TAction
+    object ActSave: TAction
       Caption = 'Adicionar (Ctrl+S)'
       Enabled = False
       ShortCut = 16467
-      OnExecute = ActAddExecute
+      OnExecute = ActSaveExecute
     end
     object ActCancel: TAction
       Caption = 'Cancelar (Esc)'

@@ -50,6 +50,9 @@ type
     procedure GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
     procedure ActAddRepositoryExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
+
+  private
+    procedure UpdateButtons;
   end;
 
 var
@@ -62,11 +65,11 @@ implementation
 procedure TWindowMain.FormActivate(Sender: TObject);
 begin
   Source.DataSet := TDAO.Table;
-  //TDAO.Load;
   TDAO.Insert('https://github.com/buckcell/ProjectBooklin', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectBooklin', 'ProjectBooklin');
   TDAO.Insert('https://github.com/buckcell/ProjectGethub', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub', 'ProjectGethub');
   TDAO.Insert('https://github.com/buckcell/ProjectMigrator', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectMigrator', 'ProjectMigrator');
   TDAO.Insert('https://github.com/buckcell/ProjectReport', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectReport', 'ProjectReport');
+  UpdateButtons;
 end;
 
 //GRID DRAWN
@@ -129,6 +132,7 @@ end;
 procedure TWindowMain.ActAddRepositoryExecute(Sender: TObject);
 begin
   WindowAddRepo.ShowModal;
+  UpdateButtons;
 end;
 
 procedure TWindowMain.ActConfigAccountExecute(Sender: TObject);
@@ -143,7 +147,7 @@ end;
 
 procedure TWindowMain.ActDelExecute(Sender: TObject);
 begin
-  //
+  TDAO.Delete('ProjectReport');
 end;
 
 procedure TWindowMain.ActAddExecute(Sender: TObject);
@@ -169,6 +173,28 @@ end;
 procedure TWindowMain.ActEscExecute(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TWindowMain.UpdateButtons;
+begin
+  if TDAO.Count <= 0 then
+  begin
+    ActEdit.Enabled := false;
+    ActDel.Enabled := false;
+    ActAdd.Enabled := false;
+    ActCommit.Enabled := false;
+    ActCheckout.Enabled := false;
+    ActPush.Enabled := false;
+  end
+  else
+  begin
+    ActEdit.Enabled := true;
+    ActDel.Enabled := true;
+    ActAdd.Enabled := true;
+    ActCommit.Enabled := true;
+    ActCheckout.Enabled := true;
+    ActPush.Enabled := true;
+  end;
 end;
 
 end.

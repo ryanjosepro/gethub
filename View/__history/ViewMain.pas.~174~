@@ -8,7 +8,7 @@ uses
   Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids,
-  ViewAccount, ViewAddRepo, MyUtils, DAO, Datas;
+  ViewAccount, ViewAddRepo, ViewEditRepo, MyUtils, DAO, Datas;
 
 type
   TWindowMain = class(TForm)
@@ -50,6 +50,9 @@ type
     procedure GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
     procedure ActAddRepositoryExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
+
+  private
+    procedure UpdateButtons;
   end;
 
 var
@@ -87,8 +90,6 @@ begin
     CheckSelect.Height := Rect.Bottom - Rect.Top;
     if Column.Field.FieldName = CheckSelect.Field.FieldName then
     begin
-      CheckSelect.Checked := not CheckSelect.Checked;
-      TDAO.Table.Post;
       //TDAO.SetField(' ', not CheckSelect.Field.Value);
     end;
   end
@@ -103,7 +104,6 @@ begin
       DrawFrameControl(GridRepositories.Canvas.Handle, DrawRect, DFC_BUTTON, DrawState);
     end;
   end;
-
 end;
 
 procedure TWindowMain.GridRepositoriesColExit(Sender: TObject);
@@ -141,12 +141,12 @@ end;
 
 procedure TWindowMain.ActEditExecute(Sender: TObject);
 begin
-  //
+  WindowEditRepo.ShowModal;
 end;
 
 procedure TWindowMain.ActDelExecute(Sender: TObject);
 begin
-  //
+  TDAO.Delete('ProjectReport');
 end;
 
 procedure TWindowMain.ActAddExecute(Sender: TObject);
@@ -172,6 +172,19 @@ end;
 procedure TWindowMain.ActEscExecute(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TWindowMain.UpdateButtons;
+begin
+  if TDAO.Count <= 0 then
+  begin
+    ActEdit.Enabled := false;
+    ActDel.Enabled := false;
+    ActAdd.Enabled := false;
+    ActCommit.Enabled := false;
+    ActCheckout.Enabled := false;
+    ActPush.Enabled := false;
+  end;
 end;
 
 end.
