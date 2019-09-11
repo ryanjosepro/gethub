@@ -148,6 +148,7 @@ end;
 procedure TWindowMain.ActDelExecute(Sender: TObject);
 begin
   TDAO.Delete('ProjectReport');
+  UpdateButtons;
 end;
 
 procedure TWindowMain.ActAddExecute(Sender: TObject);

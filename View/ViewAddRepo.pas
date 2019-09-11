@@ -32,14 +32,24 @@ type
     procedure ActEscExecute(Sender: TObject);
     procedure ActDBFileHint(var HintStr: string; var CanShow: Boolean);
     procedure TxtChange(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+  public
+    procedure Changed;
+    procedure Done;
   end;
 
 var
   WindowAddRepo: TWindowAddRepo;
+  DidChange: boolean;
 
 implementation
 
 {$R *.dfm}
+
+procedure TWindowAddRepo.FormActivate(Sender: TObject);
+begin
+  Done;
+end;
 
 procedure TWindowAddRepo.ActDBFileExecute(Sender: TObject);
 begin
@@ -60,6 +70,7 @@ end;
 procedure TWindowAddRepo.ActAddExecute(Sender: TObject);
 begin
   TDAO.Insert(TxtLink.Text, TxtPath.Text, TxtName.Text);
+  Close;
 end;
 
 procedure TWindowAddRepo.ActCancelExecute(Sender: TObject);
@@ -80,6 +91,18 @@ begin
   Path := Trim(TxtPath.Text) <> '';
   Name := Trim(TxtName.Text) <> '';
   ActAdd.Enabled := Link and Path and Name;
+end;
+
+procedure TWindowAddRepo.Changed;
+begin
+  DidChange := true;
+  ActAdd.Enabled := true;
+end;
+
+procedure TWindowAddRepo.Done;
+begin
+  DidChange := false;
+  ActAdd.Enabled := false;
 end;
 
 end.

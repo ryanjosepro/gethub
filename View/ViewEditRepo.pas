@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList,
-  DAO;
+  MyDialogs, DAO;
 
 type
   TWindowEditRepo = class(TForm)
@@ -52,7 +52,7 @@ begin
   TxtLink.Text := TDAO.GetField('Link');
   TxtPath.Text := TDAO.GetField('Path');
   TxtName.Text := TDAO.GetField('Name');
-  ActSave.Enabled := false;
+  Done;
 end;
 
 procedure TWindowEditRepo.ActDBFileExecute(Sender: TObject);
@@ -73,12 +73,25 @@ end;
 
 procedure TWindowEditRepo.ActCancelExecute(Sender: TObject);
 begin
-  Close;
+  if DidChange then
+  begin
+    case TDialogs.YesNoCancel('Deseja salvar as alterações?') of
+    mrYes:
+      ActSave.Execute;
+    mrNo:
+      Close;
+    end;
+  end
+  else
+  begin
+    Close;
+  end;
 end;
 
 procedure TWindowEditRepo.ActSaveExecute(Sender: TObject);
 begin
-  //
+  TDAO.Edit(TxtLink.Text, TxtPath.Text, TxtName.Text);
+  Close;
 end;
 
 procedure TWindowEditRepo.ActEscExecute(Sender: TObject);

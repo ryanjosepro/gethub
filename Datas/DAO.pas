@@ -16,6 +16,7 @@ type
     class function GetField(Name: string): variant;
     class procedure SetField(Name: string; Value: variant);
     class procedure Insert(Link, Path, Name: string);
+    class procedure Edit(Link, Path, Name: string);
     class procedure Delete(Name: string);
     class function Count: integer;
   end;
@@ -62,14 +63,24 @@ begin
   Save;
 end;
 
-class function TDAO.Count: integer;
+class procedure TDAO.Edit(Link, Path, Name: string);
 begin
-  Result := Table.RecordCount;
+  Table.Edit;
+  Table.FieldByName('Link').AsVariant := Link;
+  Table.FieldByName('Path').AsVariant := Path;
+  Table.FieldByName('Name').AsVariant := Name;
+  Table.Post;
+  Save;
 end;
 
 class procedure TDAO.Delete(Name: string);
 begin
   Table.Delete;
+end;
+
+class function TDAO.Count: integer;
+begin
+  Result := Table.RecordCount;
 end;
 
 end.

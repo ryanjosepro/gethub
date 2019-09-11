@@ -9,7 +9,8 @@ uses
   ViewAccount in 'View\ViewAccount.pas' {WindowAccount},
   Datas in 'Datas\Datas.pas' {DataFactory: TDataModule},
   DAO in 'Datas\DAO.pas',
-  ViewAddRepo in 'View\ViewAddRepo.pas' {WindowAddRepo};
+  ViewAddRepo in 'View\ViewAddRepo.pas' {WindowAddRepo},
+  MyDialogs in 'Code\MyDialogs.pas';
 
 {$R *.res}
 

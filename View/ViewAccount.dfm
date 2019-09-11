@@ -350,6 +350,7 @@ object WindowAccount: TWindowAccount
     Font.Style = []
     ParentFont = False
     TabOrder = 0
+    OnChange = TxtChange
   end
   object TxtPath: TEdit
     Left = 9
@@ -364,6 +365,7 @@ object WindowAccount: TWindowAccount
     Font.Style = []
     ParentFont = False
     TabOrder = 1
+    OnChange = TxtChange
   end
   object Actions: TActionList
     Left = 112

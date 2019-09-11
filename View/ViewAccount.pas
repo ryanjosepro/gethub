@@ -24,10 +24,12 @@ type
     procedure ActEscExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
     procedure ActDiscardExecute(Sender: TObject);
+    procedure TxtChange(Sender: TObject);
   end;
 
 var
   WindowAccount: TWindowAccount;
+  DidChange: boolean;
 
 implementation
 
@@ -46,6 +48,11 @@ end;
 procedure TWindowAccount.ActEscExecute(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TWindowAccount.TxtChange(Sender: TObject);
+begin
+  //
 end;
 
 end.
