@@ -2,7 +2,7 @@ program ProjectGethub;
 
 uses
   Vcl.Forms,
-  ViewMain in 'View\ViewMain.pas' {WindowMain},
+  ViewMain in 'View\ViewMain.pas' {s},
   Arrays in 'Code\Arrays.pas',
   MyUtils in 'Code\MyUtils.pas',
   ViewEditRepo in 'View\ViewEditRepo.pas' {WindowEditRepo},
@@ -10,7 +10,8 @@ uses
   Datas in 'Datas\Datas.pas' {DataFactory: TDataModule},
   DAO in 'Datas\DAO.pas',
   ViewAddRepo in 'View\ViewAddRepo.pas' {WindowAddRepo},
-  MyDialogs in 'Code\MyDialogs.pas';
+  MyDialogs in 'Code\MyDialogs.pas',
+  Config in 'Code\Config.pas';
 
 {$R *.res}
 

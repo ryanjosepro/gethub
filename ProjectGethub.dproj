@@ -103,7 +103,7 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="View\ViewMain.pas">
-            <Form>WindowMain</Form>
+            <Form>s</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Code\Arrays.pas"/>
@@ -127,6 +127,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Code\MyDialogs.pas"/>
+        <DCCReference Include="Code\Config.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

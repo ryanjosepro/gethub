@@ -1,0 +1,11 @@
+unit Config;
+
+interface
+
+uses
+System.SysUtils, System.Classes, System.Types, System.Variants, Vcl.Forms, IniFiles,
+  MyUtils;
+
+implementation
+
+end.

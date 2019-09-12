@@ -48,6 +48,10 @@ implementation
 
 procedure TWindowAddRepo.FormActivate(Sender: TObject);
 begin
+  TxtLink.Clear;
+  TxtPath.Clear;
+  TxtName.Clear;
+  TxtLink.SetFocus;
   Done;
 end;
 

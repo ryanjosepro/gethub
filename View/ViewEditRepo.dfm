@@ -14,6 +14,7 @@ object WindowEditRepo: TWindowEditRepo
   OldCreateOrder = False
   Position = poMainFormCenter
   OnActivate = FormActivate
+  OnClose = FormClose
   DesignSize = (
     341
     215)
@@ -73,7 +74,7 @@ object WindowEditRepo: TWindowEditRepo
     Top = 173
     Width = 97
     Height = 34
-    Action = ActCancel
+    Action = ActDiscard
     Anchors = [akTop, akRight]
     ExplicitLeft = 141
   end
@@ -139,7 +140,7 @@ object WindowEditRepo: TWindowEditRepo
     Left = 104
     Top = 168
     Bitmap = {
-      494C010101000800F80010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C010101000800FC0010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -293,9 +294,9 @@ object WindowEditRepo: TWindowEditRepo
       ShortCut = 16467
       OnExecute = ActSaveExecute
     end
-    object ActCancel: TAction
-      Caption = 'Cancelar (Esc)'
-      OnExecute = ActCancelExecute
+    object ActDiscard: TAction
+      Caption = 'Descartar (Esc)'
+      OnExecute = ActDiscardExecute
     end
     object ActEsc: TAction
       ShortCut = 27

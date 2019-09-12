@@ -23,16 +23,17 @@ type
     Actions: TActionList;
     ActDBFile: TAction;
     ActSave: TAction;
-    ActCancel: TAction;
+    ActDiscard: TAction;
     ActEsc: TAction;
     OpenFile: TFileOpenDialog;
     procedure ActDBFileExecute(Sender: TObject);
-    procedure ActCancelExecute(Sender: TObject);
+    procedure ActDiscardExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
     procedure ActDBFileHint(var HintStr: string; var CanShow: Boolean);
     procedure TxtChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
   private
     procedure Changed;
@@ -55,6 +56,23 @@ begin
   Done;
 end;
 
+procedure TWindowEditRepo.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if DidChange then
+  begin
+    case TDialogs.YesNoCancel('Deseja salvar as alterações?') of
+    mrYes:
+      ActSave.Execute;
+    mrCancel:
+      Action := caNone;
+    end;
+  end
+  else
+  begin
+    Close;
+  end;
+end;
+
 procedure TWindowEditRepo.ActDBFileExecute(Sender: TObject);
 begin
   if OpenFile.Execute then
@@ -71,14 +89,12 @@ begin
   end;
 end;
 
-procedure TWindowEditRepo.ActCancelExecute(Sender: TObject);
+procedure TWindowEditRepo.ActDiscardExecute(Sender: TObject);
 begin
   if DidChange then
   begin
-    case TDialogs.YesNoCancel('Deseja salvar as alterações?') of
-    mrYes:
-      ActSave.Execute;
-    mrNo:
+    if TDialogs.YesNo('Tem certeza que deseja descartar as alterações?', mbNo) = mrYes then
+    begin
       Close;
     end;
   end
