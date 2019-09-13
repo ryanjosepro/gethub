@@ -69,6 +69,7 @@ procedure TWindowAccount.ActSaveExecute(Sender: TObject);
 begin
   TConfig.SetConfig('ACCOUNT', 'UserName', Trim(TxtUserName.Text));
   TConfig.SetConfig('ACCOUNT', 'Email', Trim(TxtEmail.Text));
+  Done;
   Close;
 end;
 
@@ -78,6 +79,7 @@ begin
   begin
     if TDialogs.YesNo('Tem certeza que deseja descartar as alterações?', mbNo) = mrYes then
     begin
+      Done;
       Close;
     end;
   end

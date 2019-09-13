@@ -95,6 +95,7 @@ begin
   begin
     if TDialogs.YesNo('Tem certeza que deseja descartar as alterações?', mbNo) = mrYes then
     begin
+      Done;
       Close;
     end;
   end
@@ -107,6 +108,7 @@ end;
 procedure TWindowEditRepo.ActSaveExecute(Sender: TObject);
 begin
   TDAO.Edit(TxtLink.Text, TxtPath.Text, TxtName.Text);
+  Done;
   Close;
 end;
 

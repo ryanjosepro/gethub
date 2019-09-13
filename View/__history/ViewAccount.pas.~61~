@@ -55,8 +55,8 @@ begin
     case TDialogs.YesNoCancel('Deseja salvar as alterações?') of
     mrYes:
       ActSave.Execute;
-    mrNo:
-      Close;
+    mrCancel:
+      Action := caNone;
     end;
   end
   else
@@ -74,8 +74,17 @@ end;
 
 procedure TWindowAccount.ActDiscardExecute(Sender: TObject);
 begin
-  if TDialogs.YesNo('Tem certeza que deseja descartar as alterações?', mbNo) then
-  
+  if DidChange then
+  begin
+    if TDialogs.YesNo('Tem certeza que deseja descartar as alterações?', mbNo) = mrYes then
+    begin
+      Close;
+    end;
+  end
+  else
+  begin
+    Close;
+  end;
 end;
 
 procedure TWindowAccount.ActEscExecute(Sender: TObject);

@@ -28,8 +28,8 @@
     <Transaction>2019/09/11 15:49:31.000.401,=C:\Users\Ryan\Documents\Delphi Projects\ProjectReport\Code\MyDialogs.pas</Transaction>
     <Transaction>2019/09/11 15:49:45.000.781,C:\Users\Ryan\Documents\Delphi Projects\ProjectReport\Code\MyDialogs.pas=</Transaction>
     <Transaction>2019/09/11 15:50:55.000.023,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\MyDialogs.pas</Transaction>
-    <Transaction>2019/09/12 14:11:18.855,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
-    <Transaction>2019/09/12 14:11:26.400,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Config.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/09/12 14:11:18.000.855,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/09/12 14:11:26.000.400,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Config.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="Code"/>

@@ -50,7 +50,6 @@ type
     procedure GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
     procedure ActAddRepositoryExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
-
   private
     procedure UpdateButtons;
   end;
@@ -130,12 +129,12 @@ begin
   end;
 end;
 
-//REPOSITORIES MANAGEMENTE
+//REPOSITORIES MANAGEMENT
 
 procedure TWindowMain.ActAddRepositoryExecute(Sender: TObject);
 begin
-  TDAO.Table.Last
   WindowAddRepo.ShowModal;
+  TDAO.Table.Refresh;
   UpdateButtons;
 end;
 
