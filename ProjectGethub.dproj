@@ -128,6 +128,7 @@
         </DCCReference>
         <DCCReference Include="Code\MyDialogs.pas"/>
         <DCCReference Include="Code\Config.pas"/>
+        <DCCReference Include="Code\Git.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

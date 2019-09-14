@@ -26,6 +26,7 @@ object WindowMain: TWindowMain
     Width = 561
     Height = 54
     Alignment = taCenter
+    Anchors = [akLeft, akTop, akRight]
     AutoSize = False
     Caption = 'GETHUB'
     Font.Charset = ANSI_CHARSET
@@ -41,6 +42,7 @@ object WindowMain: TWindowMain
     Width = 57
     Height = 54
     Action = ActConfigAccount
+    Anchors = [akTop, akRight]
     Flat = True
     ParentShowHint = False
     ShowHint = True
@@ -81,7 +83,7 @@ object WindowMain: TWindowMain
     Width = 70
     Height = 34
     Action = ActAdd
-    Anchors = [akLeft, akBottom]
+    Anchors = [akRight, akBottom]
   end
   object BtnCommit: TSpeedButton
     Left = 347
@@ -89,7 +91,7 @@ object WindowMain: TWindowMain
     Width = 70
     Height = 35
     Action = ActCommit
-    Anchors = [akLeft, akBottom]
+    Anchors = [akRight, akBottom]
   end
   object BtnCheckout: TSpeedButton
     Left = 423
@@ -97,7 +99,7 @@ object WindowMain: TWindowMain
     Width = 70
     Height = 35
     Action = ActCheckout
-    Anchors = [akLeft, akBottom]
+    Anchors = [akRight, akBottom]
   end
   object BtnPush: TSpeedButton
     Left = 499
@@ -105,16 +107,17 @@ object WindowMain: TWindowMain
     Width = 70
     Height = 34
     Action = ActPush
-    Anchors = [akLeft, akBottom]
+    Anchors = [akRight, akBottom]
   end
   object GridRepositories: TDBGrid
     Left = 8
     Top = 68
     Width = 561
     Height = 335
+    Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = Source
     Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-    TabOrder = 2
+    TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
@@ -157,8 +160,8 @@ object WindowMain: TWindowMain
     Top = 409
     Width = 561
     Height = 17
-    Anchors = [akLeft, akBottom]
-    TabOrder = 0
+    Anchors = [akLeft, akRight, akBottom]
+    TabOrder = 1
   end
   object CheckSelect: TDBCheckBox
     Left = 23
@@ -169,7 +172,7 @@ object WindowMain: TWindowMain
     DataField = ' '
     DataSource = Source
     ParentCtl3D = False
-    TabOrder = 1
+    TabOrder = 2
   end
   object Actions: TActionList
     Images = Images
@@ -228,7 +231,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400E00020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400E40020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

@@ -11,7 +11,8 @@ uses
   DAO in 'Datas\DAO.pas',
   ViewAddRepo in 'View\ViewAddRepo.pas' {WindowAddRepo},
   MyDialogs in 'Code\MyDialogs.pas',
-  Config in 'Code\Config.pas';
+  Config in 'Code\Config.pas',
+  Git in 'Code\Git.pas';
 
 {$R *.res}
 

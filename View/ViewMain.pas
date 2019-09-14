@@ -8,7 +8,7 @@ uses
   Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids,
-  ViewAccount, ViewAddRepo, ViewEditRepo, MyUtils, DAO, Datas;
+  ViewAccount, ViewAddRepo, ViewEditRepo, MyUtils, Git, DAO, Datas;
 
 type
   TWindowMain = class(TForm)
@@ -72,6 +72,8 @@ begin
   TDAO.Insert('https://github.com/buckcell/ProjectReport', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectReport', 'ProjectReport');
   }
   UpdateButtons;
+
+  TGit.Add;
 end;
 
 //GRID DRAWN
