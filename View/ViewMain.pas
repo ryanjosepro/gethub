@@ -50,6 +50,9 @@ type
     procedure GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
     procedure ActAddRepositoryExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
+    procedure GridRepositoriesMouseWheel(Sender: TObject; Shift: TShiftState;
+      WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+    procedure CheckSelectClick(Sender: TObject);
   private
     procedure UpdateButtons;
   end;
@@ -72,8 +75,6 @@ begin
   TDAO.Insert('https://github.com/buckcell/ProjectReport', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectReport', 'ProjectReport');
   }
   UpdateButtons;
-
-  TGit.Add;
 end;
 
 //GRID DRAWN
@@ -131,6 +132,11 @@ begin
   end;
 end;
 
+procedure TWindowMain.GridRepositoriesMouseWheel(Sender: TObject;Shift: TShiftState; WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+begin
+  //
+end;
+
 //REPOSITORIES MANAGEMENT
 
 procedure TWindowMain.ActAddRepositoryExecute(Sender: TObject);
@@ -160,7 +166,7 @@ end;
 
 procedure TWindowMain.ActAddExecute(Sender: TObject);
 begin
-  //
+  ShowMessage(TUtils.ArrayToStr(TDAO.GetChecked.ToStringArray, ' - ', ''));
 end;
 
 procedure TWindowMain.ActCommitExecute(Sender: TObject);
@@ -176,6 +182,14 @@ end;
 procedure TWindowMain.ActPushExecute(Sender: TObject);
 begin
   //
+end;
+
+procedure TWindowMain.CheckSelectClick(Sender: TObject);
+begin
+  if Active then
+  begin
+    GridRepositories.SetFocus;
+  end;
 end;
 
 //OTHERS

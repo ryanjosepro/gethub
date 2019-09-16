@@ -126,6 +126,7 @@ object WindowMain: TWindowMain
     OnColExit = GridRepositoriesColExit
     OnDrawColumnCell = GridRepositoriesDrawColumnCell
     OnKeyPress = GridRepositoriesKeyPress
+    OnMouseWheel = GridRepositoriesMouseWheel
     Columns = <
       item
         Expanded = False
@@ -173,6 +174,7 @@ object WindowMain: TWindowMain
     DataSource = Source
     ParentCtl3D = False
     TabOrder = 2
+    OnClick = CheckSelectClick
   end
   object Actions: TActionList
     Images = Images
@@ -231,7 +233,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400E40020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400E80020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

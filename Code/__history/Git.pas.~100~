@@ -1,0 +1,54 @@
+unit Git;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, ShellAPI,
+  DAO;
+
+type
+  TGit = class
+  public
+    class procedure Add;
+    class procedure Commit(Msg: string);
+    class procedure Checkout;
+    class procedure Push;
+  end;
+
+implementation
+
+{ TGit }
+
+class procedure TGit.Add;
+var
+  Comand: string;
+begin
+  Comand := '/C cd C:\Program Files\Git\Bin && git -C "' + TDAO.GetField('Path') + '" add .';
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 3);
+end;
+
+class procedure TGit.Commit;
+var
+  Comand: string;
+begin
+  Comand := '/C cd C:\Program Files\Git\Bin && git -C "' + TDAO.GetField('Path') + '" add .';
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 3);
+end;
+
+class procedure TGit.Checkout;
+var
+  Comand: string;
+begin
+  Comand := '/C cd C:\Program Files\Git\Bin && git -C "' + TDAO.GetField('Path') + '" add .';
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 3);
+end;
+
+class procedure TGit.Push;
+var
+  Comand: string;
+begin
+  Comand := '/C cd C:\Program Files\Git\Bin && git -C "' + TDAO.GetField('Path') + '" add .';
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 3);
+end;
+
+end.
