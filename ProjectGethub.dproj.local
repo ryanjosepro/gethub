@@ -37,21 +37,21 @@
     <File Path="Code"/>
     <File Path="Code\Arrays.pas"/>
     <File Path="Code\Config.pas"/>
-    <File Path="Code\MyUtils.pas"/>
-    <File Path="Code\MyDialogs.pas"/>
     <File Path="Code\Git.pas"/>
+    <File Path="Code\MyDialogs.pas"/>
+    <File Path="Code\MyUtils.pas"/>
     <File Path="Datas"/>
     <File Path="Datas\DAO.pas"/>
     <File Path="Datas\Datas.pas"/>
     <File Path="Datas\Datas.dfm"/>
     <File Path="View"/>
-    <File Path="View\ViewMain.pas"/>
-    <File Path="View\ViewMain.dfm"/>
     <File Path="View\ViewAccount.pas"/>
     <File Path="View\ViewAccount.dfm"/>
     <File Path="View\ViewAddRepo.pas"/>
     <File Path="View\ViewAddRepo.dfm"/>
     <File Path="View\ViewEditRepo.pas"/>
     <File Path="View\ViewEditRepo.dfm"/>
+    <File Path="View\ViewMain.pas"/>
+    <File Path="View\ViewMain.dfm"/>
   </ProjectSortOrder>
 </BorlandProject>
