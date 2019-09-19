@@ -26,6 +26,7 @@ object WindowMain: TWindowMain
     Width = 561
     Height = 54
     Alignment = taCenter
+    Anchors = [akLeft, akTop, akRight]
     AutoSize = False
     Caption = 'GETHUB'
     Font.Charset = ANSI_CHARSET
@@ -41,6 +42,7 @@ object WindowMain: TWindowMain
     Width = 57
     Height = 54
     Action = ActConfigAccount
+    Anchors = [akTop, akRight]
     Flat = True
     ParentShowHint = False
     ShowHint = True
@@ -81,7 +83,7 @@ object WindowMain: TWindowMain
     Width = 70
     Height = 34
     Action = ActAdd
-    Anchors = [akLeft, akBottom]
+    Anchors = [akRight, akBottom]
   end
   object BtnCommit: TSpeedButton
     Left = 347
@@ -89,7 +91,7 @@ object WindowMain: TWindowMain
     Width = 70
     Height = 35
     Action = ActCommit
-    Anchors = [akLeft, akBottom]
+    Anchors = [akRight, akBottom]
   end
   object BtnCheckout: TSpeedButton
     Left = 423
@@ -97,7 +99,7 @@ object WindowMain: TWindowMain
     Width = 70
     Height = 35
     Action = ActCheckout
-    Anchors = [akLeft, akBottom]
+    Anchors = [akRight, akBottom]
   end
   object BtnPush: TSpeedButton
     Left = 499
@@ -105,13 +107,22 @@ object WindowMain: TWindowMain
     Width = 70
     Height = 34
     Action = ActPush
-    Anchors = [akLeft, akBottom]
+    Anchors = [akRight, akBottom]
+  end
+  object SpeedButton1: TSpeedButton
+    Left = 195
+    Top = 432
+    Width = 70
+    Height = 34
+    Action = ActPull
+    Anchors = [akRight, akBottom]
   end
   object GridRepositories: TDBGrid
     Left = 8
     Top = 68
     Width = 561
     Height = 335
+    Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = Source
     Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     TabOrder = 0
@@ -122,7 +133,9 @@ object WindowMain: TWindowMain
     TitleFont.Style = []
     OnColExit = GridRepositoriesColExit
     OnDrawColumnCell = GridRepositoriesDrawColumnCell
+    OnDblClick = GridRepositoriesDblClick
     OnKeyPress = GridRepositoriesKeyPress
+    OnMouseWheel = GridRepositoriesMouseWheel
     Columns = <
       item
         Expanded = False
@@ -157,7 +170,7 @@ object WindowMain: TWindowMain
     Top = 409
     Width = 561
     Height = 17
-    Anchors = [akLeft, akBottom]
+    Anchors = [akLeft, akRight, akBottom]
     TabOrder = 1
   end
   object CheckSelect: TDBCheckBox
@@ -170,6 +183,7 @@ object WindowMain: TWindowMain
     DataSource = Source
     ParentCtl3D = False
     TabOrder = 2
+    OnClick = CheckSelectClick
   end
   object Actions: TActionList
     Images = Images
@@ -196,6 +210,11 @@ object WindowMain: TWindowMain
       Enabled = False
       Hint = 'Remover Reposit'#243'rio'
       OnExecute = ActDelExecute
+    end
+    object ActPull: TAction
+      Caption = 'Pull'
+      Enabled = False
+      OnExecute = ActPullExecute
     end
     object ActAdd: TAction
       Caption = 'Add .'
@@ -228,7 +247,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400E40020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400EC0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

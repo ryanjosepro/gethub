@@ -91,14 +91,18 @@ var
 begin
   if (gdFocused in State) then
   begin
-    CheckSelect.Visible := true;
-    CheckSelect.Left := 13 + GridRepositories.Left + 2;
-    CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
-    CheckSelect.Width := 15;
-    CheckSelect.Height := Rect.Bottom - Rect.Top;
-    if Column.Field.FieldName = CheckSelect.Field.FieldName then
+    if (Column.Field.FieldName = CheckSelect.DataField) then
     begin
-      //TDAO.SetField(' ', not CheckSelect.Field.Value);
+      CheckSelect.Visible := true;
+      CheckSelect.Left := 13 + GridRepositories.Left + 2;
+      CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
+      CheckSelect.Width := 15;
+      CheckSelect.Height := Rect.Bottom - Rect.Top;
+
+      if Column.Field.FieldName = CheckSelect.Field.FieldName then
+      begin
+        //TDAO.SetField(' ', not CheckSelect.Field.Value);
+      end;
     end;
   end
   else
@@ -225,7 +229,7 @@ begin
   Paths := TDAO.GetChecked('Path');
   for Cont := 0 to Paths.Count - 1 do
   begin
-    TGit.Pull(Paths[Cont]);
+    TGit.Push(Paths[Cont]);
   end;
 end;
 

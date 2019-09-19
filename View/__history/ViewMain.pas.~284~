@@ -85,20 +85,53 @@ end;
 procedure TWindowMain.GridRepositoriesDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 const
   IsChecked : array[Boolean] of Integer =(DFCS_BUTTONCHECK, DFCS_BUTTONCHECK or DFCS_CHECKED);
+{
 var
   DrawState: Integer;
   DrawRect: TRect;
 begin
+}
+var
+  Check: Integer;
+  R: TRect;
+begin
+  inherited;
+
+  if ((Sender as TDBGrid).DataSource.Dataset.IsEmpty) then
+    Exit;
+
+  // Desenha um checkbox no dbgrid
+  if Column.FieldName = 'SELECAO' then
+  begin
+    TDBGrid(Sender).Canvas.FillRect(Rect);
+
+    if ((Sender as TDBGrid).DataSource.Dataset.FieldByName('SELECAO').AsInteger = 1) then
+      Check := DFCS_CHECKED
+    else
+      Check := 0;
+
+    R := Rect;
+    InflateRect(R, -2, -2); { Diminue o tamanho do CheckBox }
+    DrawFrameControl(TDBGrid(Sender).Canvas.Handle, R, DFC_BUTTON,
+      DFCS_BUTTONCHECK or Check);
+  end;
+
+  {
   if (gdFocused in State) then
   begin
-    CheckSelect.Visible := true;
-    CheckSelect.Left := 13 + GridRepositories.Left + 2;
-    CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
-    CheckSelect.Width := 15;
-    CheckSelect.Height := Rect.Bottom - Rect.Top;
-    if Column.Field.FieldName = CheckSelect.Field.FieldName then
+    if (Column.Field.FieldName = CheckSelect.DataField) then
     begin
-      //TDAO.SetField(' ', not CheckSelect.Field.Value);
+      CheckSelect.Visible := true;
+      CheckSelect.Left := 13 + GridRepositories.Left + 2;
+      CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
+      CheckSelect.Width := 15;
+      CheckSelect.Height := Rect.Bottom - Rect.Top;
+
+      if Column.Field.FieldName = CheckSelect.Field.FieldName then
+      begin
+        TDAO.SetField(' ', not CheckSelect.Field.Value);
+      end;
+
     end;
   end
   else
@@ -112,6 +145,7 @@ begin
       DrawFrameControl(GridRepositories.Canvas.Handle, DrawRect, DFC_BUTTON, DrawState);
     end;
   end;
+  }
 end;
 
 procedure TWindowMain.GridRepositoriesColExit(Sender: TObject);
@@ -201,7 +235,7 @@ begin
   Msgs := TDAO.GetChecked('Msg');
   for Cont := 0 to Paths.Count - 1 do
   begin
-    TGit.Commit(Paths[Cont]);
+    TGit.Commit(Paths[Cont], Msgs[Cont]);
   end;
 end;
 
@@ -222,10 +256,10 @@ var
   Cont: integer;
   Paths: TStringList;
 begin
-  Paths := TDAO.GetChecked;
+  Paths := TDAO.GetChecked('Path');
   for Cont := 0 to Paths.Count - 1 do
   begin
-    TGit.Pull(Paths[Cont]);
+    TGit.Push(Paths[Cont]);
   end;
 end;
 

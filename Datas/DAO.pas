@@ -34,6 +34,12 @@ end;
 class procedure TDAO.Load;
 begin
   Table.LoadFromFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
+  Table.First;
+  while not Table.Eof do
+  begin
+    SetField(' ', false);
+    Table.Next;
+  end;
 end;
 
 class procedure TDAO.Save;
