@@ -37,6 +37,8 @@ type
     Source: TDataSource;
     GridRepositories: TDBGrid;
     ActEsc: TAction;
+    SpeedButton1: TSpeedButton;
+    ActPull: TAction;
     procedure ActConfigAccountExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -53,6 +55,7 @@ type
     procedure GridRepositoriesMouseWheel(Sender: TObject; Shift: TShiftState;
       WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
     procedure CheckSelectClick(Sender: TObject);
+    procedure ActPullExecute(Sender: TObject);
   private
     procedure UpdateButtons;
   end;
@@ -164,24 +167,66 @@ end;
 
 //GITHUB COMMANDS
 
-procedure TWindowMain.ActAddExecute(Sender: TObject);
+procedure TWindowMain.ActPullExecute(Sender: TObject);
+var
+  Cont: integer;
+  Paths: TStringList;
 begin
-  ShowMessage(TUtils.ArrayToStr(TDAO.GetChecked.ToStringArray, ' - ', ''));
+  Paths := TDAO.GetChecked('Path');
+  for Cont := 0 to Paths.Count - 1 do
+  begin
+    TGit.Pull(Paths[Cont]);
+  end;
+end;
+
+procedure TWindowMain.ActAddExecute(Sender: TObject);
+var
+  Cont: integer;
+  Paths: TStringList;
+begin
+  Paths := TDAO.GetChecked('Path');
+  for Cont := 0 to Paths.Count - 1 do
+  begin
+    TGit.Add(Paths[Cont]);
+  end;
 end;
 
 procedure TWindowMain.ActCommitExecute(Sender: TObject);
+var
+  Cont: integer;
+  Paths: TStringList;
+  Msgs: TStringList;
 begin
-  //
+  Paths := TDAO.GetChecked('Path');
+  Msgs := TDAO.GetChecked('Msg');
+  for Cont := 0 to Paths.Count - 1 do
+  begin
+    TGit.Commit(Paths[Cont], Msgs[Cont]);
+  end;
 end;
 
 procedure TWindowMain.ActCheckoutExecute(Sender: TObject);
+var
+  Cont: integer;
+  Paths: TStringList;
 begin
-  //
+  Paths := TDAO.GetChecked('Path');
+  for Cont := 0 to Paths.Count - 1 do
+  begin
+    TGit.Pull(Paths[Cont]);
+  end;
 end;
 
 procedure TWindowMain.ActPushExecute(Sender: TObject);
+var
+  Cont: integer;
+  Paths: TStringList;
 begin
-  //
+  Paths := TDAO.GetChecked('Path');
+  for Cont := 0 to Paths.Count - 1 do
+  begin
+    TGit.Pull(Paths[Cont]);
+  end;
 end;
 
 procedure TWindowMain.CheckSelectClick(Sender: TObject);
@@ -205,6 +250,7 @@ begin
   begin
     ActEdit.Enabled := false;
     ActDel.Enabled := false;
+    ActPull.Enabled := false;
     ActAdd.Enabled := false;
     ActCommit.Enabled := false;
     ActCheckout.Enabled := false;
@@ -214,6 +260,7 @@ begin
   begin
     ActEdit.Enabled := true;
     ActDel.Enabled := true;
+    ActPull.Enabled := true;
     ActAdd.Enabled := true;
     ActCommit.Enabled := true;
     ActCheckout.Enabled := true;

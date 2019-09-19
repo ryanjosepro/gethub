@@ -18,7 +18,7 @@ type
     class procedure Insert(Link, Path, Name: string);
     class procedure Edit(Link, Path, Name: string);
     class procedure Delete;
-    class function GetChecked: TStringList;
+    class function GetChecked(Field: string): TStringList;
     class function Count: integer;
   end;
 
@@ -81,7 +81,7 @@ begin
   Save;
 end;
 
-class function TDAO.GetChecked: TStringList;
+class function TDAO.GetChecked(Field: string): TStringList;
 var
   Cont: integer;
 begin
@@ -91,7 +91,7 @@ begin
   begin
     if GetField(' ') = true then
     begin
-      Result.Add(GetField('Name'));
+      Result.Add(GetField(Field));
     end;
     Table.Next;
   end;

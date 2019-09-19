@@ -109,6 +109,14 @@ object WindowMain: TWindowMain
     Action = ActPush
     Anchors = [akRight, akBottom]
   end
+  object SpeedButton1: TSpeedButton
+    Left = 195
+    Top = 432
+    Width = 70
+    Height = 34
+    Action = ActPull
+    Anchors = [akRight, akBottom]
+  end
   object GridRepositories: TDBGrid
     Left = 8
     Top = 68
@@ -202,6 +210,11 @@ object WindowMain: TWindowMain
       Hint = 'Remover Reposit'#243'rio'
       OnExecute = ActDelExecute
     end
+    object ActPull: TAction
+      Caption = 'Pull'
+      Enabled = False
+      OnExecute = ActPullExecute
+    end
     object ActAdd: TAction
       Caption = 'Add .'
       Enabled = False
@@ -233,7 +246,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400E80020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400EC0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49
