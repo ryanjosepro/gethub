@@ -49,7 +49,7 @@
     Top = 0
     Width = 249
     Height = 265
-    ActivePage = TabSistema
+    ActivePage = TabConta
     TabOrder = 0
     TabStop = False
     object TabConta: TTabSheet
@@ -385,12 +385,13 @@
       DesignSize = (
         241
         237)
-      object SpeedButton1: TSpeedButton
+      object BtnGitBin: TSpeedButton
         Left = 211
         Top = 25
         Width = 27
         Height = 24
         Cursor = crHandPoint
+        Action = ActGitBin
         Anchors = [akTop]
         ParentShowHint = False
         ShowHint = True
@@ -398,9 +399,9 @@
       object LblPath: TLabel
         Left = 3
         Top = 3
-        Width = 62
+        Width = 72
         Height = 16
-        Caption = 'Arquivo Git'
+        Caption = 'Pasta Git\Bin'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -408,7 +409,7 @@
         Font.Style = []
         ParentFont = False
       end
-      object TxtPath: TEdit
+      object TxtGitBin: TEdit
         Left = 3
         Top = 25
         Width = 208
@@ -431,7 +432,7 @@
   end
   object Actions: TActionList
     Images = Images
-    Left = 8
+    Left = 56
     Top = 248
     object ActSave: TAction
       Caption = 'Salvar (Ctrl + S)'
@@ -447,14 +448,15 @@
       ShortCut = 27
       OnExecute = ActEscExecute
     end
-    object ActGitFile: TAction
+    object ActGitBin: TAction
       ImageIndex = 0
+      OnExecute = ActGitBinExecute
     end
   end
   object Images: TImageList
     BlendColor = clWhite
     BkColor = clWhite
-    Left = 56
+    Left = 104
     Top = 248
     Bitmap = {
       494C010101000800000110001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
@@ -595,5 +597,12 @@
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000}
+  end
+  object OpenFile: TFileOpenDialog
+    FavoriteLinks = <>
+    FileTypes = <>
+    Options = []
+    Left = 8
+    Top = 248
   end
 end

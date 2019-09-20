@@ -49,7 +49,7 @@
     Top = 0
     Width = 249
     Height = 265
-    ActivePage = TabConta
+    ActivePage = TabSistema
     TabOrder = 0
     TabStop = False
     object TabConta: TTabSheet
@@ -385,13 +385,13 @@
       DesignSize = (
         241
         237)
-      object SpeedButton1: TSpeedButton
+      object BtnGitBin: TSpeedButton
         Left = 211
         Top = 25
         Width = 27
         Height = 24
         Cursor = crHandPoint
-        Action = ActGitFile
+        Action = ActGitBin
         Anchors = [akTop]
         ParentShowHint = False
         ShowHint = True
@@ -399,9 +399,9 @@
       object LblPath: TLabel
         Left = 3
         Top = 3
-        Width = 62
+        Width = 72
         Height = 16
-        Caption = 'Arquivo Git'
+        Caption = 'Pasta Git\Bin'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -409,7 +409,7 @@
         Font.Style = []
         ParentFont = False
       end
-      object TxtPath: TEdit
+      object TxtGitBin: TEdit
         Left = 3
         Top = 25
         Width = 208
@@ -448,9 +448,9 @@
       ShortCut = 27
       OnExecute = ActEscExecute
     end
-    object ActGitFile: TAction
+    object ActGitBin: TAction
       ImageIndex = 0
-      OnExecute = ActGitFileExecute
+      OnExecute = ActGitBinExecute
     end
   end
   object Images: TImageList

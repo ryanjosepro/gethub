@@ -24,7 +24,7 @@ implementation
 
 class function TGit.GitFile: string;
 begin
-  Result := TConfig.GetConfig('SYSTEM', 'GitFile')
+  Result := TConfig.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin');
 end;
 
 class procedure TGit.Config;
@@ -33,7 +33,7 @@ var
 begin
   Name := TConfig.GetConfig('ACCOUNT', 'Name');
   Email := TConfig.GetConfig('ACCOUNT', 'Email');
-  Comand := '/C cd "C:\Program Files\Git\Bin" && git config --global user.name ' + Name + ' && git config --global user.email ' + Email;
+  Comand := '/C cd "' + GitFile + '" && git config --global user.name ' + Name + ' && git config --global user.email ' + Email;
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 0);
 end;
 

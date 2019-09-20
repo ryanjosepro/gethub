@@ -324,7 +324,7 @@
       end
       object LblEmail: TLabel
         Left = 3
-        Top = 123
+        Top = 139
         Width = 36
         Height = 16
         Caption = 'Email:'
@@ -337,7 +337,7 @@
       end
       object LblName: TLabel
         Left = 3
-        Top = 71
+        Top = 87
         Width = 38
         Height = 16
         Caption = 'Nome:'
@@ -350,7 +350,7 @@
       end
       object TxtEmail: TEdit
         Left = 3
-        Top = 93
+        Top = 109
         Width = 232
         Height = 24
         Font.Charset = DEFAULT_CHARSET
@@ -364,7 +364,7 @@
       end
       object TxtUserName: TEdit
         Left = 3
-        Top = 145
+        Top = 161
         Width = 232
         Height = 24
         Font.Charset = DEFAULT_CHARSET
@@ -399,9 +399,9 @@
       object LblPath: TLabel
         Left = 3
         Top = 3
-        Width = 62
+        Width = 72
         Height = 16
-        Caption = 'Arquivo Git'
+        Caption = 'Pasta Git\Bin'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13

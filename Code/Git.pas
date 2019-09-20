@@ -9,7 +9,7 @@ uses
 type
   TGit = class
   public
-    class function GitFile: string;
+    class function GitBin: string;
     class procedure Config;
     class procedure Pull(Path: string);
     class procedure Add(Path: string);
@@ -22,9 +22,9 @@ implementation
 
 { TGit }
 
-class function TGit.GitFile: string;
+class function TGit.GitBin: string;
 begin
-  Result := TConfig.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin')
+  Result := TConfig.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin');
 end;
 
 class procedure TGit.Config;
@@ -33,7 +33,7 @@ var
 begin
   Name := TConfig.GetConfig('ACCOUNT', 'Name');
   Email := TConfig.GetConfig('ACCOUNT', 'Email');
-  Comand := '/C cd "C:\Program Files\Git\Bin" && git config --global user.name ' + Name + ' && git config --global user.email ' + Email;
+  Comand := '/C cd "' + GitBin + '" && git config --global user.name ' + Name + ' && git config --global user.email ' + Email;
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 0);
 end;
 
@@ -41,7 +41,7 @@ class procedure TGit.Pull(Path: string);
 var
   Comand: string;
 begin
-  Comand := '/C echo "Pull -> ' + Path + '" && cd C:\Program Files\Git\Bin && git -C "' + Path + '" pull && timeout -t 5';
+  Comand := '/C echo "Pull -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" pull && timeout -t 5';
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 
@@ -49,7 +49,7 @@ class procedure TGit.Add(Path: string);
 var
   Comand: string;
 begin
-  Comand := '/C echo "Add -> ' + Path + '" && cd C:\Program Files\Git\Bin && git -C "' + Path + '" add . && timeout -t 5';
+  Comand := '/C echo "Add -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" add . && timeout -t 5';
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 
@@ -57,7 +57,7 @@ class procedure TGit.Commit(Path, Msg: string);
 var
   Comand: string;
 begin
-  Comand := '/C echo "Commit -> ' + Path + '" && cd C:\Program Files\Git\Bin && git -C "' + Path + '" commit -m "' + Msg + '" && timeout -t 5';
+  Comand := '/C echo "Commit -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" commit -m "' + Msg + '" && timeout -t 5';
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 
@@ -65,7 +65,7 @@ class procedure TGit.Checkout(Path: string);
 var
   Comand: string;
 begin
-  Comand := '/C echo "Checkout -> ' + Path + '" && cd C:\Program Files\Git\Bin && git -C "' + Path + '" checkout && timeout -t 5';
+  Comand := '/C echo "Checkout -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" checkout && timeout -t 5';
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 
@@ -73,7 +73,7 @@ class procedure TGit.Push(Path: string);
 var
   Comand: string;
 begin
-  Comand := '/C echo "Push -> ' + Path + '" && cd C:\Program Files\Git\Bin && git -C "' + Path + '" push && timeout -t 5';
+  Comand := '/C echo "Push -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" push && timeout -t 5';
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 

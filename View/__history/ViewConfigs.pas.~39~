@@ -26,10 +26,10 @@ type
     TabConta: TTabSheet;
     TabSistema: TTabSheet;
     Opções: TTabSheet;
-    BtnGitFile: TSpeedButton;
-    TxtGitFile: TEdit;
+    BtnGitBin: TSpeedButton;
+    TxtGitBin: TEdit;
     LblPath: TLabel;
-    ActGitFile: TAction;
+    ActGitBin: TAction;
     Images: TImageList;
     OpenFile: TFileOpenDialog;
     procedure ActEscExecute(Sender: TObject);
@@ -38,7 +38,7 @@ type
     procedure TxtChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure ActGitFileExecute(Sender: TObject);
+    procedure ActGitBinExecute(Sender: TObject);
   public
     procedure LoadConfigs;
     procedure Changed;
@@ -80,20 +80,14 @@ procedure TWindowConfigs.LoadConfigs;
 begin
   TxtUserName.Text := TConfig.GetConfig('ACCOUNT', 'Name', '');
   TxtEmail.Text := TConfig.GetConfig('ACCOUNT', 'Email', '');
-  TxtGitFile.Text := TConfig.GetConfig('SYSTEM', 'GitBin', '')
+  TxtGitBin.Text := TConfig.GetConfig('SYSTEM', 'GitBin', '')
 end;
 
 procedure TWindowConfigs.ActSaveExecute(Sender: TObject);
-var
-  Name, Email, GitFile: string;
 begin
-  Name := Trim(TxtUserName.Text);
-  Email := Trim(TxtEmail.Text);
-  GitFile := Trim(TxtGitFile.Text);
-
-  TConfig.SetConfig('ACCOUNT', 'Name', Name);
-  TConfig.SetConfig('ACCOUNT', 'Email', Email);
-  TConfig.SetConfig('SYSTEM', 'GitFile', GitFile);
+  TConfig.SetConfig('ACCOUNT', 'Name', Trim(TxtUserName.Text));
+  TConfig.SetConfig('ACCOUNT', 'Email', Trim(TxtEmail.Text));
+  TConfig.SetConfig('SYSTEM', 'GitBin', Trim(TxtGitBin.Text));
 
   TGit.Config;
 
@@ -123,11 +117,11 @@ begin
   Close;
 end;
 
-procedure TWindowConfigs.ActGitFileExecute(Sender: TObject);
+procedure TWindowConfigs.ActGitBinExecute(Sender: TObject);
 begin
   if OpenFile.Execute then
   begin
-    TxtGitFile.Text := OpenFile.FileName;
+    TxtGitBin.Text := OpenFile.FileName;
   end;
 end;
 
