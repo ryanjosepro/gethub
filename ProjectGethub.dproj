@@ -103,7 +103,7 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="View\ViewMain.pas">
-            <Form>s</Form>
+            <Form>WindowMain</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Code\Arrays.pas"/>
@@ -112,8 +112,8 @@
             <Form>WindowEditRepo</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="View\ViewAccount.pas">
-            <Form>WindowAccount</Form>
+        <DCCReference Include="View\ViewConfigs.pas">
+            <Form>WindowConfigs</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Datas\Datas.pas">

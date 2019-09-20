@@ -3,9 +3,9 @@ unit DAO;
 interface
 
 uses
-  System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, FireDAC.Comp.Client, Vcl.Forms,
-  FireDAC.Stan.Intf,
-  Datas, Arrays, MyUtils;
+  System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, FireDAC.Comp.Client,
+  Vcl.Forms, FireDAC.Stan.Intf,
+  Arrays, MyUtils, Datas;
 
 type
   TDAO = class
@@ -18,8 +18,9 @@ type
     class procedure Insert(Link, Path, Name: string);
     class procedure Edit(Link, Path, Name: string);
     class procedure Delete;
-    class function GetChecked(Field: string): TStringList;
+    class function GetCheckeds(Field: string): TStringList;
     class function Count: integer;
+    class procedure Refresh;
   end;
 
 implementation
@@ -38,12 +39,24 @@ begin
   while not Table.Eof do
   begin
     SetField(' ', false);
+    SetField('Status', '');
+    SetField('Msg', '');
     Table.Next;
   end;
+  Table.First;
 end;
 
 class procedure TDAO.Save;
 begin
+  Table.First;
+  while not Table.Eof do
+  begin
+    SetField(' ', false);
+    SetField('Status', '');
+    SetField('Msg', '');
+    Table.Next;
+  end;
+  Table.First;
   Table.SaveToFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
 end;
 
@@ -57,7 +70,6 @@ begin
   Table.Edit;
   Table.FieldByName(Name).AsVariant := Value;
   Table.Post;
-  Save;
 end;
 
 class procedure TDAO.Insert(Link, Path, Name: string);
@@ -87,7 +99,7 @@ begin
   Save;
 end;
 
-class function TDAO.GetChecked(Field: string): TStringList;
+class function TDAO.GetCheckeds(Field: string): TStringList;
 var
   Cont: integer;
 begin
@@ -107,6 +119,11 @@ end;
 class function TDAO.Count: integer;
 begin
   Result := Table.RecordCount;
+end;
+
+class procedure TDAO.Refresh;
+begin
+  Table.Refresh;
 end;
 
 end.

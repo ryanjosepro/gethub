@@ -2,11 +2,11 @@ program ProjectGethub;
 
 uses
   Vcl.Forms,
-  ViewMain in 'View\ViewMain.pas' {s},
+  ViewMain in 'View\ViewMain.pas' {WindowMain},
   Arrays in 'Code\Arrays.pas',
   MyUtils in 'Code\MyUtils.pas',
   ViewEditRepo in 'View\ViewEditRepo.pas' {WindowEditRepo},
-  ViewAccount in 'View\ViewAccount.pas' {WindowAccount},
+  ViewConfigs in 'View\ViewConfigs.pas' {WindowConfigs},
   Datas in 'Datas\Datas.pas' {DataFactory: TDataModule},
   DAO in 'Datas\DAO.pas',
   ViewAddRepo in 'View\ViewAddRepo.pas' {WindowAddRepo},
@@ -21,7 +21,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TWindowMain, WindowMain);
   Application.CreateForm(TWindowEditRepo, WindowEditRepo);
-  Application.CreateForm(TWindowAccount, WindowAccount);
+  Application.CreateForm(TWindowConfigs, WindowConfigs);
   Application.CreateForm(TDataFactory, DataFactory);
   Application.CreateForm(TWindowAddRepo, WindowAddRepo);
   Application.Run;

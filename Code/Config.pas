@@ -42,8 +42,9 @@ var
 begin
   Arq := TIniFile.Create(Path);
   try
-    Arq.WriteString('ACCOUNT', 'UserName', '');
+    Arq.WriteString('ACCOUNT', 'Name', '');
     Arq.WriteString('ACCOUNT', 'Email', '');
+    Arq.WriteString('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin');
   finally
     FreeAndNil(Arq);
   end;

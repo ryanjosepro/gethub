@@ -8,7 +8,7 @@ uses
   Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids,
-  ViewAccount, ViewAddRepo, ViewEditRepo, MyUtils, Git, DAO, Datas;
+  ViewConfigs, ViewAddRepo, ViewEditRepo, Config, MyUtils, MyDialogs, Git, DAO, Datas;
 
 type
   TWindowMain = class(TForm)
@@ -52,8 +52,7 @@ type
     procedure GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
     procedure ActAddRepositoryExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
-    procedure GridRepositoriesMouseWheel(Sender: TObject; Shift: TShiftState;
-      WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+    procedure GridRepositoriesMouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
     procedure CheckSelectClick(Sender: TObject);
     procedure ActPullExecute(Sender: TObject);
   private
@@ -71,6 +70,7 @@ procedure TWindowMain.FormActivate(Sender: TObject);
 begin
   TDAO.Load;
   Source.DataSet := TDAO.Table;
+  TGit.Config;
   {
   TDAO.Insert('https://github.com/buckcell/ProjectBooklin', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectBooklin', 'ProjectBooklin');
   TDAO.Insert('https://github.com/buckcell/ProjectGethub', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub', 'ProjectGethub');
@@ -98,11 +98,6 @@ begin
       CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
       CheckSelect.Width := 15;
       CheckSelect.Height := Rect.Bottom - Rect.Top;
-
-      if Column.Field.FieldName = CheckSelect.Field.FieldName then
-      begin
-        //TDAO.SetField(' ', not CheckSelect.Field.Value);
-      end;
     end;
   end
   else
@@ -155,7 +150,7 @@ end;
 
 procedure TWindowMain.ActConfigAccountExecute(Sender: TObject);
 begin
-  WindowAccount.ShowModal;
+  WindowConfigs.ShowModal;
 end;
 
 procedure TWindowMain.ActEditExecute(Sender: TObject);
@@ -165,8 +160,11 @@ end;
 
 procedure TWindowMain.ActDelExecute(Sender: TObject);
 begin
-  TDAO.Delete;
-  UpdateButtons;
+  if TDialogs.YesNo('Tem certeza que deseja deletar este repositório?', mbYes) = mrYes then
+  begin
+    TDAO.Delete;
+    UpdateButtons;
+  end;
 end;
 
 //GITHUB COMMANDS
@@ -176,7 +174,7 @@ var
   Cont: integer;
   Paths: TStringList;
 begin
-  Paths := TDAO.GetChecked('Path');
+  Paths := TDAO.GetCheckeds('Path');
   for Cont := 0 to Paths.Count - 1 do
   begin
     TGit.Pull(Paths[Cont]);
@@ -188,7 +186,7 @@ var
   Cont: integer;
   Paths: TStringList;
 begin
-  Paths := TDAO.GetChecked('Path');
+  Paths := TDAO.GetCheckeds('Path');
   for Cont := 0 to Paths.Count - 1 do
   begin
     TGit.Add(Paths[Cont]);
@@ -201,8 +199,8 @@ var
   Paths: TStringList;
   Msgs: TStringList;
 begin
-  Paths := TDAO.GetChecked('Path');
-  Msgs := TDAO.GetChecked('Msg');
+  Paths := TDAO.GetCheckeds('Path');
+  Msgs := TDAO.GetCheckeds('Msg');
   for Cont := 0 to Paths.Count - 1 do
   begin
     TGit.Commit(Paths[Cont], Msgs[Cont]);
@@ -214,7 +212,7 @@ var
   Cont: integer;
   Paths: TStringList;
 begin
-  Paths := TDAO.GetChecked('Path');
+  Paths := TDAO.GetCheckeds('Path');
   for Cont := 0 to Paths.Count - 1 do
   begin
     TGit.Pull(Paths[Cont]);
@@ -226,7 +224,7 @@ var
   Cont: integer;
   Paths: TStringList;
 begin
-  Paths := TDAO.GetChecked('Path');
+  Paths := TDAO.GetCheckeds('Path');
   for Cont := 0 to Paths.Count - 1 do
   begin
     TGit.Push(Paths[Cont]);

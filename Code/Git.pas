@@ -3,12 +3,14 @@ unit Git;
 interface
 
 uses
-  System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, ShellAPI, Vcl.Dialogs,
-  DAO;
+  System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, ShellAPI,
+  Config, DAO;
 
 type
   TGit = class
   public
+    class function GitFile: string;
+    class procedure Config;
     class procedure Pull(Path: string);
     class procedure Add(Path: string);
     class procedure Commit(Path, Msg: string);
@@ -19,6 +21,21 @@ type
 implementation
 
 { TGit }
+
+class function TGit.GitFile: string;
+begin
+  Result := TConfig.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin')
+end;
+
+class procedure TGit.Config;
+var
+  Name, Email, Comand: string;
+begin
+  Name := TConfig.GetConfig('ACCOUNT', 'Name');
+  Email := TConfig.GetConfig('ACCOUNT', 'Email');
+  Comand := '/C cd "C:\Program Files\Git\Bin" && git config --global user.name ' + Name + ' && git config --global user.email ' + Email;
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 0);
+end;
 
 class procedure TGit.Pull(Path: string);
 var
