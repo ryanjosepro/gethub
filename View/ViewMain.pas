@@ -39,6 +39,7 @@ type
     ActEsc: TAction;
     SpeedButton1: TSpeedButton;
     ActPull: TAction;
+    CheckAll: TCheckBox;
     procedure ActConfigAccountExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -55,13 +56,20 @@ type
     procedure GridRepositoriesMouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
     procedure CheckSelectClick(Sender: TObject);
     procedure ActPullExecute(Sender: TObject);
+    procedure CheckAllClick(Sender: TObject);
   private
     procedure UpdateButtons;
   end;
 
 var
   WindowMain: TWindowMain;
+{
+TO DO
 
+-Permitir marcar uma checkbox na grid mesmo se a linha não estiver selecionada
+-Pegar o retorno do cmd para utilizar no status do repositório
+
+}
 implementation
 
 {$R *.dfm}
@@ -76,6 +84,7 @@ begin
   TDAO.Insert('https://github.com/buckcell/ProjectGethub', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub', 'ProjectGethub');
   TDAO.Insert('https://github.com/buckcell/ProjectMigrator', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectMigrator', 'ProjectMigrator');
   TDAO.Insert('https://github.com/buckcell/ProjectReport', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectReport', 'ProjectReport');
+  TDAO.Insert('https://github.com/buckcell/ProjectStatus', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectStatus', 'ProjectStatus');
   }
   UpdateButtons;
 end;
@@ -91,14 +100,14 @@ var
 begin
   if (gdFocused in State) then
   begin
-    if (Column.Field.FieldName = CheckSelect.DataField) then
-    begin
+    //if (Column.Field.FieldName = CheckSelect.DataField) then
+    //begin
       CheckSelect.Visible := true;
       CheckSelect.Left := 13 + GridRepositories.Left + 2;
       CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
       CheckSelect.Width := 15;
       CheckSelect.Height := Rect.Bottom - Rect.Top;
-    end;
+    //end;
   end
   else
   begin
@@ -229,6 +238,11 @@ begin
   begin
     TGit.Push(Paths[Cont]);
   end;
+end;
+
+procedure TWindowMain.CheckAllClick(Sender: TObject);
+begin
+  TDAO.SelectAll(CheckSelect.Checked);
 end;
 
 procedure TWindowMain.CheckSelectClick(Sender: TObject);

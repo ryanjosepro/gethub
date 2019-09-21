@@ -1,0 +1,137 @@
+unit Git;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, ShellAPI,
+  Config, DAO;
+
+type
+  TGit = class
+  public
+    class function GitBin: string;
+    class procedure Config;
+    class procedure Pull(Path: string);
+    class procedure Add(Path: string);
+    class procedure Commit(Path, Msg: string);
+    class procedure Checkout(Path: string);
+    class procedure Push(Path: string);
+
+    function GetDosOutput(CommandLine: string; Work: string = 'C:\'): string;
+  end;
+
+implementation
+
+{ TGit }
+
+class function TGit.GitBin: string;
+begin
+  Result := TConfig.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin');
+end;
+
+class procedure TGit.Config;
+var
+  Name, Email, Comand: string;
+begin
+  Name := TConfig.GetConfig('ACCOUNT', 'Name');
+  Email := TConfig.GetConfig('ACCOUNT', 'Email');
+  Comand := '/C cd "' + GitBin + '" && git config --global user.name ' + Name + ' && git config --global user.email ' + Email;
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 0);
+end;
+
+class procedure TGit.Pull(Path: string);
+var
+  Comand: string;
+begin
+  //Comand := '/C echo "Pull -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" pull && timeout -t 5';
+  //ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
+end;
+
+class procedure TGit.Add(Path: string);
+var
+  Comand: string;
+begin
+  Comand := '/C echo "Add -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" add . && timeout -t 5';
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
+end;
+
+class procedure TGit.Commit(Path, Msg: string);
+var
+  Comand: string;
+begin
+  Comand := '/C echo "Commit -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" commit -m "' + Msg + '" && timeout -t 5';
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
+end;
+
+class procedure TGit.Checkout(Path: string);
+var
+  Comand: string;
+begin
+  Comand := '/C echo "Checkout -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" checkout && timeout -t 5';
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
+end;
+
+class procedure TGit.Push(Path: string);
+var
+  Comand: string;
+begin
+  Comand := '/C echo "Push -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" push && timeout -t 5';
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
+end;
+
+function GetDosOutput(CommandLine: string; Work: string = 'C:\'): string;  { Run a DOS program and retrieve its output dynamically while it is running. }
+var
+  SecAtrrs: TSecurityAttributes;
+  StartupInfo: TStartupInfo;
+  ProcessInfo: TProcessInformation;
+  StdOutPipeRead, StdOutPipeWrite: THandle;
+  WasOK: Boolean;
+  pCommandLine: array[0..255] of AnsiChar;
+  BytesRead: Cardinal;
+  WorkDir: string;
+  Handle: Boolean;
+begin
+  Result := '';
+  with SecAtrrs do begin
+    nLength := SizeOf(SecAtrrs);
+    bInheritHandle := True;
+    lpSecurityDescriptor := nil;
+  end;
+  CreatePipe(StdOutPipeRead, StdOutPipeWrite, @SecAtrrs, 0);
+  try
+    with StartupInfo do
+    begin
+      FillChar(StartupInfo, SizeOf(StartupInfo), 0);
+      cb := SizeOf(StartupInfo);
+      dwFlags := STARTF_USESHOWWINDOW or STARTF_USESTDHANDLES;
+      wShowWindow := SW_HIDE;
+      hStdInput := GetStdHandle(STD_INPUT_HANDLE); // don't redirect stdin
+      hStdOutput := StdOutPipeWrite;
+      hStdError := StdOutPipeWrite;
+    end;
+    WorkDir := Work;
+    Handle := CreateProcess(nil, PChar('cmd.exe /C ' + CommandLine),
+                            nil, nil, True, 0, nil,
+                            PChar(WorkDir), StartupInfo, ProcessInfo);
+    CloseHandle(StdOutPipeWrite);
+    if Handle then
+      try
+        repeat
+          WasOK := windows.ReadFile(StdOutPipeRead, pCommandLine, 255, BytesRead, nil);
+          if BytesRead > 0 then
+          begin
+            pCommandLine[BytesRead] := #0;
+            Result := Result + pCommandLine;
+          end;
+        until not WasOK or (BytesRead = 0);
+        WaitForSingleObject(ProcessInfo.hProcess, INFINITE);
+      finally
+        CloseHandle(ProcessInfo.hThread);
+        CloseHandle(ProcessInfo.hProcess);
+      end;
+  finally
+    CloseHandle(StdOutPipeRead);
+  end;
+end;
+
+end.

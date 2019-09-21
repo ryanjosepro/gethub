@@ -18,6 +18,7 @@ type
     class procedure Insert(Link, Path, Name: string);
     class procedure Edit(Link, Path, Name: string);
     class procedure Delete;
+    class procedure SelectAll(Checked: boolean = true);
     class function GetCheckeds(Field: string): TStringList;
     class function Count: integer;
     class procedure Refresh;
@@ -97,6 +98,16 @@ class procedure TDAO.Delete;
 begin
   Table.Delete;
   Save;
+end;
+
+class procedure TDAO.SelectAll(Checked: boolean = true);
+begin
+  Table.First;
+  while not Table.Eof do
+  begin
+    SetField(' ', Checked);
+    Table.Next;
+  end;
 end;
 
 class function TDAO.GetCheckeds(Field: string): TStringList;

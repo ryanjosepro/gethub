@@ -32,8 +32,8 @@
     <Transaction>2019/09/12 14:11:26.000.400,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Config.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
     <Transaction>2019/09/14 09:07:43.000.560,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
     <Transaction>2019/09/14 09:07:54.000.051,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Git.pas</Transaction>
-    <Transaction>2019/09/20 10:32:00.782,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewConfigs.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.dfm</Transaction>
-    <Transaction>2019/09/20 10:32:00.782,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewConfigs.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.pas</Transaction>
+    <Transaction>2019/09/20 10:32:00.000.782,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewConfigs.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.dfm</Transaction>
+    <Transaction>2019/09/20 10:32:00.000.782,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewConfigs.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="Code"/>
