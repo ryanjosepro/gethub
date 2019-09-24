@@ -72,9 +72,32 @@ begin
 end;
 
 procedure TWindowAddRepo.ActAddExecute(Sender: TObject);
+var
+  LinkExists, PathExists, NameExists: boolean;
+  MsgErro: string;
 begin
-  TDAO.Insert(TxtLink.Text, TxtPath.Text, TxtName.Text);
-  Close;
+  if TDAO.ValueExists('Link', TxtLink.Text) then
+  begin
+    MsgErro := MsgErro + 'Valor no campo "Link do Repositório" já existente!' + #13#10;
+  end;
+  if TDAO.ValueExists('Path', TxtPath.Text) then
+  begin
+    MsgErro := MsgErro + 'Valor no campo "Caminho do Repositório" já existente!' + #13#10;
+  end;
+  if TDAO.ValueExists('Name', TxtName.Text) then
+  begin
+    MsgErro := MsgErro + 'Valor no campo "Nome do Repositório" já existente!' + #13#10;
+  end;
+
+  if MsgErro = '' then
+  begin
+    TDAO.Insert(TxtLink.Text, TxtPath.Text, TxtName.Text);
+    Close;
+  end
+  else
+  begin
+    ShowMessage(MsgErro);
+  end;
 end;
 
 procedure TWindowAddRepo.ActCancelExecute(Sender: TObject);

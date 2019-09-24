@@ -40,6 +40,8 @@ type
     SpeedButton1: TSpeedButton;
     ActPull: TAction;
     CheckAll: TCheckBox;
+    ActStatus: TAction;
+    SpeedButton2: TSpeedButton;
     procedure ActConfigAccountExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -57,6 +59,7 @@ type
     procedure CheckSelectClick(Sender: TObject);
     procedure ActPullExecute(Sender: TObject);
     procedure CheckAllClick(Sender: TObject);
+    procedure ActStatusExecute(Sender: TObject);
   private
     procedure UpdateButtons;
   end;
@@ -79,13 +82,6 @@ begin
   TDAO.Load;
   Source.DataSet := TDAO.Table;
   TGit.Config;
-  {
-  TDAO.Insert('https://github.com/buckcell/ProjectBooklin', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectBooklin', 'ProjectBooklin');
-  TDAO.Insert('https://github.com/buckcell/ProjectGethub', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub', 'ProjectGethub');
-  TDAO.Insert('https://github.com/buckcell/ProjectMigrator', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectMigrator', 'ProjectMigrator');
-  TDAO.Insert('https://github.com/buckcell/ProjectReport', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectReport', 'ProjectReport');
-  TDAO.Insert('https://github.com/buckcell/ProjectStatus', 'C:\Users\Ryan\Documents\Delphi Projects\ProjectStatus', 'ProjectStatus');
-  }
   UpdateButtons;
 end;
 
@@ -100,14 +96,11 @@ var
 begin
   if (gdFocused in State) then
   begin
-    //if (Column.Field.FieldName = CheckSelect.DataField) then
-    //begin
       CheckSelect.Visible := true;
       CheckSelect.Left := 13 + GridRepositories.Left + 2;
       CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
       CheckSelect.Width := 15;
       CheckSelect.Height := Rect.Bottom - Rect.Top;
-    //end;
   end
   else
   begin
@@ -178,6 +171,18 @@ end;
 
 //GITHUB COMMANDS
 
+procedure TWindowMain.ActStatusExecute(Sender: TObject);
+var
+  Cont: integer;
+  Paths: TStringList;
+begin
+  Paths := TDAO.GetCheckeds('Path');
+  for Cont := 0 to Paths.Count - 1 do
+  begin
+    TGit.Status(Paths[Cont]);
+  end;
+end;
+
 procedure TWindowMain.ActPullExecute(Sender: TObject);
 var
   Cont: integer;
@@ -205,14 +210,22 @@ end;
 procedure TWindowMain.ActCommitExecute(Sender: TObject);
 var
   Cont: integer;
-  Paths: TStringList;
-  Msgs: TStringList;
+  Names, Paths, Msgs: TStringList;
 begin
+  Names := TDAO.GetCheckeds('Name');
   Paths := TDAO.GetCheckeds('Path');
   Msgs := TDAO.GetCheckeds('Msg');
+
   for Cont := 0 to Paths.Count - 1 do
   begin
-    TGit.Commit(Paths[Cont], Msgs[Cont]);
+    if Trim(Msgs[Cont]) = '' then
+    begin
+      ShowMessage('Digite uma mensagem de commit para o repositório ' + Names[Cont]);
+    end
+    else
+    begin
+      TGit.Commit(Paths[Cont], Msgs[Cont]);
+    end;
   end;
 end;
 
@@ -224,7 +237,7 @@ begin
   Paths := TDAO.GetCheckeds('Path');
   for Cont := 0 to Paths.Count - 1 do
   begin
-    TGit.Pull(Paths[Cont]);
+    TGit.Checkout(Paths[Cont]);
   end;
 end;
 
@@ -240,9 +253,11 @@ begin
   end;
 end;
 
+//OTHERS
+
 procedure TWindowMain.CheckAllClick(Sender: TObject);
 begin
-  TDAO.SelectAll(CheckSelect.Checked);
+  TDAO.SelectAll(CheckAll.Checked);
 end;
 
 procedure TWindowMain.CheckSelectClick(Sender: TObject);
@@ -252,8 +267,6 @@ begin
     GridRepositories.SetFocus;
   end;
 end;
-
-//OTHERS
 
 procedure TWindowMain.ActEscExecute(Sender: TObject);
 begin
@@ -266,6 +279,7 @@ begin
   begin
     ActEdit.Enabled := false;
     ActDel.Enabled := false;
+    ActStatus.Enabled := false;
     ActPull.Enabled := false;
     ActAdd.Enabled := false;
     ActCommit.Enabled := false;
@@ -276,6 +290,7 @@ begin
   begin
     ActEdit.Enabled := true;
     ActDel.Enabled := true;
+    ActStatus.Enabled := true;
     ActPull.Enabled := true;
     ActAdd.Enabled := true;
     ActCommit.Enabled := true;

@@ -11,6 +11,7 @@ type
   public
     class function GitBin: string;
     class procedure Config;
+    class procedure Status(Path: string);
     class procedure Pull(Path: string);
     class procedure Add(Path: string);
     class procedure Commit(Path, Msg: string);
@@ -35,6 +36,14 @@ begin
   Email := TConfig.GetConfig('ACCOUNT', 'Email');
   Comand := '/C cd "' + GitBin + '" && git config --global user.name ' + Name + ' && git config --global user.email ' + Email;
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 0);
+end;
+
+class procedure TGit.Status(Path: string);
+var
+  Comand: string;
+begin
+  Comand := '/C echo "Status -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" status && pause';
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 
 class procedure TGit.Pull(Path: string);

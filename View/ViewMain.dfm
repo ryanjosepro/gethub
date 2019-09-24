@@ -78,43 +78,51 @@ object WindowMain: TWindowMain
     ShowHint = True
   end
   object BtnAdd: TSpeedButton
-    Left = 271
+    Left = 323
     Top = 432
-    Width = 70
+    Width = 57
     Height = 34
     Action = ActAdd
     Anchors = [akRight, akBottom]
   end
   object BtnCommit: TSpeedButton
-    Left = 347
+    Left = 386
     Top = 431
-    Width = 70
+    Width = 57
     Height = 35
     Action = ActCommit
     Anchors = [akRight, akBottom]
   end
   object BtnCheckout: TSpeedButton
-    Left = 423
+    Left = 449
     Top = 431
-    Width = 70
+    Width = 57
     Height = 35
     Action = ActCheckout
     Anchors = [akRight, akBottom]
   end
   object BtnPush: TSpeedButton
-    Left = 499
+    Left = 512
     Top = 432
-    Width = 70
+    Width = 57
     Height = 34
     Action = ActPush
     Anchors = [akRight, akBottom]
   end
   object SpeedButton1: TSpeedButton
-    Left = 195
+    Left = 260
     Top = 432
-    Width = 70
+    Width = 57
     Height = 34
     Action = ActPull
+    Anchors = [akRight, akBottom]
+  end
+  object SpeedButton2: TSpeedButton
+    Left = 197
+    Top = 432
+    Width = 57
+    Height = 34
+    Action = ActStatus
     Anchors = [akRight, akBottom]
   end
   object GridRepositories: TDBGrid
@@ -218,6 +226,11 @@ object WindowMain: TWindowMain
       Hint = 'Remover Reposit'#243'rio'
       OnExecute = ActDelExecute
     end
+    object ActStatus: TAction
+      Caption = 'Status'
+      Enabled = False
+      OnExecute = ActStatusExecute
+    end
     object ActPull: TAction
       Caption = 'Pull'
       Enabled = False
@@ -254,7 +267,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400F80020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400000120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

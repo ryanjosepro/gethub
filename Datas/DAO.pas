@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, FireDAC.Comp.Client,
-  Vcl.Forms, FireDAC.Stan.Intf,
+  Vcl.Forms, FireDAC.Stan.Intf, Vcl.Dialogs,
   Arrays, MyUtils, Datas;
 
 type
@@ -13,14 +13,22 @@ type
     class function Table: TFDMemTable;
     class procedure Load;
     class procedure Save;
-    class function GetField(Name: string): variant;
-    class procedure SetField(Name: string; Value: variant);
+
+    class function GetField(Field: string): variant;
+    class procedure SetField(Field: string; Value: variant);
+
     class procedure Insert(Link, Path, Name: string);
     class procedure Edit(Link, Path, Name: string);
     class procedure Delete;
+
     class procedure SelectAll(Checked: boolean = true);
     class function GetCheckeds(Field: string): TStringList;
+    class function ValueExists(Field: string; Value: Variant): boolean;
+
     class function Count: integer;
+    class function GetIndex: integer;
+    class procedure SetIndex(Index: integer);
+
     class procedure Refresh;
   end;
 
@@ -36,6 +44,9 @@ end;
 class procedure TDAO.Load;
 begin
   Table.LoadFromFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
+
+  Table.DisableControls;
+
   Table.First;
   while not Table.Eof do
   begin
@@ -45,10 +56,18 @@ begin
     Table.Next;
   end;
   Table.First;
+
+  Table.EnableControls;
 end;
 
 class procedure TDAO.Save;
+var
+  Index: integer;
 begin
+  Index := GetIndex;
+
+  Table.DisableControls;
+
   Table.First;
   while not Table.Eof do
   begin
@@ -57,19 +76,23 @@ begin
     SetField('Msg', '');
     Table.Next;
   end;
-  Table.First;
+
   Table.SaveToFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
+
+  SetIndex(Index);
+
+  Table.EnableControls;
 end;
 
-class function TDAO.GetField(Name: string): variant;
+class function TDAO.GetField(Field: string): variant;
 begin
-  Result := Table.FieldByName(Name).AsVariant;
+  Result := Table.FieldByName(Field).AsVariant;
 end;
 
-class procedure TDAO.SetField(Name: string; Value: variant);
+class procedure TDAO.SetField(Field: string; Value: variant);
 begin
   Table.Edit;
-  Table.FieldByName(Name).AsVariant := Value;
+  Table.FieldByName(Field).AsVariant := Value;
   Table.Post;
 end;
 
@@ -101,20 +124,36 @@ begin
 end;
 
 class procedure TDAO.SelectAll(Checked: boolean = true);
+var
+  Index: integer;
 begin
+  Index := GetIndex;
+
+  Table.DisableControls;
+
   Table.First;
+
   while not Table.Eof do
   begin
     SetField(' ', Checked);
     Table.Next;
   end;
+
+  SetIndex(Index);
+
+  Table.EnableControls;
 end;
 
 class function TDAO.GetCheckeds(Field: string): TStringList;
 var
-  Cont: integer;
+  Index, Cont: integer;
 begin
+  Index := GetIndex;
+
   Result := TStringList.Create;
+
+  Table.DisableControls;
+
   Table.First;
   while not Table.Eof do
   begin
@@ -124,12 +163,78 @@ begin
     end;
     Table.Next;
   end;
+
+  SetIndex(Index);
+
+  Table.EnableControls;
+end;
+
+class function TDAO.ValueExists(Field: string; Value: Variant): boolean;
+var
+  Index: integer;
+begin
+  Index := GetIndex;
+
+  Result := false;
+
+  Table.DisableControls;
+
   Table.First;
+  while not Table.Eof do
+  begin
+    Result := Result or (Table.FieldByName(Field).AsVariant = Value);
+    Table.Next;
+  end;
+
+  SetIndex(Index);
+
+  Table.EnableControls;
 end;
 
 class function TDAO.Count: integer;
 begin
   Result := Table.RecordCount;
+end;
+
+class function TDAO.GetIndex: integer;
+var
+  Name: string;
+begin
+  Name := Table.FieldByName('Name').AsString;
+
+  Result := 0;
+
+  Table.DisableControls;
+
+  Table.First;
+
+  while not (Table.FieldByName('Name').AsString = Name) do
+  begin
+    Inc(Result, 1);
+    Table.Next;
+  end;
+
+  Table.EnableControls;
+
+end;
+
+class procedure TDAO.SetIndex(Index: integer);
+var
+  Cont: integer;
+begin
+  Cont := 0;
+
+  Table.DisableControls;
+
+  Table.First;
+
+  while Cont < Index do
+  begin
+    Inc(Cont, 1);
+    Table.Next;
+  end;
+
+  Table.EnableControls;
 end;
 
 class procedure TDAO.Refresh;

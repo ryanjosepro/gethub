@@ -49,12 +49,11 @@
     Top = 0
     Width = 249
     Height = 297
-    ActivePage = Opções
+    ActivePage = TabConta
     TabOrder = 0
     TabStop = False
     object TabConta: TTabSheet
       Caption = 'Conta'
-      ExplicitHeight = 237
       object Logo: TImage
         Left = 3
         Top = 3
@@ -379,6 +378,9 @@
     object TabSistema: TTabSheet
       Caption = 'Sistema'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
       ExplicitHeight = 237
       DesignSize = (
         241
@@ -426,7 +428,6 @@
     object Opções: TTabSheet
       Caption = 'Op'#231#245'es'
       ImageIndex = 2
-      ExplicitHeight = 237
     end
   end
   object Actions: TActionList
@@ -458,7 +459,7 @@
     Left = 104
     Top = 248
     Bitmap = {
-      494C010101000800040110001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C010101000800080110001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

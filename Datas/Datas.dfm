@@ -1,7 +1,7 @@
 object DataFactory: TDataFactory
   OldCreateOrder = False
-  Height = 132
-  Width = 209
+  Height = 77
+  Width = 150
   object Table: TFDMemTable
     Active = True
     FieldDefs = <
@@ -44,10 +44,10 @@ object DataFactory: TDataFactory
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     StoreDefs = True
-    Left = 56
-    Top = 38
+    Left = 24
+    Top = 14
     Content = {
-      414442530F004B2CC1020000FF00010001FF02FF0304000A0000005400610062
+      414442530F008C2CC1020000FF00010001FF02FF0304000A0000005400610062
       006C006500050000000000060000070032000000080000FF09FF0A0B00020000
       00200004000200000020000C00010000000E000D000F00011000011100011200
       011300011400011500020000002000FEFF0A0B00080000004C0069006E006B00
@@ -125,7 +125,7 @@ object DataFactory: TDataFactory
     end
   end
   object JSON: TFDStanStorageJSONLink
-    Left = 128
-    Top = 40
+    Left = 96
+    Top = 16
   end
 end
