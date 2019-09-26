@@ -42,7 +42,7 @@
     Top = 297
     Width = 97
     Height = 25
-    Action = ActDiscard
+    Action = ActCancel
   end
   object PageConfigs: TPageControl
     Left = 0
@@ -358,7 +358,7 @@
         Font.Style = []
         ParentFont = False
         TabOrder = 0
-        OnChange = TxtChange
+        OnChange = ConfigChange
       end
       object TxtUserName: TEdit
         Left = 3
@@ -372,16 +372,12 @@
         Font.Style = []
         ParentFont = False
         TabOrder = 1
-        OnChange = TxtChange
+        OnChange = ConfigChange
       end
     end
     object TabSistema: TTabSheet
       Caption = 'Sistema'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 237
       DesignSize = (
         241
         269)
@@ -422,12 +418,21 @@
         Font.Style = []
         ParentFont = False
         TabOrder = 0
-        OnChange = TxtChange
+        OnChange = ConfigChange
       end
     end
     object Opções: TTabSheet
       Caption = 'Op'#231#245'es'
       ImageIndex = 2
+      object CheckCloseCmd: TCheckBox
+        Left = 3
+        Top = 3
+        Width = 234
+        Height = 17
+        Caption = 'Fechar prompt de comando autom'#225'ticamente'
+        TabOrder = 0
+        OnClick = ConfigChange
+      end
     end
   end
   object Actions: TActionList
@@ -440,9 +445,9 @@
       ShortCut = 16467
       OnExecute = ActSaveExecute
     end
-    object ActDiscard: TAction
-      Caption = 'Descartar (Esc)'
-      OnExecute = ActDiscardExecute
+    object ActCancel: TAction
+      Caption = 'Cancelar (Esc)'
+      OnExecute = ActCancelExecute
     end
     object ActEsc: TAction
       ShortCut = 27
@@ -459,7 +464,7 @@
     Left = 104
     Top = 248
     Bitmap = {
-      494C010101000800080110001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C0101010008000C0110001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

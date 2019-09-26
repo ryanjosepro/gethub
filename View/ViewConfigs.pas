@@ -5,8 +5,9 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
-  Vcl.StdCtrls, Vcl.Buttons, System.Actions, Vcl.ActnList,
-  Config, MyDialogs, Git, Vcl.ComCtrls, System.ImageList, Vcl.ImgList;
+  Vcl.StdCtrls, Vcl.Buttons, System.Actions, Vcl.ActnList, MyDialogs, Git, Vcl.ComCtrls,
+  System.ImageList, Vcl.ImgList,
+  Config, MyUtils;
 
 type
   TWindowConfigs = class(TForm)
@@ -19,7 +20,7 @@ type
     BtnSave: TSpeedButton;
     BtnDiscard: TSpeedButton;
     Actions: TActionList;
-    ActDiscard: TAction;
+    ActCancel: TAction;
     ActEsc: TAction;
     ActSave: TAction;
     PageConfigs: TPageControl;
@@ -32,10 +33,11 @@ type
     ActGitBin: TAction;
     Images: TImageList;
     OpenFile: TFileOpenDialog;
+    CheckCloseCmd: TCheckBox;
     procedure ActEscExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
-    procedure ActDiscardExecute(Sender: TObject);
-    procedure TxtChange(Sender: TObject);
+    procedure ActCancelExecute(Sender: TObject);
+    procedure ConfigChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ActGitBinExecute(Sender: TObject);
@@ -78,9 +80,10 @@ end;
 
 procedure TWindowConfigs.LoadConfigs;
 begin
-  TxtUserName.Text := TConfig.GetConfig('ACCOUNT', 'Name', '');
-  TxtEmail.Text := TConfig.GetConfig('ACCOUNT', 'Email', '');
-  TxtGitBin.Text := TConfig.GetConfig('SYSTEM', 'GitBin', '')
+  TxtUserName.Text := TConfig.GetConfig('ACCOUNT', 'Name');
+  TxtEmail.Text := TConfig.GetConfig('ACCOUNT', 'Email');
+  TxtGitBin.Text := TConfig.GetConfig('SYSTEM', 'GitBin');
+  CheckCloseCmd.Checked := TConfig.GetConfig('OPTIONS', 'CloseCmd') = '1';
 end;
 
 procedure TWindowConfigs.ActSaveExecute(Sender: TObject);
@@ -88,6 +91,7 @@ begin
   TConfig.SetConfig('ACCOUNT', 'Name', Trim(TxtUserName.Text));
   TConfig.SetConfig('ACCOUNT', 'Email', Trim(TxtEmail.Text));
   TConfig.SetConfig('SYSTEM', 'GitBin', Trim(TxtGitBin.Text));
+  TConfig.SetConfig('OPTIONS', 'CloseCmd', TUtils.Iif(CheckCloseCmd.Checked, '1', '0'));
 
   TGit.Config;
 
@@ -96,7 +100,7 @@ begin
   Close;
 end;
 
-procedure TWindowConfigs.ActDiscardExecute(Sender: TObject);
+procedure TWindowConfigs.ActCancelExecute(Sender: TObject);
 begin
   if DidChange then
   begin
@@ -125,7 +129,7 @@ begin
   end;
 end;
 
-procedure TWindowConfigs.TxtChange(Sender: TObject);
+procedure TWindowConfigs.ConfigChange(Sender: TObject);
 var
   UserName, Email: boolean;
 begin

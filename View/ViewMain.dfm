@@ -50,20 +50,32 @@ object WindowMain: TWindowMain
   object BtnEdit: TSpeedButton
     Left = 8
     Top = 432
-    Width = 68
+    Width = 87
     Height = 26
     Action = ActEdit
     Anchors = [akLeft, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clGreen
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
   end
   object BtnDel: TSpeedButton
-    Left = 82
+    Left = 101
     Top = 432
-    Width = 68
+    Width = 87
     Height = 26
     Action = ActDel
     Anchors = [akLeft, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
   end
@@ -139,6 +151,7 @@ object WindowMain: TWindowMain
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    OnCellClick = GridRepositoriesCellClick
     OnColExit = GridRepositoriesColExit
     OnDrawColumnCell = GridRepositoriesDrawColumnCell
     OnKeyPress = GridRepositoriesKeyPress
@@ -188,8 +201,16 @@ object WindowMain: TWindowMain
     Ctl3D = True
     DataField = ' '
     DataSource = Source
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
     ParentCtl3D = False
+    ParentFont = False
     TabOrder = 2
+    ValueChecked = '1'
+    ValueUnchecked = '0'
     OnClick = CheckSelectClick
   end
   object CheckAll: TCheckBox
@@ -207,23 +228,27 @@ object WindowMain: TWindowMain
     object ActConfigAccount: TAction
       Hint = 'Configurar conta Github'
       ImageIndex = 0
+      ShortCut = 112
       OnExecute = ActConfigAccountExecute
     end
     object ActAddRepository: TAction
       Hint = 'Adicionar Reposit'#243'rio'
       ImageIndex = 1
+      ShortCut = 113
       OnExecute = ActAddRepositoryExecute
     end
     object ActEdit: TAction
-      Caption = 'Editar'
+      Caption = 'Editar (F3)'
       Enabled = False
       Hint = 'Editar Reposit'#243'rio'
+      ShortCut = 114
       OnExecute = ActEditExecute
     end
     object ActDel: TAction
-      Caption = 'Remover'
+      Caption = 'Remover (F4)'
       Enabled = False
       Hint = 'Remover Reposit'#243'rio'
+      ShortCut = 115
       OnExecute = ActDelExecute
     end
     object ActStatus: TAction
@@ -267,7 +292,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400000120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400040120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

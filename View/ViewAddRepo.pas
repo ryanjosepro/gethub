@@ -92,6 +92,7 @@ begin
   if MsgErro = '' then
   begin
     TDAO.Insert(TxtLink.Text, TxtPath.Text, TxtName.Text);
+    Done;
     Close;
   end
   else
