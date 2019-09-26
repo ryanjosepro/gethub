@@ -94,14 +94,13 @@ var
   DrawState: Integer;
   DrawRect: TRect;
 begin
-  CheckSelect.Visible := true;
   if (gdFocused in State) then
   begin
-      CheckSelect.Visible := true;
-      CheckSelect.Left := 13 + GridRepositories.Left + 2;
-      CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
-      CheckSelect.Width := 15;
-      CheckSelect.Height := Rect.Bottom - Rect.Top;
+    CheckSelect.Visible := true;
+    CheckSelect.Left := 13 + GridRepositories.Left + 2;
+    CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
+    CheckSelect.Width := 15;
+    CheckSelect.Height := Rect.Bottom - Rect.Top;
   end
   else
   begin
@@ -114,7 +113,6 @@ begin
       DrawFrameControl(GridRepositories.Canvas.Handle, DrawRect, DFC_BUTTON, DrawState);
     end;
   end;
-  CheckSelect.Visible := false;
 end;
 
 procedure TWindowMain.GridRepositoriesColExit(Sender: TObject);

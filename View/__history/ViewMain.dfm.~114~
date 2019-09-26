@@ -160,6 +160,11 @@ object WindowMain: TWindowMain
       item
         Expanded = False
         FieldName = ' '
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ReadOnly = True
         Visible = True
       end
@@ -194,8 +199,8 @@ object WindowMain: TWindowMain
     TabOrder = 1
   end
   object CheckSelect: TDBCheckBox
-    Left = 23
-    Top = 88
+    Left = 240
+    Top = 240
     Width = 14
     Height = 17
     Ctl3D = True
@@ -209,6 +214,8 @@ object WindowMain: TWindowMain
     ParentCtl3D = False
     ParentFont = False
     TabOrder = 2
+    ValueChecked = ''
+    ValueUnchecked = ''
     OnClick = CheckSelectClick
   end
   object CheckAll: TCheckBox
@@ -290,7 +297,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400040120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400080120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

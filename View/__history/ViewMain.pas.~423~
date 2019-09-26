@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, System.ImageList, Vcl.ImgList, System.Actions,
   Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids, Vcl.CheckLst,
   ViewConfigs, ViewAddRepo, ViewEditRepo, Config, MyUtils, MyDialogs, Git, DAO, Datas;
 
 type
@@ -70,7 +70,6 @@ var
 {
 TO DO
 
--Permitir marcar uma checkbox na grid mesmo se a linha não estiver selecionada
 -Pegar o retorno do cmd para utilizar no status do repositório
 
 }
@@ -95,6 +94,7 @@ var
   DrawState: Integer;
   DrawRect: TRect;
 begin
+  CheckSelect.Visible := true;
   if (gdFocused in State) then
   begin
       CheckSelect.Visible := true;
@@ -114,6 +114,7 @@ begin
       DrawFrameControl(GridRepositories.Canvas.Handle, DrawRect, DFC_BUTTON, DrawState);
     end;
   end;
+  CheckSelect.Visible := false;
 end;
 
 procedure TWindowMain.GridRepositoriesColExit(Sender: TObject);

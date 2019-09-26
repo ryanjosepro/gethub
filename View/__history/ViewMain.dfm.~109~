@@ -54,6 +54,12 @@ object WindowMain: TWindowMain
     Height = 26
     Action = ActEdit
     Anchors = [akLeft, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clGreen
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
   end
@@ -64,6 +70,12 @@ object WindowMain: TWindowMain
     Height = 26
     Action = ActDel
     Anchors = [akLeft, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
   end
@@ -197,6 +209,8 @@ object WindowMain: TWindowMain
     ParentCtl3D = False
     ParentFont = False
     TabOrder = 2
+    ValueChecked = '1'
+    ValueUnchecked = '0'
     OnClick = CheckSelectClick
   end
   object CheckAll: TCheckBox
@@ -206,36 +220,6 @@ object WindowMain: TWindowMain
     Height = 15
     TabOrder = 3
     OnClick = CheckAllClick
-  end
-  object CheckListBox1: TCheckListBox
-    Left = 73
-    Top = 127
-    Width = 417
-    Height = 212
-    Columns = 3
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ImeName = 'tset'
-    ItemHeight = 13
-    Items.Strings = (
-      'Test'
-      'Teste'
-      ''
-      'a'
-      'sdf'
-      'sd'
-      'f'
-      'sdf'
-      'sd'
-      'f'
-      'sdf')
-    ParentFont = False
-    ParentShowHint = False
-    ShowHint = False
-    TabOrder = 4
   end
   object Actions: TActionList
     Images = Images
@@ -308,7 +292,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400040120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400080120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49
