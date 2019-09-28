@@ -48,8 +48,8 @@ class procedure TGit.Status(Path: string);
 var
   Config, Comand: string;
 begin
-  Config := TUtils.Iif(TConfig.GetConfig('OPTIONS', 'CloseStatus', '0') = '1', 'timeout -t 5', 'pause');
-  Comand := '/C echo "Status -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" status && ' + Config;
+  Config := TUtils.Iif(TConfig.GetConfig('OPTIONS', 'CloseStatus', '0' = '1'), 'timeout -t 5', 'pause');
+  Comand := '/C echo "Status -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" status && pause';
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 

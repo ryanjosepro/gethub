@@ -46,7 +46,6 @@ begin
     Arq.WriteString('ACCOUNT', 'Email', '');
     Arq.WriteString('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin');
     Arq.WriteString('OPTIONS', 'CloseCmd', '1');
-    Arq.WriteString('OPTIONS', 'CloseStatus', '0');
   finally
     FreeAndNil(Arq);
   end;

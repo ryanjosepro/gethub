@@ -24,14 +24,14 @@ implementation
 
 { TGit }
 
+class function TGit.CmdConfig: string;
+begin
+  Result := TUTils.Iif(TConfig.GetConfig('OPTIONS', 'CloseCmd', '1') = '1', 'timeout -t 5', 'pause');
+end;
+
 class function TGit.GitBin: string;
 begin
   Result := TConfig.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin');
-end;
-
-class function TGit.CmdConfig: string;
-begin
-  Result := TUtils.Iif(TConfig.GetConfig('OPTIONS', 'CloseCmd', '1') = '1', 'timeout -t 5', 'pause');
 end;
 
 class procedure TGit.Config;
@@ -46,10 +46,9 @@ end;
 
 class procedure TGit.Status(Path: string);
 var
-  Config, Comand: string;
+  Comand, Config: string;
 begin
-  Config := TUtils.Iif(TConfig.GetConfig('OPTIONS', 'CloseStatus', '0') = '1', 'timeout -t 5', 'pause');
-  Comand := '/C echo "Status -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" status && ' + Config;
+  Comand := '/C echo "Status -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" status && pause';
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 

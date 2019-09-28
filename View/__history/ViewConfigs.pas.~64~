@@ -85,7 +85,7 @@ begin
   TxtEmail.Text := TConfig.GetConfig('ACCOUNT', 'Email');
   TxtGitBin.Text := TConfig.GetConfig('SYSTEM', 'GitBin');
   CheckCloseCmd.Checked := TConfig.GetConfig('OPTIONS', 'CloseCmd') = '1';
-  CheckCloseStatus.Checked := TConfig.GetConfig('OPTIONS', 'CloseStatus') = '1';
+  CheckCloseStatus.Checked := TConfig.GetConfig('OPTIONS', 'CloseStatus')
 end;
 
 procedure TWindowConfigs.ActSaveExecute(Sender: TObject);
@@ -94,7 +94,6 @@ begin
   TConfig.SetConfig('ACCOUNT', 'Email', Trim(TxtEmail.Text));
   TConfig.SetConfig('SYSTEM', 'GitBin', Trim(TxtGitBin.Text));
   TConfig.SetConfig('OPTIONS', 'CloseCmd', TUtils.Iif(CheckCloseCmd.Checked, '1', '0'));
-  TConfig.SetConfig('OPTIONS', 'CloseStatus', TUtils.Iif(CheckCloseStatus.Checked, '1', '0'));
 
   TGit.Config;
 

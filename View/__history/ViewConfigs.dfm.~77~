@@ -433,12 +433,12 @@
         TabOrder = 0
         OnClick = ConfigChange
       end
-      object CheckCloseStatus: TCheckBox
-        Left = 16
+      object CheckBox1: TCheckBox
+        Left = 3
         Top = 26
-        Width = 222
+        Width = 234
         Height = 17
-        Caption = 'Incluir prompt de git status'
+        Caption = 'Fechar prompt de comando autom'#225'ticamente'
         TabOrder = 1
         OnClick = ConfigChange
       end

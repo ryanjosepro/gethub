@@ -2,38 +2,38 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2019/08/23 17:34:41.000.044,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
-    <Transaction>2019/08/23 17:35:14.000.958,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepository.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.dfm</Transaction>
-    <Transaction>2019/08/23 17:35:14.000.958,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepository.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
-    <Transaction>2019/08/26 12:44:01.000.802,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepository.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepo.dfm</Transaction>
-    <Transaction>2019/08/26 12:44:01.000.802,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepository.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepo.pas</Transaction>
+    <Transaction>2019/08/23 17:35:14.000.958,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepository.pas</Transaction>
+    <Transaction>2019/08/23 17:35:14.000.958,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepository.dfm</Transaction>
+    <Transaction>2019/08/26 12:44:01.000.802,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepo.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepository.pas</Transaction>
+    <Transaction>2019/08/26 12:44:01.000.802,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepo.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepository.dfm</Transaction>
     <Transaction>2019/08/26 16:29:28.000.906,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
-    <Transaction>2019/08/26 16:29:42.000.467,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Repositories.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/08/26 16:29:42.000.467,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Repositories.pas</Transaction>
     <Transaction>2019/08/26 17:00:44.000.389,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\MyDialogs.pas=</Transaction>
     <Transaction>2019/08/26 17:00:52.000.650,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Config.pas=</Transaction>
     <Transaction>2019/08/26 17:00:54.000.400,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\DataFlex.pas=</Transaction>
     <Transaction>2019/08/26 17:48:30.000.975,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
-    <Transaction>2019/08/26 17:49:00.000.923,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.pas</Transaction>
-    <Transaction>2019/08/26 17:49:00.000.923,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.dfm</Transaction>
+    <Transaction>2019/08/26 17:49:00.000.923,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/08/26 17:49:00.000.923,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.dfm</Transaction>
     <Transaction>2019/08/27 15:10:26.000.776,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
-    <Transaction>2019/08/27 15:11:15.000.722,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Data\Datas.pas</Transaction>
-    <Transaction>2019/08/27 15:11:15.000.722,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Data\Datas.dfm</Transaction>
+    <Transaction>2019/08/27 15:11:15.000.722,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Data\Datas.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/08/27 15:11:15.000.722,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Data\Datas.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.dfm</Transaction>
     <Transaction>2019/08/27 15:13:09.000.618,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Datas\Datas.pas</Transaction>
     <Transaction>2019/08/27 15:14:41.000.189,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
-    <Transaction>2019/08/27 15:14:48.000.544,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Datas\DAO.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/08/27 15:14:48.000.544,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Datas\DAO.pas</Transaction>
     <Transaction>2019/08/27 16:29:00.000.553,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Repositories.pas=</Transaction>
     <Transaction>2019/09/09 12:21:42.000.360,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
-    <Transaction>2019/09/09 12:29:18.000.833,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepo.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewEditRepo.dfm</Transaction>
-    <Transaction>2019/09/09 12:29:18.000.833,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepo.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewEditRepo.pas</Transaction>
+    <Transaction>2019/09/09 12:29:18.000.833,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewEditRepo.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepo.dfm</Transaction>
+    <Transaction>2019/09/09 12:29:18.000.833,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewEditRepo.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepo.pas</Transaction>
     <Transaction>2019/09/09 12:29:54.000.672,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAddRepo.pas</Transaction>
     <Transaction>2019/09/11 15:49:31.000.401,=C:\Users\Ryan\Documents\Delphi Projects\ProjectReport\Code\MyDialogs.pas</Transaction>
     <Transaction>2019/09/11 15:49:45.000.781,C:\Users\Ryan\Documents\Delphi Projects\ProjectReport\Code\MyDialogs.pas=</Transaction>
     <Transaction>2019/09/11 15:50:55.000.023,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\MyDialogs.pas</Transaction>
     <Transaction>2019/09/12 14:11:18.000.855,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
-    <Transaction>2019/09/12 14:11:26.000.400,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Config.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/09/12 14:11:26.000.400,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Config.pas</Transaction>
     <Transaction>2019/09/14 09:07:43.000.560,=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
-    <Transaction>2019/09/14 09:07:54.000.051,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Git.pas</Transaction>
-    <Transaction>2019/09/20 10:32:00.000.782,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewConfigs.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.dfm</Transaction>
-    <Transaction>2019/09/20 10:32:00.000.782,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewConfigs.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.pas</Transaction>
+    <Transaction>2019/09/14 09:07:54.000.051,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code\Git.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Unit1.pas</Transaction>
+    <Transaction>2019/09/20 10:32:00.000.782,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.dfm=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewConfigs.dfm</Transaction>
+    <Transaction>2019/09/20 10:32:00.000.782,C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewAccount.pas=C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\View\ViewConfigs.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="Code"/>

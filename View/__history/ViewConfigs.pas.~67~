@@ -94,7 +94,7 @@ begin
   TConfig.SetConfig('ACCOUNT', 'Email', Trim(TxtEmail.Text));
   TConfig.SetConfig('SYSTEM', 'GitBin', Trim(TxtGitBin.Text));
   TConfig.SetConfig('OPTIONS', 'CloseCmd', TUtils.Iif(CheckCloseCmd.Checked, '1', '0'));
-  TConfig.SetConfig('OPTIONS', 'CloseStatus', TUtils.Iif(CheckCloseStatus.Checked, '1', '0'));
+  TConfig.SetConfig('OPTIONS', 'CloseStatus');
 
   TGit.Config;
 

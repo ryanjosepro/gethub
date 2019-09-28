@@ -434,9 +434,9 @@
         OnClick = ConfigChange
       end
       object CheckCloseStatus: TCheckBox
-        Left = 16
+        Left = 3
         Top = 26
-        Width = 222
+        Width = 235
         Height = 17
         Caption = 'Incluir prompt de git status'
         TabOrder = 1
