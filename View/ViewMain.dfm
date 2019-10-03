@@ -152,7 +152,6 @@ object WindowMain: TWindowMain
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
     OnCellClick = GridRepositoriesCellClick
-    OnColExit = GridRepositoriesColExit
     OnDrawColumnCell = GridRepositoriesDrawColumnCell
     OnKeyPress = GridRepositoriesKeyPress
     OnMouseWheel = GridRepositoriesMouseWheel
@@ -292,7 +291,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400140120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400180120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

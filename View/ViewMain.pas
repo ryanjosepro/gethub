@@ -51,7 +51,6 @@ type
     procedure ActPushExecute(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure GridRepositoriesDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
-    procedure GridRepositoriesColExit(Sender: TObject);
     procedure GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
     procedure ActAddRepositoryExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
@@ -67,6 +66,7 @@ type
 
 var
   WindowMain: TWindowMain;
+  CellClicked: boolean = false;
 {
 TO DO
 
@@ -115,14 +115,6 @@ begin
   end;
 end;
 
-procedure TWindowMain.GridRepositoriesColExit(Sender: TObject);
-begin
-  if GridRepositories.SelectedField.FieldName = CheckSelect.DataField then
-  begin
-    CheckSelect.Visible := False;
-  end;
-end;
-
 procedure TWindowMain.GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
 begin
   if (key = Chr(9)) then
@@ -145,7 +137,21 @@ procedure TWindowMain.GridRepositoriesCellClick(Column: TColumn);
 begin
   if Column.FieldName = CheckSelect.Field.FieldName then
   begin
+    CellClicked := true;
     TDAO.SetField(' ', not CheckSelect.Checked);
+  end;
+end;
+
+procedure TWindowMain.CheckSelectClick(Sender: TObject);
+begin
+  if Active then
+  begin
+    if not CellClicked then
+    begin
+      GridRepositories.SetFocus;
+      TDAO.SetField(' ', CheckSelect.Checked);
+    end;
+    CellClicked := false;
   end;
 end;
 
@@ -184,10 +190,14 @@ var
   Cont: integer;
   Paths: TStringList;
 begin
-  Paths := TDAO.GetCheckeds('Path');
-  for Cont := 0 to Paths.Count - 1 do
-  begin
-    TGit.Status(Paths[Cont]);
+  try
+    Paths := TDAO.GetCheckeds('Path');
+    for Cont := 0 to Paths.Count - 1 do
+    begin
+      TGit.Status(Paths[Cont]);
+    end;
+  finally
+    FreeAndNil(Paths);
   end;
 end;
 
@@ -196,10 +206,14 @@ var
   Cont: integer;
   Paths: TStringList;
 begin
-  Paths := TDAO.GetCheckeds('Path');
-  for Cont := 0 to Paths.Count - 1 do
-  begin
-    TGit.Pull(Paths[Cont]);
+  try
+    Paths := TDAO.GetCheckeds('Path');
+    for Cont := 0 to Paths.Count - 1 do
+    begin
+      TGit.Pull(Paths[Cont]);
+    end;
+  finally
+    FreeAndNil(Paths);
   end;
 end;
 
@@ -208,10 +222,14 @@ var
   Cont: integer;
   Paths: TStringList;
 begin
-  Paths := TDAO.GetCheckeds('Path');
-  for Cont := 0 to Paths.Count - 1 do
-  begin
-    TGit.Add(Paths[Cont]);
+  try
+    Paths := TDAO.GetCheckeds('Path');
+    for Cont := 0 to Paths.Count - 1 do
+    begin
+      TGit.Add(Paths[Cont]);
+    end;
+  finally
+    FreeAndNil(Paths);
   end;
 end;
 
@@ -220,20 +238,24 @@ var
   Cont: integer;
   Names, Paths, Msgs: TStringList;
 begin
-  Names := TDAO.GetCheckeds('Name');
-  Paths := TDAO.GetCheckeds('Path');
-  Msgs := TDAO.GetCheckeds('Msg');
+  try
+    Names := TDAO.GetCheckeds('Name');
+    Paths := TDAO.GetCheckeds('Path');
+    Msgs := TDAO.GetCheckeds('Msg');
 
-  for Cont := 0 to Paths.Count - 1 do
-  begin
-    if Trim(Msgs[Cont]) = '' then
+    for Cont := 0 to Paths.Count - 1 do
     begin
-      ShowMessage('Digite uma mensagem de commit para o repositório ' + Names[Cont]);
-    end
-    else
-    begin
-      TGit.Commit(Paths[Cont], Msgs[Cont]);
+      if Trim(Msgs[Cont]) = '' then
+      begin
+        ShowMessage('Digite uma mensagem de commit para o repositório ' + Names[Cont]);
+      end
+      else
+      begin
+        TGit.Commit(Paths[Cont], Msgs[Cont]);
+      end;
     end;
+  finally
+    FreeAndNil(Paths);
   end;
 end;
 
@@ -242,10 +264,14 @@ var
   Cont: integer;
   Paths: TStringList;
 begin
-  Paths := TDAO.GetCheckeds('Path');
-  for Cont := 0 to Paths.Count - 1 do
-  begin
-    TGit.Checkout(Paths[Cont]);
+  try
+    Paths := TDAO.GetCheckeds('Path');
+    for Cont := 0 to Paths.Count - 1 do
+    begin
+      TGit.Checkout(Paths[Cont]);
+    end;
+  finally
+    FreeAndNil(Paths);
   end;
 end;
 
@@ -254,10 +280,14 @@ var
   Cont: integer;
   Paths: TStringList;
 begin
-  Paths := TDAO.GetCheckeds('Path');
-  for Cont := 0 to Paths.Count - 1 do
-  begin
-    TGit.Push(Paths[Cont]);
+  try
+    Paths := TDAO.GetCheckeds('Path');
+    for Cont := 0 to Paths.Count - 1 do
+    begin
+      TGit.Push(Paths[Cont]);
+    end;
+  finally
+    FreeAndNil(Paths);
   end;
 end;
 
@@ -266,14 +296,6 @@ end;
 procedure TWindowMain.CheckAllClick(Sender: TObject);
 begin
   TDAO.SelectAll(CheckAll.Checked);
-end;
-
-procedure TWindowMain.CheckSelectClick(Sender: TObject);
-begin
-  if Active then
-  begin
-    GridRepositories.SetFocus;
-  end;
 end;
 
 procedure TWindowMain.ActEscExecute(Sender: TObject);
