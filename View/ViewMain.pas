@@ -37,11 +37,11 @@ type
     Source: TDataSource;
     GridRepositories: TDBGrid;
     ActEsc: TAction;
-    SpeedButton1: TSpeedButton;
+    BtnPull: TSpeedButton;
     ActPull: TAction;
     CheckAll: TCheckBox;
     ActStatus: TAction;
-    SpeedButton2: TSpeedButton;
+    BtnStatus: TSpeedButton;
     procedure ActConfigAccountExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -81,7 +81,7 @@ procedure TWindowMain.FormActivate(Sender: TObject);
 begin
   TDAO.Load;
   Source.DataSet := TDAO.Table;
-  TGit.Config;
+  TGit.ConfigGit;
   UpdateButtons;
 end;
 

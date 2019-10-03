@@ -10,8 +10,9 @@ type
   TGit = class
   public
     class function GitBin: string;
-    class function CmdConfig: string;
-    class procedure Config;
+    class function ConfigCloseCmd: string;
+    class function ConfigCloseStatus: string;
+    class procedure ConfigGit;
     class procedure Status(Path: string);
     class procedure Pull(Path: string);
     class procedure Add(Path: string);
@@ -29,12 +30,17 @@ begin
   Result := TConfig.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin');
 end;
 
-class function TGit.CmdConfig: string;
+class function TGit.ConfigCloseCmd: string;
 begin
-  Result := TUtils.Iif(TConfig.GetConfig('OPTIONS', 'CloseCmd', '1') = '1', 'timeout -t 5', 'pause');
+  Result := TUtils.Iif(TConfig.GetConfig('OPTIONS', 'CloseCmd') = '1', 'timeout -t 5', 'pause');
 end;
 
-class procedure TGit.Config;
+class function TGit.ConfigCloseStatus: string;
+begin
+  Result := TUTils.Iif(TConfig.GetConfig('OPTIONS', 'CloseStatus') = '1', 'timeout -t 5', 'pause');
+end;
+
+class procedure TGit.ConfigGit;
 var
   Name, Email, Comand: string;
 begin
@@ -46,10 +52,9 @@ end;
 
 class procedure TGit.Status(Path: string);
 var
-  Config, Comand: string;
+  Comand: string;
 begin
-  Config := TUtils.Iif(TConfig.GetConfig('OPTIONS', 'CloseStatus', '0' = '1'), 'timeout -t 5', 'pause');
-  Comand := '/C echo "Status -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" status && ' + Config;
+  Comand := '/C echo "Status -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" status && ' + ConfigCloseStatus;
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 
@@ -57,7 +62,7 @@ class procedure TGit.Pull(Path: string);
 var
   Comand: string;
 begin
-  Comand := '/C echo "Pull -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" pull && ' + CmdConfig;
+  Comand := '/C echo "Pull -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" pull && ' + ConfigCloseCmd;
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 
@@ -65,7 +70,7 @@ class procedure TGit.Add(Path: string);
 var
   Comand: string;
 begin
-  Comand := '/C echo "Add -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" add . && ' + CmdConfig;
+  Comand := '/C echo "Add -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" add . && ' + ConfigCloseCmd;
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 
@@ -73,7 +78,7 @@ class procedure TGit.Commit(Path, Msg: string);
 var
   Comand: string;
 begin
-  Comand := '/C echo "Commit -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" commit -m "' + Msg + '" && ' + CmdConfig;
+  Comand := '/C echo "Commit -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" commit -m "' + Msg + '" && ' + ConfigCloseCmd;
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 
@@ -81,7 +86,7 @@ class procedure TGit.Checkout(Path: string);
 var
   Comand: string;
 begin
-  Comand := '/C echo "Checkout -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" checkout && ' + CmdConfig;
+  Comand := '/C echo "Checkout -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" checkout && ' + ConfigCloseCmd;
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 
@@ -89,7 +94,7 @@ class procedure TGit.Push(Path: string);
 var
   Comand: string;
 begin
-  Comand := '/C echo "Push -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" push && ' + CmdConfig;
+  Comand := '/C echo "Push -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" push && ' + ConfigCloseCmd;
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 

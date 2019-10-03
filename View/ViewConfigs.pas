@@ -96,7 +96,7 @@ begin
   TConfig.SetConfig('OPTIONS', 'CloseCmd', TUtils.Iif(CheckCloseCmd.Checked, '1', '0'));
   TConfig.SetConfig('OPTIONS', 'CloseStatus', TUtils.Iif(CheckCloseStatus.Checked, '1', '0'));
 
-  TGit.Config;
+  TGit.ConfigGit;
 
   Done;
 

@@ -121,7 +121,7 @@ object WindowMain: TWindowMain
     Action = ActPush
     Anchors = [akRight, akBottom]
   end
-  object SpeedButton1: TSpeedButton
+  object BtnPull: TSpeedButton
     Left = 260
     Top = 432
     Width = 57
@@ -129,7 +129,7 @@ object WindowMain: TWindowMain
     Action = ActPull
     Anchors = [akRight, akBottom]
   end
-  object SpeedButton2: TSpeedButton
+  object BtnStatus: TSpeedButton
     Left = 197
     Top = 432
     Width = 57
@@ -211,7 +211,6 @@ object WindowMain: TWindowMain
     TabOrder = 2
     ValueChecked = ''
     ValueUnchecked = ''
-    Visible = False
     OnClick = CheckSelectClick
   end
   object CheckAll: TCheckBox
@@ -293,7 +292,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400040120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400100120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49
