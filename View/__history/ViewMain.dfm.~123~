@@ -121,7 +121,7 @@ object WindowMain: TWindowMain
     Action = ActPush
     Anchors = [akRight, akBottom]
   end
-  object SpeedButton1: TSpeedButton
+  object BtnPull: TSpeedButton
     Left = 260
     Top = 432
     Width = 57
@@ -129,7 +129,7 @@ object WindowMain: TWindowMain
     Action = ActPull
     Anchors = [akRight, akBottom]
   end
-  object SpeedButton2: TSpeedButton
+  object BtnStatus: TSpeedButton
     Left = 197
     Top = 432
     Width = 57
@@ -152,7 +152,6 @@ object WindowMain: TWindowMain
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
     OnCellClick = GridRepositoriesCellClick
-    OnColExit = GridRepositoriesColExit
     OnDrawColumnCell = GridRepositoriesDrawColumnCell
     OnKeyPress = GridRepositoriesKeyPress
     OnMouseWheel = GridRepositoriesMouseWheel
@@ -160,11 +159,6 @@ object WindowMain: TWindowMain
       item
         Expanded = False
         FieldName = ' '
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
         ReadOnly = True
         Visible = True
       end
@@ -297,7 +291,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400080120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400180120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

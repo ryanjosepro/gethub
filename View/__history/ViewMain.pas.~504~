@@ -146,8 +146,12 @@ procedure TWindowMain.CheckSelectClick(Sender: TObject);
 begin
   if Active then
   begin
-    GridRepositories.SetFocus;
-    TDAO.SetField(' ', CheckSelect.Checked);
+    if not CellClicked then
+    begin
+      GridRepositories.SetFocus;
+      TDAO.SetField(' ', CheckSelect.Checked);
+    end;
+    CellClicked := false;
   end;
 end;
 

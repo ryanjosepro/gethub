@@ -60,6 +60,7 @@ type
     procedure CheckAllClick(Sender: TObject);
     procedure ActStatusExecute(Sender: TObject);
     procedure GridRepositoriesCellClick(Column: TColumn);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     procedure UpdateButtons;
   end;
@@ -83,6 +84,11 @@ begin
   Source.DataSet := TDAO.Table;
   TGit.ConfigGit;
   UpdateButtons;
+end;
+
+procedure TWindowMain.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+
 end;
 
 //GRID DRAWN
@@ -146,11 +152,12 @@ procedure TWindowMain.CheckSelectClick(Sender: TObject);
 begin
   if Active then
   begin
-    if CellClicked then
+    if not CellClicked then
     begin
-    GridRepositories.SetFocus;
-    TDAO.SetField(' ', CheckSelect.Checked);
+      GridRepositories.SetFocus;
+      TDAO.SetField(' ', CheckSelect.Checked);
     end;
+    CellClicked := false;
   end;
 end;
 

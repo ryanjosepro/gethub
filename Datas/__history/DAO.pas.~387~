@@ -98,6 +98,7 @@ end;
 
 class procedure TDAO.Insert(Link, Path, Name: string);
 begin
+  Table.UpdateOptions.EnableInsert := true;
   Table.Insert;
   Table.FieldByName(' ').AsVariant := false;
   Table.FieldByName('Link').AsVariant := Link;
@@ -105,6 +106,7 @@ begin
   Table.FieldByName('Name').AsVariant := Name;
   Table.Post;
   Save;
+  Table.UpdateOptions.EnableInsert := false;
 end;
 
 class procedure TDAO.Edit(Link, Path, Name: string);

@@ -66,6 +66,7 @@ type
 
 var
   WindowMain: TWindowMain;
+  CellClicked: boolean = false;
 {
 TO DO
 
@@ -136,6 +137,7 @@ procedure TWindowMain.GridRepositoriesCellClick(Column: TColumn);
 begin
   if Column.FieldName = CheckSelect.Field.FieldName then
   begin
+    CellClicked := true;
     TDAO.SetField(' ', not CheckSelect.Checked);
   end;
 end;
@@ -144,8 +146,12 @@ procedure TWindowMain.CheckSelectClick(Sender: TObject);
 begin
   if Active then
   begin
-    GridRepositories.SetFocus;
-    TDAO.SetField(' ', CheckSelect.Checked);
+    if not CellClicked then
+    begin
+      GridRepositories.SetFocus;
+      TDAO.SetField(' ', CheckSelect.Checked);
+    end;
+    CellClicked := false;
   end;
 end;
 

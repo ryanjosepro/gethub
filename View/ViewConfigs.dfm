@@ -49,15 +49,11 @@
     Top = 0
     Width = 249
     Height = 297
-    ActivePage = TabConta
+    ActivePage = TabSistema
     TabOrder = 0
     TabStop = False
     object TabConta: TTabSheet
       Caption = 'Conta'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Logo: TImage
         Left = 3
         Top = 3
@@ -382,10 +378,6 @@
     object TabSistema: TTabSheet
       Caption = 'Sistema'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         241
         269)
@@ -432,10 +424,6 @@
     object Opções: TTabSheet
       Caption = 'Op'#231#245'es'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object CheckCloseCmd: TCheckBox
         Left = 3
         Top = 3
@@ -485,7 +473,7 @@
     Left = 104
     Top = 248
     Bitmap = {
-      494C010101000800180110001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C0101010008001C0110001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
