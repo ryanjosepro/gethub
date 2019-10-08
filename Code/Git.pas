@@ -63,7 +63,6 @@ var
   Comand: string;
 begin
   Comand := '/C echo "Clone -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" clone ' + Link + ' .\ && ' + ConfigCloseCmd;
-  ShowMessage(Comand);
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 

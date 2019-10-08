@@ -8,7 +8,8 @@ uses
   Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids, Vcl.CheckLst,
-  ViewConfigs, ViewAddRepo, ViewEditRepo, Config, MyUtils, MyDialogs, Git, DAO, Datas;
+  ViewConfigs, ViewAddRepo, ViewEditRepo, Config, MyUtils, MyDialogs, Git, DAO, Datas,
+  Vcl.ButtonGroup;
 
 type
   TWindowMain = class(TForm)
@@ -42,6 +43,8 @@ type
     CheckAll: TCheckBox;
     ActStatus: TAction;
     BtnStatus: TSpeedButton;
+    ActClone: TAction;
+    BtnClone: TSpeedButton;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -61,6 +64,7 @@ type
     procedure ActStatusExecute(Sender: TObject);
     procedure GridRepositoriesCellClick(Column: TColumn);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ActCloneExecute(Sender: TObject);
   private
     procedure UpdateButtons;
   end;
@@ -191,6 +195,24 @@ end;
 
 //GITHUB COMMANDS
 
+procedure TWindowMain.ActCloneExecute(Sender: TObject);
+var
+  Cont: integer;
+  Links, Paths: TStringList;
+begin
+  try
+    Links := TDAO.GetCheckeds('Link');
+    Paths := TDAO.GetCheckeds('Path');
+    for Cont := 0 to Paths.Count - 1 do
+    begin
+      TGit.Clone(Links[Cont], Paths[Cont]);
+    end;
+  finally
+    FreeAndNil(Links);
+    FreeAndNil(Paths);
+  end;
+end;
+
 procedure TWindowMain.ActStatusExecute(Sender: TObject);
 var
   Cont: integer;
@@ -310,29 +332,20 @@ begin
 end;
 
 procedure TWindowMain.UpdateButtons;
+var
+  Value: boolean;
 begin
-  if TDAO.Count <= 0 then
-  begin
-    ActEdit.Enabled := false;
-    ActDel.Enabled := false;
-    ActStatus.Enabled := false;
-    ActPull.Enabled := false;
-    ActAdd.Enabled := false;
-    ActCommit.Enabled := false;
-    ActCheckout.Enabled := false;
-    ActPush.Enabled := false;
-  end
-  else
-  begin
-    ActEdit.Enabled := true;
-    ActDel.Enabled := true;
-    ActStatus.Enabled := true;
-    ActPull.Enabled := true;
-    ActAdd.Enabled := true;
-    ActCommit.Enabled := true;
-    ActCheckout.Enabled := true;
-    ActPush.Enabled := true;
-  end;
+  Value := TDAO.Count > 0;
+
+  ActEdit.Enabled := Value;
+  ActDel.Enabled := Value;
+  ActClone.Enabled := Value;
+  ActStatus.Enabled := Value;
+  ActPull.Enabled := Value;
+  ActAdd.Enabled := Value;
+  ActCommit.Enabled := Value;
+  ActCheckout.Enabled := Value;
+  ActPush.Enabled := Value;
 end;
 
 end.

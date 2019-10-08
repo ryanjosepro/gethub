@@ -3,7 +3,7 @@ object WindowMain: TWindowMain
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Gethub'
-  ClientHeight = 474
+  ClientHeight = 507
   ClientWidth = 577
   Color = clBtnFace
   Constraints.MaxWidth = 583
@@ -18,7 +18,7 @@ object WindowMain: TWindowMain
   OnClose = FormClose
   DesignSize = (
     577
-    474)
+    507)
   PixelsPerInch = 96
   TextHeight = 13
   object LblLogo: TLabel
@@ -37,12 +37,12 @@ object WindowMain: TWindowMain
     Font.Style = []
     ParentFont = False
   end
-  object BtnConfigAccount: TSpeedButton
-    Left = 512
+  object BtnConfigs: TSpeedButton
+    Left = 8
     Top = 8
     Width = 57
     Height = 54
-    Action = ActConfigAccount
+    Action = ActConfigs
     Anchors = [akTop, akRight]
     Flat = True
     ParentShowHint = False
@@ -50,7 +50,7 @@ object WindowMain: TWindowMain
   end
   object BtnEdit: TSpeedButton
     Left = 8
-    Top = 432
+    Top = 430
     Width = 87
     Height = 26
     Action = ActEdit
@@ -66,7 +66,7 @@ object WindowMain: TWindowMain
   end
   object BtnDel: TSpeedButton
     Left = 101
-    Top = 432
+    Top = 430
     Width = 87
     Height = 26
     Action = ActDel
@@ -81,7 +81,7 @@ object WindowMain: TWindowMain
     ShowHint = True
   end
   object BtnAddRepository: TSpeedButton
-    Left = 8
+    Left = 512
     Top = 8
     Width = 57
     Height = 54
@@ -91,48 +91,48 @@ object WindowMain: TWindowMain
     ShowHint = True
   end
   object BtnAdd: TSpeedButton
-    Left = 323
-    Top = 432
+    Left = 134
+    Top = 465
     Width = 57
     Height = 34
     Action = ActAdd
     Anchors = [akRight, akBottom]
   end
   object BtnCommit: TSpeedButton
-    Left = 386
-    Top = 431
+    Left = 197
+    Top = 464
     Width = 57
     Height = 35
     Action = ActCommit
     Anchors = [akRight, akBottom]
   end
   object BtnCheckout: TSpeedButton
-    Left = 449
-    Top = 431
+    Left = 260
+    Top = 464
     Width = 57
     Height = 35
     Action = ActCheckout
     Anchors = [akRight, akBottom]
   end
   object BtnPush: TSpeedButton
-    Left = 512
-    Top = 432
+    Left = 323
+    Top = 465
     Width = 57
     Height = 34
     Action = ActPush
     Anchors = [akRight, akBottom]
   end
   object BtnPull: TSpeedButton
-    Left = 260
-    Top = 432
+    Left = 71
+    Top = 465
     Width = 57
     Height = 34
     Action = ActPull
     Anchors = [akRight, akBottom]
   end
   object BtnStatus: TSpeedButton
-    Left = 197
-    Top = 432
+    Left = 8
+    Top = 465
     Width = 57
     Height = 34
     Action = ActStatus
@@ -142,7 +142,7 @@ object WindowMain: TWindowMain
     Left = 8
     Top = 68
     Width = 561
-    Height = 335
+    Height = 333
     Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = Source
     Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -187,7 +187,7 @@ object WindowMain: TWindowMain
   end
   object BarStatus: TProgressBar
     Left = 8
-    Top = 409
+    Top = 407
     Width = 561
     Height = 17
     Anchors = [akLeft, akRight, akBottom]
@@ -221,15 +221,42 @@ object WindowMain: TWindowMain
     TabOrder = 3
     OnClick = CheckAllClick
   end
+  object GitButtons: TButtonGroup
+    Left = 8
+    Top = 327
+    Width = 561
+    Height = 74
+    ButtonWidth = 30
+    Items = <
+      item
+        Action = ActStatus
+      end
+      item
+        Action = ActPull
+      end
+      item
+        Action = ActAdd
+      end
+      item
+        Action = ActCommit
+      end
+      item
+        Action = ActCheckout
+      end
+      item
+        Action = ActPush
+      end>
+    TabOrder = 4
+  end
   object Actions: TActionList
     Images = Images
     Left = 464
     Top = 16
-    object ActConfigAccount: TAction
-      Hint = 'Configurar conta Github'
+    object ActConfigs: TAction
+      Hint = 'Configura'#231#245'es'
       ImageIndex = 0
       ShortCut = 112
-      OnExecute = ActConfigAccountExecute
+      OnExecute = ActConfigsExecute
     end
     object ActAddRepository: TAction
       Hint = 'Adicionar Reposit'#243'rio'
@@ -250,6 +277,10 @@ object WindowMain: TWindowMain
       Hint = 'Remover Reposit'#243'rio'
       ShortCut = 115
       OnExecute = ActDelExecute
+    end
+    object ActClone: TAction
+      Caption = 'Clone'
+      OnExecute = ActCloneExecute
     end
     object ActStatus: TAction
       Caption = 'Status'
@@ -292,7 +323,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400280120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101020014002C0120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

@@ -3,7 +3,7 @@ object WindowMain: TWindowMain
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Gethub'
-  ClientHeight = 474
+  ClientHeight = 448
   ClientWidth = 577
   Color = clBtnFace
   Constraints.MaxWidth = 583
@@ -18,7 +18,7 @@ object WindowMain: TWindowMain
   OnClose = FormClose
   DesignSize = (
     577
-    474)
+    448)
   PixelsPerInch = 96
   TextHeight = 13
   object LblLogo: TLabel
@@ -49,8 +49,8 @@ object WindowMain: TWindowMain
     ShowHint = True
   end
   object BtnEdit: TSpeedButton
-    Left = 8
-    Top = 432
+    Left = 7
+    Top = 371
     Width = 87
     Height = 26
     Action = ActEdit
@@ -63,10 +63,11 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
+    ExplicitTop = 430
   end
   object BtnDel: TSpeedButton
-    Left = 101
-    Top = 432
+    Left = 100
+    Top = 371
     Width = 87
     Height = 26
     Action = ActDel
@@ -79,6 +80,7 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
+    ExplicitTop = 430
   end
   object BtnAddRepository: TSpeedButton
     Left = 512
@@ -91,58 +93,66 @@ object WindowMain: TWindowMain
     ShowHint = True
   end
   object BtnAdd: TSpeedButton
-    Left = 323
-    Top = 432
-    Width = 57
+    Left = 251
+    Top = 406
+    Width = 75
     Height = 34
     Action = ActAdd
     Anchors = [akRight, akBottom]
   end
   object BtnCommit: TSpeedButton
-    Left = 386
-    Top = 431
-    Width = 57
+    Left = 332
+    Top = 405
+    Width = 75
     Height = 35
     Action = ActCommit
     Anchors = [akRight, akBottom]
   end
   object BtnCheckout: TSpeedButton
-    Left = 449
-    Top = 431
-    Width = 57
+    Left = 413
+    Top = 405
+    Width = 75
     Height = 35
     Action = ActCheckout
     Anchors = [akRight, akBottom]
   end
   object BtnPush: TSpeedButton
-    Left = 512
-    Top = 432
-    Width = 57
+    Left = 494
+    Top = 406
+    Width = 75
     Height = 34
     Action = ActPush
     Anchors = [akRight, akBottom]
   end
   object BtnPull: TSpeedButton
-    Left = 260
-    Top = 432
-    Width = 57
+    Left = 170
+    Top = 406
+    Width = 75
     Height = 34
     Action = ActPull
     Anchors = [akRight, akBottom]
   end
   object BtnStatus: TSpeedButton
-    Left = 197
-    Top = 432
-    Width = 57
+    Left = 89
+    Top = 406
+    Width = 75
     Height = 34
     Action = ActStatus
+    Anchors = [akRight, akBottom]
+  end
+  object BtnClone: TSpeedButton
+    Left = 8
+    Top = 406
+    Width = 75
+    Height = 34
+    Action = ActClone
     Anchors = [akRight, akBottom]
   end
   object GridRepositories: TDBGrid
     Left = 8
     Top = 68
     Width = 561
-    Height = 335
+    Height = 274
     Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = Source
     Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -186,12 +196,13 @@ object WindowMain: TWindowMain
       end>
   end
   object BarStatus: TProgressBar
-    Left = 8
-    Top = 409
+    Left = 7
+    Top = 348
     Width = 561
     Height = 17
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 1
+    ExplicitTop = 407
   end
   object CheckSelect: TDBCheckBox
     Left = 23
@@ -251,6 +262,11 @@ object WindowMain: TWindowMain
       ShortCut = 115
       OnExecute = ActDelExecute
     end
+    object ActClone: TAction
+      Caption = 'Clone'
+      Enabled = False
+      OnExecute = ActCloneExecute
+    end
     object ActStatus: TAction
       Caption = 'Status'
       Enabled = False
@@ -292,7 +308,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400280120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101020014002C0120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49
@@ -839,6 +855,6 @@ object WindowMain: TWindowMain
   object Source: TDataSource
     DataSet = DataFactory.Table
     Left = 16
-    Top = 352
+    Top = 296
   end
 end
