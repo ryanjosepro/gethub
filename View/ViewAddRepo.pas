@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList,
-  DAO;
+  Git, DAO;
 
 type
   TWindowAddRepo = class(TForm)
@@ -26,6 +26,7 @@ type
     ActCancel: TAction;
     ActEsc: TAction;
     OpenFile: TFileOpenDialog;
+    CheckCloneRepo: TCheckBox;
     procedure ActDBFileExecute(Sender: TObject);
     procedure ActAddExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
@@ -94,6 +95,14 @@ begin
     TDAO.Insert(TxtLink.Text, TxtPath.Text, TxtName.Text);
     Done;
     Close;
+    if CheckCloneRepo.Checked then
+    begin
+      if not DirectoryExists(TxtPath.Text) then
+      begin
+        CreateDir(TxtPath.Text);
+      end;
+      TGit.Clone(TxtLink.Text, TxtPath.Text);
+    end;
   end
   else
   begin

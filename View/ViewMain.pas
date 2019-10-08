@@ -20,10 +20,10 @@ type
     ActCommit: TAction;
     ActPush: TAction;
     ActAdd: TAction;
-    ActConfigAccount: TAction;
+    ActConfigs: TAction;
     ActCheckout: TAction;
     LblLogo: TLabel;
-    BtnConfigAccount: TSpeedButton;
+    BtnConfigs: TSpeedButton;
     BtnEdit: TSpeedButton;
     BtnDel: TSpeedButton;
     BtnAddRepository: TSpeedButton;
@@ -42,7 +42,7 @@ type
     CheckAll: TCheckBox;
     ActStatus: TAction;
     BtnStatus: TSpeedButton;
-    procedure ActConfigAccountExecute(Sender: TObject);
+    procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
     procedure ActAddExecute(Sender: TObject);
@@ -170,7 +170,7 @@ begin
   UpdateButtons;
 end;
 
-procedure TWindowMain.ActConfigAccountExecute(Sender: TObject);
+procedure TWindowMain.ActConfigsExecute(Sender: TObject);
 begin
   WindowConfigs.ShowModal;
 end;

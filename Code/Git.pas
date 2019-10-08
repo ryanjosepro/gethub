@@ -3,7 +3,7 @@ unit Git;
 interface
 
 uses
-  System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, ShellAPI,
+  System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, ShellAPI, Vcl.Dialogs,
   Config, MyUtils, DAO;
 
 type
@@ -13,6 +13,7 @@ type
     class function ConfigCloseCmd: string;
     class function ConfigCloseStatus: string;
     class procedure ConfigGit;
+    class procedure Clone(Link, Path: string);
     class procedure Status(Path: string);
     class procedure Pull(Path: string);
     class procedure Add(Path: string);
@@ -55,6 +56,15 @@ begin
   Email := TConfig.GetConfig('ACCOUNT', 'Email');
   Comand := '/C cd "' + GitBin + '" && git config --global user.name ' + Name + ' && git config --global user.email ' + Email;
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 0);
+end;
+
+class procedure TGit.Clone(Link, Path: string);
+var
+  Comand: string;
+begin
+  Comand := '/C echo "Clone -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" clone ' + Link + ' .\ && ' + ConfigCloseCmd;
+  ShowMessage(Comand);
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, 1);
 end;
 
 class procedure TGit.Status(Path: string);

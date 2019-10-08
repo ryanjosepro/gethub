@@ -37,12 +37,12 @@ object WindowMain: TWindowMain
     Font.Style = []
     ParentFont = False
   end
-  object BtnConfigAccount: TSpeedButton
-    Left = 512
+  object BtnConfigs: TSpeedButton
+    Left = 8
     Top = 8
     Width = 57
     Height = 54
-    Action = ActConfigAccount
+    Action = ActConfigs
     Anchors = [akTop, akRight]
     Flat = True
     ParentShowHint = False
@@ -81,7 +81,7 @@ object WindowMain: TWindowMain
     ShowHint = True
   end
   object BtnAddRepository: TSpeedButton
-    Left = 8
+    Left = 512
     Top = 8
     Width = 57
     Height = 54
@@ -225,11 +225,11 @@ object WindowMain: TWindowMain
     Images = Images
     Left = 464
     Top = 16
-    object ActConfigAccount: TAction
-      Hint = 'Configurar conta Github'
+    object ActConfigs: TAction
+      Hint = 'Configura'#231#245'es'
       ImageIndex = 0
       ShortCut = 112
-      OnExecute = ActConfigAccountExecute
+      OnExecute = ActConfigsExecute
     end
     object ActAddRepository: TAction
       Hint = 'Adicionar Reposit'#243'rio'
@@ -292,7 +292,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400200120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400280120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

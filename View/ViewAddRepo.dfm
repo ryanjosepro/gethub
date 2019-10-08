@@ -132,13 +132,27 @@ object WindowAddRepo: TWindowAddRepo
     TabOrder = 2
     OnChange = TxtChange
   end
+  object CheckCloneRepo: TCheckBox
+    Left = 8
+    Top = 184
+    Width = 122
+    Height = 23
+    Caption = 'Clonar Reposit'#243'rio'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+  end
   object Images: TImageList
     BlendColor = clWhite
     BkColor = clWhite
     Left = 104
-    Top = 168
+    Top = 128
     Bitmap = {
-      494C010101000800040110001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C0101010008000C0110001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -280,7 +294,7 @@ object WindowAddRepo: TWindowAddRepo
   object Actions: TActionList
     Images = Images
     Left = 56
-    Top = 168
+    Top = 128
     object ActDBFile: TAction
       ImageIndex = 0
       OnExecute = ActDBFileExecute
@@ -306,6 +320,6 @@ object WindowAddRepo: TWindowAddRepo
     FileTypes = <>
     Options = [fdoPickFolders]
     Left = 8
-    Top = 168
+    Top = 128
   end
 end
