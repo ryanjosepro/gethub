@@ -3,4 +3,5 @@
 *.dcu
 *.res
 *.stat
-Repositories.json
+*.ini
+*.json
