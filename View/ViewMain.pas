@@ -7,9 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, System.ImageList, Vcl.ImgList, System.Actions,
   Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids, Vcl.CheckLst,
-  ViewConfigs, ViewAddRepo, ViewEditRepo, Config, MyUtils, MyDialogs, Git, DAO, Datas,
-  Vcl.ButtonGroup;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids, Vcl.CheckLst, Vcl.ButtonGroup,
+  ViewConfigs, ViewAddRepo, ViewEditRepo, Config, MyUtils, MyDialogs, Git, DAO, Datas;
 
 type
   TWindowMain = class(TForm)
@@ -45,6 +44,11 @@ type
     BtnStatus: TSpeedButton;
     ActClone: TAction;
     BtnClone: TSpeedButton;
+    ActImport: TAction;
+    ActExport: TAction;
+    BtnImport: TSpeedButton;
+    Btn: TSpeedButton;
+    SaveFile: TFileSaveDialog;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -63,8 +67,10 @@ type
     procedure CheckAllClick(Sender: TObject);
     procedure ActStatusExecute(Sender: TObject);
     procedure GridRepositoriesCellClick(Column: TColumn);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ActCloneExecute(Sender: TObject);
+    procedure ActExportExecute(Sender: TObject);
+    procedure ActImportExecute(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     procedure UpdateButtons;
   end;
@@ -72,12 +78,14 @@ type
 var
   WindowMain: TWindowMain;
   CellClicked: boolean = false;
+
 {
 TO DO
 
 -Pegar o retorno do cmd para utilizar no status do repositório
 
 }
+
 implementation
 
 {$R *.dfm}
@@ -85,7 +93,6 @@ implementation
 procedure TWindowMain.FormActivate(Sender: TObject);
 begin
   TDAO.Load;
-  Source.DataSet := TDAO.Table;
   TGit.ConfigGit;
   UpdateButtons;
 end;
@@ -190,6 +197,25 @@ begin
   begin
     TDAO.Delete;
     UpdateButtons;
+  end;
+end;
+
+procedure TWindowMain.ActImportExecute(Sender: TObject);
+begin
+  if OpenFile.Execute then
+  begin
+    TDAO.Load(OpenFile.FileName);
+    ShowMessage('Importado com sucesso!');
+    UpdateButtons;
+  end;
+end;
+
+procedure TWindowMain.ActExportExecute(Sender: TObject);
+begin
+  if SaveFile.Execute then
+  begin
+    TDAO.Save(SaveFile.FileName);
+    ShowMessage('Exportado com sucesso!');
   end;
 end;
 
@@ -339,6 +365,7 @@ begin
 
   ActEdit.Enabled := Value;
   ActDel.Enabled := Value;
+  ActExport.Enabled := Value;
   ActClone.Enabled := Value;
   ActStatus.Enabled := Value;
   ActPull.Enabled := Value;
@@ -346,6 +373,15 @@ begin
   ActCommit.Enabled := Value;
   ActCheckout.Enabled := Value;
   ActPush.Enabled := Value;
+
+  if Value then
+  begin
+    GridRepositories.Options := GridRepositories.Options + [dgEditing];
+  end
+  else
+  begin
+    GridRepositories.Options := GridRepositories.Options - [dgEditing];
+  end;
 end;
 
 end.

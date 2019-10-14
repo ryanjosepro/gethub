@@ -148,6 +148,38 @@ object WindowMain: TWindowMain
     Action = ActClone
     Anchors = [akRight, akBottom]
   end
+  object BtnImport: TSpeedButton
+    Left = 347
+    Top = 371
+    Width = 108
+    Height = 26
+    Action = ActImport
+    Anchors = [akLeft, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+  end
+  object Btn: TSpeedButton
+    Left = 461
+    Top = 371
+    Width = 108
+    Height = 26
+    Action = ActExport
+    Anchors = [akLeft, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+  end
   object GridRepositories: TDBGrid
     Left = 8
     Top = 68
@@ -202,7 +234,6 @@ object WindowMain: TWindowMain
     Height = 17
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 1
-    ExplicitTop = 407
   end
   object CheckSelect: TDBCheckBox
     Left = 23
@@ -262,6 +293,15 @@ object WindowMain: TWindowMain
       ShortCut = 115
       OnExecute = ActDelExecute
     end
+    object ActImport: TAction
+      Caption = 'Importar (Ctrl+I)'
+      OnExecute = ActImportExecute
+    end
+    object ActExport: TAction
+      Caption = 'Exportar (Ctrl+E)'
+      Enabled = False
+      OnExecute = ActExportExecute
+    end
     object ActClone: TAction
       Caption = 'Clone'
       Enabled = False
@@ -308,7 +348,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C0101020014002C0120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400340120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49
@@ -844,17 +884,35 @@ object WindowMain: TWindowMain
       000000000000}
   end
   object OpenFile: TFileOpenDialog
+    DefaultExtension = '*.json'
     FavoriteLinks = <>
-    FileName = 'C:\Users\Ryan\Documents\Delphi Projects\ProjectGethub\Code'
-    FileTypes = <>
-    Options = [fdoPickFolders]
-    Title = 'Escolher Diret'#243'rio'
-    Left = 104
+    FileName = 'C:\Users\Ryan\Documents\Delphi Projects\Repositories.json'
+    FileTypes = <
+      item
+        DisplayName = 'JSON (*.json)'
+        FileMask = '*.json'
+      end>
+    Options = []
+    Title = 'Importar Reposit'#243'rios'
+    Left = 88
     Top = 16
   end
   object Source: TDataSource
     DataSet = DataFactory.Table
     Left = 16
     Top = 296
+  end
+  object SaveFile: TFileSaveDialog
+    FavoriteLinks = <>
+    FileName = 'Repositories.json'
+    FileTypes = <
+      item
+        DisplayName = 'JSON (*.json)'
+        FileMask = '*.json'
+      end>
+    Options = []
+    Title = 'Exportar Reposit'#243'rios'
+    Left = 144
+    Top = 16
   end
 end

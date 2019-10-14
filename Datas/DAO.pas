@@ -11,8 +11,11 @@ type
   TDAO = class
   public
     class function Table: TFDMemTable;
-    class procedure Load;
-    class procedure Save;
+    class procedure Load; overload;
+    class procedure Save; overload;
+
+    class procedure Load(Path: string); overload;
+    class procedure Save(Path: string); overload;
 
     class function GetField(Field: string): variant;
     class procedure SetField(Field: string; Value: variant);
@@ -84,6 +87,49 @@ begin
   Table.EnableControls;
 end;
 
+class procedure TDAO.Load(Path: string);
+begin
+  Table.LoadFromFile(Path, sfJSON);
+
+  Table.DisableControls;
+
+  Table.First;
+  while not Table.Eof do
+  begin
+    SetField(' ', false);
+    SetField('Status', '');
+    SetField('Msg', '');
+    Table.Next;
+  end;
+  Table.First;
+
+  Table.EnableControls;
+end;
+
+class procedure TDAO.Save(Path: string);
+var
+  Index: integer;
+begin
+  Index := GetIndex;
+
+  Table.DisableControls;
+
+  Table.First;
+  while not Table.Eof do
+  begin
+    SetField(' ', false);
+    SetField('Status', '');
+    SetField('Msg', '');
+    Table.Next;
+  end;
+
+  Table.SaveToFile(Path, sfJSON);
+
+  SetIndex(Index);
+
+  Table.EnableControls;
+end;
+
 class function TDAO.GetField(Field: string): variant;
 begin
   Result := Table.FieldByName(Field).AsVariant;
@@ -121,8 +167,26 @@ end;
 
 class procedure TDAO.Delete;
 begin
-  Table.Delete;
-  Save;
+  if TDAO.Count <= 1 then
+  begin
+    try
+      try
+        SetField('Link', '');
+        SetField('Path', '');
+        SetField('Name', '');
+        Table.Delete;
+      Except
+
+      end;
+    finally
+      Save;
+    end;
+  end
+  else
+  begin
+    Table.Delete;
+    Save;
+  end;
 end;
 
 class procedure TDAO.SelectAll(Checked: boolean = true);
