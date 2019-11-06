@@ -46,7 +46,10 @@ end;
 
 class procedure TDAO.Load;
 begin
-  Table.LoadFromFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
+  if FileExists(ExtractFilePath(Application.ExeName) + 'Repositories.json') then
+  begin
+    Table.LoadFromFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
+  end;
 
   Table.DisableControls;
 
@@ -54,7 +57,6 @@ begin
   while not Table.Eof do
   begin
     SetField(' ', false);
-    SetField('Status', '');
     SetField('Msg', '');
     Table.Next;
   end;
@@ -75,7 +77,6 @@ begin
   while not Table.Eof do
   begin
     SetField(' ', false);
-    SetField('Status', '');
     SetField('Msg', '');
     Table.Next;
   end;
@@ -97,7 +98,6 @@ begin
   while not Table.Eof do
   begin
     SetField(' ', false);
-    SetField('Status', '');
     SetField('Msg', '');
     Table.Next;
   end;
@@ -118,7 +118,6 @@ begin
   while not Table.Eof do
   begin
     SetField(' ', false);
-    SetField('Status', '');
     SetField('Msg', '');
     Table.Next;
   end;

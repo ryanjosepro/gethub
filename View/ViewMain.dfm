@@ -3,7 +3,7 @@ object WindowMain: TWindowMain
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Gethub'
-  ClientHeight = 448
+  ClientHeight = 455
   ClientWidth = 577
   Color = clBtnFace
   Constraints.MaxWidth = 583
@@ -18,7 +18,7 @@ object WindowMain: TWindowMain
   OnClose = FormClose
   DesignSize = (
     577
-    448)
+    455)
   PixelsPerInch = 96
   TextHeight = 13
   object LblLogo: TLabel
@@ -50,7 +50,7 @@ object WindowMain: TWindowMain
   end
   object BtnEdit: TSpeedButton
     Left = 7
-    Top = 371
+    Top = 378
     Width = 87
     Height = 26
     Action = ActEdit
@@ -67,7 +67,7 @@ object WindowMain: TWindowMain
   end
   object BtnDel: TSpeedButton
     Left = 100
-    Top = 371
+    Top = 378
     Width = 87
     Height = 26
     Action = ActDel
@@ -94,63 +94,70 @@ object WindowMain: TWindowMain
   end
   object BtnAdd: TSpeedButton
     Left = 251
-    Top = 406
+    Top = 413
     Width = 75
     Height = 34
     Action = ActAdd
     Anchors = [akRight, akBottom]
+    ExplicitTop = 406
   end
   object BtnCommit: TSpeedButton
     Left = 332
-    Top = 405
+    Top = 412
     Width = 75
     Height = 35
     Action = ActCommit
     Anchors = [akRight, akBottom]
+    ExplicitTop = 405
   end
   object BtnCheckout: TSpeedButton
     Left = 413
-    Top = 405
+    Top = 412
     Width = 75
     Height = 35
     Action = ActCheckout
     Anchors = [akRight, akBottom]
+    ExplicitTop = 405
   end
   object BtnPush: TSpeedButton
     Left = 494
-    Top = 406
+    Top = 413
     Width = 75
     Height = 34
     Action = ActPush
     Anchors = [akRight, akBottom]
+    ExplicitTop = 406
   end
   object BtnPull: TSpeedButton
     Left = 170
-    Top = 406
+    Top = 413
     Width = 75
     Height = 34
     Action = ActPull
     Anchors = [akRight, akBottom]
+    ExplicitTop = 406
   end
   object BtnStatus: TSpeedButton
     Left = 89
-    Top = 406
+    Top = 413
     Width = 75
     Height = 34
     Action = ActStatus
     Anchors = [akRight, akBottom]
+    ExplicitTop = 406
   end
   object BtnClone: TSpeedButton
     Left = 8
-    Top = 406
+    Top = 413
     Width = 75
     Height = 34
     Action = ActClone
     Anchors = [akRight, akBottom]
+    ExplicitTop = 406
   end
   object BtnImport: TSpeedButton
     Left = 347
-    Top = 371
+    Top = 378
     Width = 108
     Height = 26
     Action = ActImport
@@ -163,10 +170,11 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
+    ExplicitTop = 371
   end
   object Btn: TSpeedButton
     Left = 461
-    Top = 371
+    Top = 378
     Width = 108
     Height = 26
     Action = ActExport
@@ -179,15 +187,29 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
+    ExplicitTop = 371
+  end
+  object LblTotRepos: TLabel
+    Left = 8
+    Top = 351
+    Width = 63
+    Height = 13
+    Caption = 'Reposit'#243'rios:'
+  end
+  object TxtTotRepos: TLabel
+    Left = 77
+    Top = 351
+    Width = 3
+    Height = 13
   end
   object GridRepositories: TDBGrid
     Left = 8
     Top = 68
     Width = 561
-    Height = 274
+    Height = 277
     Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = Source
-    Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -202,38 +224,25 @@ object WindowMain: TWindowMain
       item
         Expanded = False
         FieldName = ' '
-        ReadOnly = True
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Name'
         ReadOnly = True
-        Width = 169
         Visible = True
       end
       item
-        Alignment = taCenter
         Expanded = False
-        FieldName = 'Status'
+        FieldName = 'LastAct'
         ReadOnly = True
-        Width = 148
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Msg'
-        Width = 192
         Visible = True
       end>
-  end
-  object BarStatus: TProgressBar
-    Left = 7
-    Top = 348
-    Width = 561
-    Height = 17
-    Anchors = [akLeft, akRight, akBottom]
-    TabOrder = 1
   end
   object CheckSelect: TDBCheckBox
     Left = 23
@@ -250,7 +259,7 @@ object WindowMain: TWindowMain
     Font.Style = []
     ParentCtl3D = False
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 1
     ValueChecked = ''
     ValueUnchecked = ''
     OnClick = CheckSelectClick
@@ -260,7 +269,7 @@ object WindowMain: TWindowMain
     Top = 70
     Width = 13
     Height = 15
-    TabOrder = 3
+    TabOrder = 2
     OnClick = CheckAllClick
   end
   object Actions: TActionList
@@ -295,11 +304,13 @@ object WindowMain: TWindowMain
     end
     object ActImport: TAction
       Caption = 'Importar (Ctrl+I)'
+      ShortCut = 16457
       OnExecute = ActImportExecute
     end
     object ActExport: TAction
       Caption = 'Exportar (Ctrl+E)'
       Enabled = False
+      ShortCut = 16453
       OnExecute = ActExportExecute
     end
     object ActClone: TAction
@@ -308,23 +319,27 @@ object WindowMain: TWindowMain
       OnExecute = ActCloneExecute
     end
     object ActStatus: TAction
-      Caption = 'Status'
+      Caption = 'Status (F5)'
       Enabled = False
+      ShortCut = 116
       OnExecute = ActStatusExecute
     end
     object ActPull: TAction
-      Caption = 'Pull'
+      Caption = 'Pull (F6)'
       Enabled = False
+      ShortCut = 117
       OnExecute = ActPullExecute
     end
     object ActAdd: TAction
-      Caption = 'Add .'
+      Caption = 'Add .(F7)'
       Enabled = False
+      ShortCut = 118
       OnExecute = ActAddExecute
     end
     object ActCommit: TAction
-      Caption = 'Commit'
+      Caption = 'Commit(F8)'
       Enabled = False
+      ShortCut = 119
       OnExecute = ActCommitExecute
     end
     object ActCheckout: TAction
@@ -333,8 +348,9 @@ object WindowMain: TWindowMain
       OnExecute = ActCheckoutExecute
     end
     object ActPush: TAction
-      Caption = 'Push'
+      Caption = 'Push(F9)'
       Enabled = False
+      ShortCut = 120
       OnExecute = ActPushExecute
     end
     object ActEsc: TAction
@@ -348,7 +364,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400340120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101020014003C0120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

@@ -32,7 +32,6 @@ type
     BtnCheckout: TSpeedButton;
     BtnPush: TSpeedButton;
     OpenFile: TFileOpenDialog;
-    BarStatus: TProgressBar;
     CheckSelect: TDBCheckBox;
     Source: TDataSource;
     GridRepositories: TDBGrid;
@@ -49,6 +48,8 @@ type
     BtnImport: TSpeedButton;
     Btn: TSpeedButton;
     SaveFile: TFileSaveDialog;
+    LblTotRepos: TLabel;
+    TxtTotRepos: TLabel;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -73,18 +74,12 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     procedure UpdateButtons;
+    procedure UpdateTotRepos;
   end;
 
 var
   WindowMain: TWindowMain;
   CellClicked: boolean = false;
-
-{
-TO DO
-
--Pegar o retorno do cmd para utilizar no status do repositório
-
-}
 
 implementation
 
@@ -95,11 +90,12 @@ begin
   TDAO.Load;
   TGit.ConfigGit;
   UpdateButtons;
+  UpdateTotRepos;
 end;
 
 procedure TWindowMain.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  TDAO.SelectAll(false);
+  Source.DataSet := nil;
 end;
 
 //GRID DRAWN
@@ -179,6 +175,7 @@ begin
   WindowAddRepo.ShowModal;
   TDAO.Table.Refresh;
   UpdateButtons;
+  UpdateTotRepos;
 end;
 
 procedure TWindowMain.ActConfigsExecute(Sender: TObject);
@@ -197,6 +194,7 @@ begin
   begin
     TDAO.Delete;
     UpdateButtons;
+    UpdateTotRepos;
   end;
 end;
 
@@ -205,6 +203,7 @@ begin
   if OpenFile.Execute then
   begin
     TDAO.Load(OpenFile.FileName);
+    TDAO.Save;
     ShowMessage('Importado com sucesso!');
     UpdateButtons;
   end;
@@ -291,22 +290,33 @@ procedure TWindowMain.ActCommitExecute(Sender: TObject);
 var
   Cont: integer;
   Names, Paths, Msgs: TStringList;
+  Erro: boolean;
+  MsgErro: string;
 begin
   try
     Names := TDAO.GetCheckeds('Name');
     Paths := TDAO.GetCheckeds('Path');
     Msgs := TDAO.GetCheckeds('Msg');
 
+    Erro := false;
+    MsgErro := 'Digite uma mensagem de commit para' + #13#10;
+
     for Cont := 0 to Paths.Count - 1 do
     begin
       if Trim(Msgs[Cont]) = '' then
       begin
-        ShowMessage('Digite uma mensagem de commit para o repositório ' + Names[Cont]);
+        Erro := true;
+        MsgErro := ' -' + Names[Cont] + #13#10;
       end
-      else
+      else if not Erro then
       begin
         TGit.Commit(Paths[Cont], Msgs[Cont]);
       end;
+    end;
+
+    if Erro then
+    begin
+      ShowMessage(MsgErro);
     end;
   finally
     FreeAndNil(Paths);
@@ -363,6 +373,8 @@ var
 begin
   Value := TDAO.Count > 0;
 
+  CheckSelect.Enabled := Value;
+
   ActEdit.Enabled := Value;
   ActDel.Enabled := Value;
   ActExport.Enabled := Value;
@@ -382,6 +394,11 @@ begin
   begin
     GridRepositories.Options := GridRepositories.Options - [dgEditing];
   end;
+end;
+
+procedure TWindowMain.UpdateTotRepos;
+begin
+  TxtTotRepos.Caption := TDAO.Count.ToString;
 end;
 
 end.

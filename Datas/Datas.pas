@@ -11,14 +11,14 @@ uses
 
 type
   TDataFactory = class(TDataModule)
+    JSON: TFDStanStorageJSONLink;
     Table: TFDMemTable;
-    TableCheck: TBooleanField;
+    TableBooleanField: TBooleanField;
     TableLink: TStringField;
     TablePath: TStringField;
     TableName: TStringField;
-    TableStatus: TStringField;
     TableMsg: TStringField;
-    JSON: TFDStanStorageJSONLink;
+    TableLastAct: TStringField;
   end;
 
 var

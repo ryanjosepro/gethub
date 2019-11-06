@@ -3,7 +3,7 @@ unit MyUtils;
 interface
 
 uses
-  System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils,
+  System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, ShellAPI,
   Arrays;
 
 type
@@ -29,6 +29,7 @@ type
     class function Extract(StrList: TStringList; Starts: integer; Ends: string; IncEnds: boolean = false): TStringList; overload;
     class function Extract(StrList: TStringList; Starts: string; Ends: integer; IncStarts: boolean = false): TStringList; overload;
 
+    class procedure ExecCmd(Comand: string; ShowCmd: integer = 1);
   end;
 
 implementation
@@ -212,6 +213,11 @@ begin
   begin
     Result.Add(StrList[Cont]);
   end;
+end;
+
+class procedure TUtils.ExecCmd(Comand: string; ShowCmd: integer = 1);
+begin
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, ShowCmd);
 end;
 
 end.
