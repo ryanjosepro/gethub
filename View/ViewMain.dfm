@@ -99,7 +99,6 @@ object WindowMain: TWindowMain
     Height = 34
     Action = ActAdd
     Anchors = [akRight, akBottom]
-    ExplicitTop = 406
   end
   object BtnCommit: TSpeedButton
     Left = 332
@@ -241,6 +240,7 @@ object WindowMain: TWindowMain
       item
         Expanded = False
         FieldName = 'Msg'
+        Width = 168
         Visible = True
       end>
   end
@@ -364,7 +364,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C0101020014003C0120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400400120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

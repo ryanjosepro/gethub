@@ -166,26 +166,8 @@ end;
 
 class procedure TDAO.Delete;
 begin
-  if TDAO.Count <= 1 then
-  begin
-    try
-      try
-        SetField('Link', '');
-        SetField('Path', '');
-        SetField('Name', '');
-        Table.Delete;
-      Except
-
-      end;
-    finally
-      Save;
-    end;
-  end
-  else
-  begin
-    Table.Delete;
-    Save;
-  end;
+  Table.Delete;
+  Save;
 end;
 
 class procedure TDAO.SelectAll(Checked: boolean = true);

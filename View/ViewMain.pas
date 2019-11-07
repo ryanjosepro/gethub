@@ -373,8 +373,6 @@ var
 begin
   Value := TDAO.Count > 0;
 
-  CheckSelect.Enabled := Value;
-
   ActEdit.Enabled := Value;
   ActDel.Enabled := Value;
   ActExport.Enabled := Value;
