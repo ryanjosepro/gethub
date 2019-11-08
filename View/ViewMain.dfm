@@ -208,7 +208,7 @@ object WindowMain: TWindowMain
     Height = 277
     Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = Source
-    Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -222,25 +222,38 @@ object WindowMain: TWindowMain
     Columns = <
       item
         Expanded = False
-        FieldName = ' '
+        FieldName = 'Checked'
+        Width = 16
         Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Link'
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'Path'
+        Visible = False
       end
       item
         Expanded = False
         FieldName = 'Name'
         ReadOnly = True
+        Width = 163
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'LastAct'
         ReadOnly = True
+        Width = 140
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Msg'
-        Width = 168
+        Width = 204
         Visible = True
       end>
   end
@@ -250,7 +263,7 @@ object WindowMain: TWindowMain
     Width = 14
     Height = 17
     Ctl3D = True
-    DataField = ' '
+    DataField = 'Checked'
     DataSource = Source
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -364,7 +377,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400400120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400440120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

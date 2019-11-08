@@ -13,12 +13,12 @@ type
   TDataFactory = class(TDataModule)
     JSON: TFDStanStorageJSONLink;
     Table: TFDMemTable;
-    TableBooleanField: TBooleanField;
+    TableChecked: TBooleanField;
     TableLink: TStringField;
     TablePath: TStringField;
     TableName: TStringField;
-    TableMsg: TStringField;
     TableLastAct: TStringField;
+    TableMsg: TStringField;
   end;
 
 var

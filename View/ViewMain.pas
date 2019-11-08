@@ -151,7 +151,7 @@ begin
   if Column.FieldName = CheckSelect.Field.FieldName then
   begin
     CellClicked := true;
-    TDAO.SetField(' ', not CheckSelect.Checked);
+    TDAO.SetField('Checked', not CheckSelect.Checked);
   end;
 end;
 
@@ -162,7 +162,7 @@ begin
     if not CellClicked then
     begin
       GridRepositories.SetFocus;
-      TDAO.SetField(' ', CheckSelect.Checked);
+      TDAO.SetField('Checked', CheckSelect.Checked);
     end;
     CellClicked := false;
   end;
@@ -228,10 +228,13 @@ begin
   try
     Links := TDAO.GetCheckeds('Link');
     Paths := TDAO.GetCheckeds('Path');
+
     for Cont := 0 to Paths.Count - 1 do
     begin
-      TGit.Clone(Links[Cont], Paths[Cont]);
+      //TGit.Clone(Links[Cont], Paths[Cont]);
     end;
+
+    TDAO.SetCheckeds('LastAct', 'Clone');
   finally
     FreeAndNil(Links);
     FreeAndNil(Paths);
@@ -245,10 +248,13 @@ var
 begin
   try
     Paths := TDAO.GetCheckeds('Path');
+
     for Cont := 0 to Paths.Count - 1 do
     begin
       TGit.Status(Paths[Cont]);
     end;
+
+    TDAO.SetCheckeds('LastAct', 'Status');
   finally
     FreeAndNil(Paths);
   end;
@@ -261,10 +267,13 @@ var
 begin
   try
     Paths := TDAO.GetCheckeds('Path');
+
     for Cont := 0 to Paths.Count - 1 do
     begin
       TGit.Pull(Paths[Cont]);
     end;
+
+    TDAO.SetCheckeds('LastAct', 'Pull');
   finally
     FreeAndNil(Paths);
   end;
@@ -281,6 +290,8 @@ begin
     begin
       TGit.Add(Paths[Cont]);
     end;
+
+    TDAO.SetCheckeds('LastAct', 'Add');
   finally
     FreeAndNil(Paths);
   end;
@@ -306,7 +317,7 @@ begin
       if Trim(Msgs[Cont]) = '' then
       begin
         Erro := true;
-        MsgErro := ' -' + Names[Cont] + #13#10;
+        MsgErro := MsgErro + ' -' + Names[Cont] + #13#10;
       end
       else if not Erro then
       begin
@@ -317,6 +328,10 @@ begin
     if Erro then
     begin
       ShowMessage(MsgErro);
+    end
+    else
+    begin
+      TDAO.SetCheckeds('LastAct', 'Commit');
     end;
   finally
     FreeAndNil(Paths);
@@ -330,10 +345,13 @@ var
 begin
   try
     Paths := TDAO.GetCheckeds('Path');
+
     for Cont := 0 to Paths.Count - 1 do
     begin
       TGit.Checkout(Paths[Cont]);
     end;
+
+    TDAO.SetCheckeds('LastAct', 'Checkout');
   finally
     FreeAndNil(Paths);
   end;
@@ -346,10 +364,13 @@ var
 begin
   try
     Paths := TDAO.GetCheckeds('Path');
+
     for Cont := 0 to Paths.Count - 1 do
     begin
       TGit.Push(Paths[Cont]);
     end;
+
+    TDAO.SetCheckeds('LastAct', 'Push');
   finally
     FreeAndNil(Paths);
   end;
@@ -373,6 +394,10 @@ var
 begin
   Value := TDAO.Count > 0;
 
+  CheckAll.Enabled := Value;
+  CheckSelect.Enabled := Value;
+  GridRepositories.Enabled := Value;
+
   ActEdit.Enabled := Value;
   ActDel.Enabled := Value;
   ActExport.Enabled := Value;
@@ -383,15 +408,6 @@ begin
   ActCommit.Enabled := Value;
   ActCheckout.Enabled := Value;
   ActPush.Enabled := Value;
-
-  if Value then
-  begin
-    GridRepositories.Options := GridRepositories.Options + [dgEditing];
-  end
-  else
-  begin
-    GridRepositories.Options := GridRepositories.Options - [dgEditing];
-  end;
 end;
 
 procedure TWindowMain.UpdateTotRepos;

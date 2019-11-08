@@ -1,0 +1,13 @@
+object DataFactory: TDataFactory
+  OldCreateOrder = False
+  Height = 79
+  Width = 149
+  object JSON: TFDStanStorageJSONLink
+    Left = 96
+    Top = 16
+  end
+  object Table: TFDTable
+    Left = 24
+    Top = 16
+  end
+end
