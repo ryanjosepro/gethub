@@ -75,6 +75,7 @@ type
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
+    procedure CheckFiles;
   end;
 
 var
@@ -413,6 +414,13 @@ end;
 procedure TWindowMain.UpdateTotRepos;
 begin
   TxtTotRepos.Caption := TDAO.Count.ToString;
+end;
+
+procedure TWindowMain.CheckFiles;
+var
+  Path: string;
+begin
+  Path := ExtractFilePath(Application.ExeName) + '\Config.ini';
 end;
 
 end.

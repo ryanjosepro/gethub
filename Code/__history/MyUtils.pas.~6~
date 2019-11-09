@@ -30,8 +30,6 @@ type
     class function Extract(StrList: TStringList; Starts: string; Ends: integer; IncStarts: boolean = false): TStringList; overload;
 
     class procedure ExecCmd(Comand: string; ShowCmd: integer = 1);
-
-    class function AppPath: string;
   end;
 
 implementation
@@ -220,11 +218,6 @@ end;
 class procedure TUtils.ExecCmd(Comand: string; ShowCmd: integer = 1);
 begin
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, ShowCmd);
-end;
-
-class function TUtils.AppPath: string;
-begin
-
 end;
 
 end.

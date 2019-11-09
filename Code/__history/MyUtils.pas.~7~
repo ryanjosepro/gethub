@@ -222,9 +222,4 @@ begin
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, ShowCmd);
 end;
 
-class function TUtils.AppPath: string;
-begin
-
-end;
-
 end.

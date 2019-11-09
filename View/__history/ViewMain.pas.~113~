@@ -75,6 +75,7 @@ type
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
+    procedure CheckFiles;
   end;
 
 var
@@ -364,6 +365,7 @@ var
 begin
   try
     Paths := TDAO.GetCheckeds('Path');
+
     for Cont := 0 to Paths.Count - 1 do
     begin
       TGit.Push(Paths[Cont]);
@@ -412,6 +414,11 @@ end;
 procedure TWindowMain.UpdateTotRepos;
 begin
   TxtTotRepos.Caption := TDAO.Count.ToString;
+end;
+
+procedure TWindowMain.CheckFiles;
+begin
+
 end;
 
 end.

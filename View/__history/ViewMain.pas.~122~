@@ -75,6 +75,7 @@ type
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
+    procedure CheckFiles;
   end;
 
 var
@@ -163,7 +164,6 @@ begin
     begin
       GridRepositories.SetFocus;
       TDAO.SetField('Checked', CheckSelect.Checked);
-      ShowMessage('Hey');
     end;
     CellClicked := false;
   end;
@@ -414,6 +414,18 @@ end;
 procedure TWindowMain.UpdateTotRepos;
 begin
   TxtTotRepos.Caption := TDAO.Count.ToString;
+end;
+
+procedure TWindowMain.CheckFiles;
+var
+  Path: string;
+begin
+  Path := ExtractFilePath(Application.ExeName) + '\Config.ini';
+
+  if not FileExists(Path) then
+  begin
+    TConfig.C
+  end;
 end;
 
 end.

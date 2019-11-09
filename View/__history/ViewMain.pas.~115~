@@ -75,6 +75,7 @@ type
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
+    procedure CheckFiles;
   end;
 
 var
@@ -251,7 +252,7 @@ begin
 
     for Cont := 0 to Paths.Count - 1 do
     begin
-      //TGit.Status(Paths[Cont]);
+      TGit.Status(Paths[Cont]);
     end;
 
     TDAO.SetCheckeds('LastAct', 'Status');
@@ -270,7 +271,7 @@ begin
 
     for Cont := 0 to Paths.Count - 1 do
     begin
-      //TGit.Pull(Paths[Cont]);
+      TGit.Pull(Paths[Cont]);
     end;
 
     TDAO.SetCheckeds('LastAct', 'Pull');
@@ -288,7 +289,7 @@ begin
     Paths := TDAO.GetCheckeds('Path');
     for Cont := 0 to Paths.Count - 1 do
     begin
-      //TGit.Add(Paths[Cont]);
+      TGit.Add(Paths[Cont]);
     end;
 
     TDAO.SetCheckeds('LastAct', 'Add');
@@ -321,7 +322,7 @@ begin
       end
       else if not Erro then
       begin
-        //TGit.Commit(Paths[Cont], Msgs[Cont]);
+        TGit.Commit(Paths[Cont], Msgs[Cont]);
       end;
     end;
 
@@ -348,7 +349,7 @@ begin
 
     for Cont := 0 to Paths.Count - 1 do
     begin
-      //TGit.Checkout(Paths[Cont]);
+      TGit.Checkout(Paths[Cont]);
     end;
 
     TDAO.SetCheckeds('LastAct', 'Checkout');
@@ -367,7 +368,7 @@ begin
 
     for Cont := 0 to Paths.Count - 1 do
     begin
-      //TGit.Push(Paths[Cont]);
+      TGit.Push(Paths[Cont]);
     end;
 
     TDAO.SetCheckeds('LastAct', 'Push');
@@ -413,6 +414,11 @@ end;
 procedure TWindowMain.UpdateTotRepos;
 begin
   TxtTotRepos.Caption := TDAO.Count.ToString;
+end;
+
+procedure TWindowMain.CheckFiles;
+begin
+
 end;
 
 end.

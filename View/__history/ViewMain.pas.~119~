@@ -75,6 +75,7 @@ type
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
+    procedure CheckFiles;
   end;
 
 var
@@ -364,10 +365,13 @@ var
 begin
   try
     Paths := TDAO.GetCheckeds('Path');
+
     for Cont := 0 to Paths.Count - 1 do
     begin
       TGit.Push(Paths[Cont]);
     end;
+
+    TDAO.SetCheckeds('LastAct', 'Push');
   finally
     FreeAndNil(Paths);
   end;
@@ -410,6 +414,16 @@ end;
 procedure TWindowMain.UpdateTotRepos;
 begin
   TxtTotRepos.Caption := TDAO.Count.ToString;
+end;
+
+procedure TWindowMain.CheckFiles;
+var
+  Path: string;
+begin
+  Path := ExtractFilePath(Application.ExeName) + '\Config.ini';
+
+  if not FileExists() then
+  
 end;
 
 end.
