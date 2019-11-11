@@ -319,10 +319,6 @@ begin
       begin
         Erro := true;
         MsgErro := MsgErro + ' -' + Names[Cont] + #13#10;
-      end
-      else if not Erro then
-      begin
-        TGit.Commit(Paths[Cont], Msgs[Cont]);
       end;
     end;
 
@@ -332,6 +328,11 @@ begin
     end
     else
     begin
+      for Cont := 0 to Paths.Count do
+      begin
+        TGit.Commit(Paths[Cont], Msgs[Cont]);
+      end;
+
       TDAO.SetCheckeds('LastAct', 'Commit');
     end;
   finally

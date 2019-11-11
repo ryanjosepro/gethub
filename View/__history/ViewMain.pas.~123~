@@ -417,8 +417,10 @@ begin
 end;
 
 procedure TWindowMain.CheckFiles;
+var
+  Path: string;
 begin
-
+  Path := ExtractFilePath(Application.ExeName) + '\Config.ini';
 end;
 
 end.

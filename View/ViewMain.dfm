@@ -240,6 +240,7 @@ object WindowMain: TWindowMain
         Expanded = False
         FieldName = 'Name'
         ReadOnly = True
+        Title.Caption = 'Nome do Reposit'#243'rio'
         Width = 163
         Visible = True
       end
@@ -247,12 +248,14 @@ object WindowMain: TWindowMain
         Expanded = False
         FieldName = 'LastAct'
         ReadOnly = True
+        Title.Caption = #218'ltima A'#231#227'o'
         Width = 140
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Msg'
+        Title.Caption = 'Mensagem de Commit'
         Width = 204
         Visible = True
       end>
@@ -377,7 +380,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C0101020014004C0120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102001400500120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49
