@@ -328,7 +328,7 @@ begin
     end
     else
     begin
-      for Cont := 0 to Paths.Count do
+      for Cont := 0 to Paths.Count - 1 do
       begin
         TGit.Commit(Paths[Cont], Msgs[Cont]);
       end;
