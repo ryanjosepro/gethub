@@ -102,12 +102,11 @@ object WindowMain: TWindowMain
   end
   object BtnCommit: TSpeedButton
     Left = 332
-    Top = 412
+    Top = 413
     Width = 75
-    Height = 35
+    Height = 34
     Action = ActCommit
     Anchors = [akRight, akBottom]
-    ExplicitTop = 405
   end
   object BtnCheckout: TSpeedButton
     Left = 413
@@ -208,7 +207,7 @@ object WindowMain: TWindowMain
     Height = 277
     Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = Source
-    Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -223,31 +222,40 @@ object WindowMain: TWindowMain
       item
         Expanded = False
         FieldName = 'Checked'
+        Width = 16
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Link'
-        Visible = True
+        Visible = False
       end
       item
         Expanded = False
         FieldName = 'Path'
-        Visible = True
+        Visible = False
       end
       item
         Expanded = False
         FieldName = 'Name'
+        ReadOnly = True
+        Title.Caption = 'Nome do Reposit'#243'rio'
+        Width = 163
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'LastAct'
+        ReadOnly = True
+        Title.Caption = #218'ltima A'#231#227'o'
+        Width = 140
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Msg'
+        Title.Caption = 'Mensagem de Commit'
+        Width = 204
         Visible = True
       end>
   end
@@ -371,7 +379,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400440120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101020014005C0120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49

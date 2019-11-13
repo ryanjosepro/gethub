@@ -49,8 +49,8 @@ object WindowMain: TWindowMain
     ShowHint = True
   end
   object BtnEdit: TSpeedButton
-    Left = 7
-    Top = 378
+    Left = 8
+    Top = 381
     Width = 87
     Height = 26
     Action = ActEdit
@@ -63,11 +63,10 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    ExplicitTop = 430
   end
   object BtnDel: TSpeedButton
-    Left = 100
-    Top = 378
+    Left = 101
+    Top = 381
     Width = 87
     Height = 26
     Action = ActDel
@@ -80,7 +79,6 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    ExplicitTop = 430
   end
   object BtnAddRepository: TSpeedButton
     Left = 512
@@ -102,21 +100,19 @@ object WindowMain: TWindowMain
   end
   object BtnCommit: TSpeedButton
     Left = 332
-    Top = 412
+    Top = 413
     Width = 75
-    Height = 35
+    Height = 34
     Action = ActCommit
     Anchors = [akRight, akBottom]
-    ExplicitTop = 405
   end
   object BtnCheckout: TSpeedButton
     Left = 413
-    Top = 412
+    Top = 413
     Width = 75
-    Height = 35
+    Height = 34
     Action = ActCheckout
     Anchors = [akRight, akBottom]
-    ExplicitTop = 405
   end
   object BtnPush: TSpeedButton
     Left = 494
@@ -156,7 +152,7 @@ object WindowMain: TWindowMain
   end
   object BtnImport: TSpeedButton
     Left = 347
-    Top = 378
+    Top = 381
     Width = 108
     Height = 26
     Action = ActImport
@@ -169,11 +165,10 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    ExplicitTop = 371
   end
   object Btn: TSpeedButton
     Left = 461
-    Top = 378
+    Top = 381
     Width = 108
     Height = 26
     Action = ActExport
@@ -186,7 +181,6 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    ExplicitTop = 371
   end
   object LblTotRepos: TLabel
     Left = 8
@@ -380,7 +374,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400580120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101020014005C0120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49
