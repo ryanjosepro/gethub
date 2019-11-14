@@ -96,6 +96,9 @@ end;
 
 procedure TWindowMain.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  GridRepositories.Enabled := true;
+  CheckAll.Enabled := true;
+  CheckSelect.Enabled := true;
   Source.DataSet := nil;
 end;
 
@@ -207,6 +210,7 @@ begin
     TDAO.Save;
     ShowMessage('Importado com sucesso!');
     UpdateButtons;
+    UpdateTotRepos;
   end;
 end;
 

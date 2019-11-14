@@ -97,6 +97,10 @@ end;
 procedure TWindowMain.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Source.DataSet := nil;
+  if TDAO.Count = 0 then
+  begin
+    ShowMessage('Test');
+  end;
 end;
 
 //GRID DRAWN
@@ -207,6 +211,7 @@ begin
     TDAO.Save;
     ShowMessage('Importado com sucesso!');
     UpdateButtons;
+    UpdateTotRepos;
   end;
 end;
 
@@ -319,10 +324,6 @@ begin
       begin
         Erro := true;
         MsgErro := MsgErro + ' -' + Names[Cont] + #13#10;
-      end
-      else if not Erro then
-      begin
-        TGit.Commit(Paths[Cont], Msgs[Cont]);
       end;
     end;
 
@@ -332,6 +333,11 @@ begin
     end
     else
     begin
+      for Cont := 0 to Paths.Count - 1 do
+      begin
+        TGit.Commit(Paths[Cont], Msgs[Cont]);
+      end;
+
       TDAO.SetCheckeds('LastAct', 'Commit');
     end;
   finally
@@ -421,9 +427,6 @@ var
   Path: string;
 begin
   Path := ExtractFilePath(Application.ExeName) + '\Config.ini';
-
-  if not FileExists() then
-  
 end;
 
 end.

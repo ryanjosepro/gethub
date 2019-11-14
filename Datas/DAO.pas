@@ -46,10 +46,14 @@ begin
 end;
 
 class procedure TDAO.Load(CleanChecked: boolean = true);
+var
+  Path: string;
 begin
-  if FileExists(ExtractFilePath(Application.ExeName) + 'Repositories.json') then
+  Path := ExtractFilePath(Application.ExeName) + 'Data\Repos.json';
+
+  if FileExists(Path) then
   begin
-    Table.LoadFromFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
+    Table.LoadFromFile(Path);
 
     if CleanChecked then
     begin
@@ -92,7 +96,7 @@ begin
     Table.EnableControls;
   end;
 
-  Table.SaveToFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
+  Table.SaveToFile(ExtractFilePath(Application.ExeName) + 'Data\Repos.json', sfJSON);
 end;
 
 class procedure TDAO.Load(Path: string; CleanChecked: boolean = true);

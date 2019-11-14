@@ -46,11 +46,65 @@ begin
 end;
 
 class procedure TDAO.Load(CleanChecked: boolean = true);
+var
+  Path: string;
 begin
-  if FileExists(ExtractFilePath(Application.ExeName) + 'Repositories.json') then
-  begin
-    Table.LoadFromFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
+  Path := ExtractFilePath(Application.ExeName) + 'Data\Repositories.json';
 
+  if FileExists(Path) then
+  begin
+    Table.LoadFromFile(Path);
+
+    if CleanChecked then
+    begin
+      Table.DisableControls;
+
+      Table.First;
+      while not Table.Eof do
+      begin
+        SetField('Checked', false);
+        SetField('Msg', '');
+        Table.Next;
+      end;
+      Table.First;
+
+      Table.EnableControls;
+    end;
+  end;
+end;
+
+class procedure TDAO.Save(CleanChecked: boolean = true);
+var
+  Index: integer;
+begin
+  if CleanChecked then
+  begin
+    Index := GetIndex;
+
+    Table.DisableControls;
+
+    Table.First;
+    while not Table.Eof do
+    begin
+      SetField('Checked', false);
+      SetField('Msg', '');
+      Table.Next;
+    end;
+
+    SetIndex(Index);
+
+    Table.EnableControls;
+  end;
+
+  Table.SaveToFile(ExtractFilePath(Application.ExeName) + 'Data\Repositories.json', sfJSON);
+end;
+
+class procedure TDAO.Load(Path: string; CleanChecked: boolean = true);
+begin
+  Table.LoadFromFile(Path, sfJSON);
+
+  if CleanChecked then
+  begin
     Table.DisableControls;
 
     Table.First;
@@ -66,68 +120,30 @@ begin
   end;
 end;
 
-class procedure TDAO.Save(CleanChecked: boolean = true);
-var
-  Index: integer;
-begin
-  Index := GetIndex;
-
-  Table.DisableControls;
-
-  Table.First;
-  while not Table.Eof do
-  begin
-    SetField('Checked', false);
-    SetField('Msg', '');
-    Table.Next;
-  end;
-
-  Table.SaveToFile(ExtractFilePath(Application.ExeName) + 'Repositories.json', sfJSON);
-
-  SetIndex(Index);
-
-  Table.EnableControls;
-end;
-
-class procedure TDAO.Load(Path: string; CleanChecked: boolean = true);
-begin
-  Table.LoadFromFile(Path, sfJSON);
-
-  Table.DisableControls;
-
-  Table.First;
-  while not Table.Eof do
-  begin
-    SetField('Checked', false);
-    SetField('Msg', '');
-    Table.Next;
-  end;
-  Table.First;
-
-  Table.EnableControls;
-end;
-
 class procedure TDAO.Save(Path: string; CleanChecked: boolean = true);
 var
   Index: integer;
 begin
-  Index := GetIndex;
-
-  Table.DisableControls;
-
-  Table.First;
-  while not Table.Eof do
+  if CleanChecked then
   begin
-    SetField('Checked', false);
-    SetField('Msg', '');
-    Table.Next;
+    Index := GetIndex;
+
+    Table.DisableControls;
+
+    Table.First;
+    while not Table.Eof do
+    begin
+      SetField('Checked', false);
+      SetField('Msg', '');
+      Table.Next;
+    end;
+
+    SetIndex(Index);
+
+    Table.EnableControls;
   end;
 
   Table.SaveToFile(Path, sfJSON);
-
-  SetIndex(Index);
-
-  Table.EnableControls;
 end;
 
 class function TDAO.GetField(Field: string): variant;
@@ -237,7 +253,7 @@ begin
     Table.Next;
   end;
 
-  Save;
+  Save(false);
 
   SetIndex(Index);
 
