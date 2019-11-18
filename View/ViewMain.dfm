@@ -51,7 +51,7 @@ object WindowMain: TWindowMain
   object BtnEdit: TSpeedButton
     Left = 8
     Top = 381
-    Width = 87
+    Width = 111
     Height = 26
     Action = ActEdit
     Anchors = [akLeft, akBottom]
@@ -65,9 +65,9 @@ object WindowMain: TWindowMain
     ShowHint = True
   end
   object BtnDel: TSpeedButton
-    Left = 101
+    Left = 125
     Top = 381
-    Width = 87
+    Width = 108
     Height = 26
     Action = ActDel
     Anchors = [akLeft, akBottom]
@@ -374,7 +374,7 @@ object WindowMain: TWindowMain
     Left = 408
     Top = 16
     Bitmap = {
-      494C010102001400640120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101020014006C0120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000005E49
