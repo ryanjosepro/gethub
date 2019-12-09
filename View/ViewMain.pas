@@ -169,6 +169,7 @@ begin
       TDAO.SetField('Checked', CheckSelect.Checked);
     end;
     CellClicked := false;
+    UpdateButtons;
   end;
 end;
 
@@ -230,6 +231,7 @@ var
   Cont: integer;
   Links, Paths: TStringList;
 begin
+  {
   try
     Links := TDAO.GetCheckeds('Link');
     Paths := TDAO.GetCheckeds('Path');
@@ -244,6 +246,7 @@ begin
     FreeAndNil(Links);
     FreeAndNil(Paths);
   end;
+  }
 end;
 
 procedure TWindowMain.ActStatusExecute(Sender: TObject);
@@ -398,15 +401,18 @@ procedure TWindowMain.UpdateButtons;
 var
   Value: boolean;
 begin
-  Value := TDAO.Count > 0;
+  if TDAO.Count > 0 then
+  begin
+    CheckAll.Enabled := true;
+    CheckSelect.Enabled := true;
+    GridRepositories.Enabled := true;
+    ActEdit.Enabled := true;
+    ActDel.Enabled := true;
+    ActExport.Enabled := true;
+  end;
 
-  CheckAll.Enabled := Value;
-  CheckSelect.Enabled := Value;
-  GridRepositories.Enabled := Value;
+  Value := (TDAO.Count > 0) and (TDAO.GetCheckeds('Checked').Count >= 1);
 
-  ActEdit.Enabled := Value;
-  ActDel.Enabled := Value;
-  ActExport.Enabled := Value;
   ActClone.Enabled := Value;
   ActStatus.Enabled := Value;
   ActPull.Enabled := Value;

@@ -96,6 +96,9 @@ end;
 
 procedure TWindowMain.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  GridRepositories.Enabled := true;
+  CheckAll.Enabled := true;
+  CheckSelect.Enabled := true;
   Source.DataSet := nil;
 end;
 
@@ -207,6 +210,7 @@ begin
     TDAO.Save;
     ShowMessage('Importado com sucesso!');
     UpdateButtons;
+    UpdateTotRepos;
   end;
 end;
 
@@ -226,6 +230,7 @@ var
   Cont: integer;
   Links, Paths: TStringList;
 begin
+  {
   try
     Links := TDAO.GetCheckeds('Link');
     Paths := TDAO.GetCheckeds('Path');
@@ -240,6 +245,7 @@ begin
     FreeAndNil(Links);
     FreeAndNil(Paths);
   end;
+  }
 end;
 
 procedure TWindowMain.ActStatusExecute(Sender: TObject);
@@ -328,7 +334,7 @@ begin
     end
     else
     begin
-      for Cont := 0 to Paths.Count do
+      for Cont := 0 to Paths.Count - 1 do
       begin
         TGit.Commit(Paths[Cont], Msgs[Cont]);
       end;
@@ -394,11 +400,16 @@ procedure TWindowMain.UpdateButtons;
 var
   Value: boolean;
 begin
-  Value := TDAO.Count > 0;
+  TDAO.GetCheckeds('Checked').Count;
 
-  CheckAll.Enabled := Value;
-  CheckSelect.Enabled := Value;
-  GridRepositories.Enabled := Value;
+  if TDAO.Count > 0 then
+  begin
+    CheckAll.Enabled := true;
+    CheckSelect.Enabled := true;
+    GridRepositories.Enabled := true;
+  end;
+
+  Value := (TDAO.Count > 0) and (TDAO.GetCheckeds('Checked').Count >= 1);
 
   ActEdit.Enabled := Value;
   ActDel.Enabled := Value;
