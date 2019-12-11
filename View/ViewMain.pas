@@ -171,6 +171,7 @@ begin
     CellClicked := false;
     UpdateButtons;
   end;
+  TDAO.Table.Edit;
 end;
 
 //REPOSITORIES MANAGEMENT
@@ -352,6 +353,7 @@ var
   Cont: integer;
   Paths: TStringList;
 begin
+  {
   try
     Paths := TDAO.GetCheckeds('Path');
 
@@ -364,6 +366,7 @@ begin
   finally
     FreeAndNil(Paths);
   end;
+  }
 end;
 
 procedure TWindowMain.ActPushExecute(Sender: TObject);
@@ -413,12 +416,12 @@ begin
 
   Value := (TDAO.Count > 0) and (TDAO.GetCheckeds('Checked').Count >= 1);
 
-  ActClone.Enabled := Value;
+  //ActClone.Enabled := Value;
   ActStatus.Enabled := Value;
   ActPull.Enabled := Value;
   ActAdd.Enabled := Value;
   ActCommit.Enabled := Value;
-  ActCheckout.Enabled := Value;
+  //ActCheckout.Enabled := Value;
   ActPush.Enabled := Value;
 end;
 

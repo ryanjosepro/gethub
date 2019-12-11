@@ -167,10 +167,11 @@ begin
     begin
       GridRepositories.SetFocus;
       TDAO.SetField('Checked', CheckSelect.Checked);
-      UpdateButtons;
     end;
     CellClicked := false;
+    UpdateButtons;
   end;
+  TDAO.Table.Edit;
 end;
 
 //REPOSITORIES MANAGEMENT
@@ -352,6 +353,7 @@ var
   Cont: integer;
   Paths: TStringList;
 begin
+  {
   try
     Paths := TDAO.GetCheckeds('Path');
 
@@ -364,6 +366,7 @@ begin
   finally
     FreeAndNil(Paths);
   end;
+  }
 end;
 
 procedure TWindowMain.ActPushExecute(Sender: TObject);
@@ -401,16 +404,14 @@ procedure TWindowMain.UpdateButtons;
 var
   Value: boolean;
 begin
-  TDAO.GetCheckeds('Checked').Count;
-
   if TDAO.Count > 0 then
   begin
     CheckAll.Enabled := true;
     CheckSelect.Enabled := true;
     GridRepositories.Enabled := true;
-    ActEdit.Enabled := Value;
-    ActDel.Enabled := Value;
-    ActExport.Enabled := Value;
+    ActEdit.Enabled := true;
+    ActDel.Enabled := true;
+    ActExport.Enabled := true;
   end;
 
   Value := (TDAO.Count > 0) and (TDAO.GetCheckeds('Checked').Count >= 1);

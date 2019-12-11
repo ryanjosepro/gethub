@@ -167,9 +167,9 @@ begin
     begin
       GridRepositories.SetFocus;
       TDAO.SetField('Checked', CheckSelect.Checked);
-      UpdateButtons;
     end;
     CellClicked := false;
+    UpdateButtons;
   end;
 end;
 
@@ -401,8 +401,6 @@ procedure TWindowMain.UpdateButtons;
 var
   Value: boolean;
 begin
-  TDAO.GetCheckeds('Checked').Count;
-
   if TDAO.Count > 0 then
   begin
     CheckAll.Enabled := true;

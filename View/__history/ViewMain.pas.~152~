@@ -165,11 +165,12 @@ begin
   begin
     if not CellClicked then
     begin
+      TDAO.Table.Edit;
       GridRepositories.SetFocus;
       TDAO.SetField('Checked', CheckSelect.Checked);
-      UpdateButtons;
     end;
     CellClicked := false;
+    UpdateButtons;
   end;
 end;
 
@@ -401,20 +402,18 @@ procedure TWindowMain.UpdateButtons;
 var
   Value: boolean;
 begin
-  TDAO.GetCheckeds('Checked').Count;
-
   if TDAO.Count > 0 then
   begin
     CheckAll.Enabled := true;
     CheckSelect.Enabled := true;
     GridRepositories.Enabled := true;
+    ActEdit.Enabled := true;
+    ActDel.Enabled := true;
+    ActExport.Enabled := true;
   end;
 
   Value := (TDAO.Count > 0) and (TDAO.GetCheckeds('Checked').Count >= 1);
 
-  ActEdit.Enabled := Value;
-  ActDel.Enabled := Value;
-  ActExport.Enabled := Value;
   ActClone.Enabled := Value;
   ActStatus.Enabled := Value;
   ActPull.Enabled := Value;
