@@ -421,7 +421,7 @@ begin
   ActPull.Enabled := Value;
   ActAdd.Enabled := Value;
   ActCommit.Enabled := Value;
-  //ActCheckout.Enabled := Value;
+  ActCheckout.Enabled := TDAO.GetCheckeds('Checked').Count = 1;
   ActPush.Enabled := Value;
 end;
 

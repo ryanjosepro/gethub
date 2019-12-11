@@ -12,7 +12,8 @@ uses
   ViewAddRepo in 'View\ViewAddRepo.pas' {WindowAddRepo},
   MyDialogs in 'Code\MyDialogs.pas',
   Config in 'Code\Config.pas',
-  Git in 'Code\Git.pas';
+  Git in 'Code\Git.pas',
+  ViewCheckout in 'View\ViewCheckout.pas' {WindowCheckout};
 
 {$R *.res}
 
@@ -24,5 +25,6 @@ begin
   Application.CreateForm(TWindowConfigs, WindowConfigs);
   Application.CreateForm(TDataFactory, DataFactory);
   Application.CreateForm(TWindowAddRepo, WindowAddRepo);
+  Application.CreateForm(TWindowCheckout, WindowCheckout);
   Application.Run;
 end.

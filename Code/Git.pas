@@ -18,7 +18,7 @@ type
     class procedure Pull(Path: string);
     class procedure Add(Path: string);
     class procedure Commit(Path, Msg: string);
-    class procedure Checkout(Path: string);
+    class procedure Checkout(Path, FileName: string);
     class procedure Push(Path: string);
   end;
 
@@ -98,11 +98,11 @@ begin
   TUtils.ExecCmd(Comand, 1);
 end;
 
-class procedure TGit.Checkout(Path: string);
+class procedure TGit.Checkout(Path, FileName: string);
 var
   Comand: string;
 begin
-  Comand := '/C echo "Checkout -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" checkout && ' + ConfigCloseCmd;
+  Comand := '/C echo "Checkout -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" checkout ' + FileName + ' && ' + ConfigCloseCmd;
   TUtils.ExecCmd(Comand, 1);
 end;
 
