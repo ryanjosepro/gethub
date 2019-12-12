@@ -1,7 +1,8 @@
 object WindowMain: TWindowMain
   Left = 0
   Top = 0
-  BorderStyle = bsDialog
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = 'Gethub'
   ClientHeight = 455
   ClientWidth = 577
