@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, FireDAC.Comp.Client,
   Vcl.Forms, FireDAC.Stan.Intf, Vcl.Dialogs,
-  Arrays, MyUtils, Datas;
+  MyArrays, MyUtils, Datas;
 
 type
   TDAO = class
@@ -96,7 +96,9 @@ begin
     Table.EnableControls;
   end;
 
-  Table.SaveToFile(ExtractFilePath(Application.ExeName) + 'Data\Repos.json', sfJSON);
+  TUtils.CreateIfNotExistsDir(TUtils.AppPath + 'Data');
+
+  Table.SaveToFile(TUtils.AppPath + 'Data\Repos.json', sfJSON);
 end;
 
 class procedure TDAO.Load(Path: string; CleanChecked: boolean = true);
@@ -142,6 +144,8 @@ begin
 
     Table.EnableControls;
   end;
+
+  TUtils.CreateIfNotExistsDir(Path);
 
   Table.SaveToFile(Path, sfJSON);
 end;

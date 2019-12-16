@@ -270,7 +270,7 @@ object WindowMain: TWindowMain
     Font.Style = []
     ParentCtl3D = False
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 2
     ValueChecked = ''
     ValueUnchecked = ''
     OnClick = CheckSelectClick
@@ -280,7 +280,7 @@ object WindowMain: TWindowMain
     Top = 70
     Width = 13
     Height = 15
-    TabOrder = 2
+    TabOrder = 1
     OnClick = CheckAllClick
   end
   object Actions: TActionList
@@ -298,6 +298,10 @@ object WindowMain: TWindowMain
       ImageIndex = 1
       ShortCut = 113
       OnExecute = ActAddRepositoryExecute
+    end
+    object ActCheckAll: TAction
+      ShortCut = 16449
+      OnExecute = ActCheckAllExecute
     end
     object ActEdit: TAction
       Caption = 'Editar (F3)'

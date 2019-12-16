@@ -106,7 +106,6 @@
             <Form>WindowMain</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Code\Arrays.pas"/>
         <DCCReference Include="Code\MyUtils.pas"/>
         <DCCReference Include="View\ViewEditRepo.pas">
             <Form>WindowEditRepo</Form>
@@ -133,6 +132,7 @@
             <Form>WindowCheckout</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Code\MyArrays.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

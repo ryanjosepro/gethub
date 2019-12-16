@@ -50,6 +50,7 @@ type
     SaveFile: TFileSaveDialog;
     LblTotRepos: TLabel;
     TxtTotRepos: TLabel;
+    ActCheckAll: TAction;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -72,6 +73,7 @@ type
     procedure ActExportExecute(Sender: TObject);
     procedure ActImportExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ActCheckAllExecute(Sender: TObject);
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
@@ -88,6 +90,7 @@ implementation
 
 procedure TWindowMain.FormActivate(Sender: TObject);
 begin
+  GridRepositories.SetFocus;
   TDAO.Load;
   TGit.ConfigGit;
   UpdateButtons;
@@ -156,6 +159,7 @@ begin
   begin
     CellClicked := true;
     TDAO.SetField('Checked', not CheckSelect.Checked);
+
   end;
 end;
 
@@ -176,17 +180,17 @@ end;
 
 //REPOSITORIES MANAGEMENT
 
+procedure TWindowMain.ActConfigsExecute(Sender: TObject);
+begin
+  WindowConfigs.ShowModal;
+end;
+
 procedure TWindowMain.ActAddRepositoryExecute(Sender: TObject);
 begin
   WindowAddRepo.ShowModal;
   TDAO.Table.Refresh;
   UpdateButtons;
   UpdateTotRepos;
-end;
-
-procedure TWindowMain.ActConfigsExecute(Sender: TObject);
-begin
-  WindowConfigs.ShowModal;
 end;
 
 procedure TWindowMain.ActEditExecute(Sender: TObject);
@@ -346,6 +350,11 @@ begin
   finally
     FreeAndNil(Paths);
   end;
+end;
+
+procedure TWindowMain.ActCheckAllExecute(Sender: TObject);
+begin
+  CheckAll.Checked := not CheckAll.Checked;
 end;
 
 procedure TWindowMain.ActCheckoutExecute(Sender: TObject);

@@ -3,7 +3,6 @@ program ProjectGethub;
 uses
   Vcl.Forms,
   ViewMain in 'View\ViewMain.pas' {WindowMain},
-  Arrays in 'Code\Arrays.pas',
   MyUtils in 'Code\MyUtils.pas',
   ViewEditRepo in 'View\ViewEditRepo.pas' {WindowEditRepo},
   ViewConfigs in 'View\ViewConfigs.pas' {WindowConfigs},
@@ -13,7 +12,8 @@ uses
   MyDialogs in 'Code\MyDialogs.pas',
   Config in 'Code\Config.pas',
   Git in 'Code\Git.pas',
-  ViewCheckout in 'View\ViewCheckout.pas' {WindowCheckout};
+  ViewCheckout in 'View\ViewCheckout.pas' {WindowCheckout},
+  MyArrays in 'Code\MyArrays.pas';
 
 {$R *.res}
 
