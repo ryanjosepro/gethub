@@ -8,7 +8,8 @@ uses
   Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids, Vcl.CheckLst, Vcl.ButtonGroup,
-  ViewConfigs, ViewAddRepo, ViewEditRepo, Config, MyUtils, MyDialogs, Git, DAO, Datas;
+  ViewConfigs, ViewAddRepo, ViewEditRepo, ViewCheckout, Config, MyUtils, MyDialogs, Git, DAO, Datas,
+  Datasnap.DSHTTP;
 
 type
   TWindowMain = class(TForm)
@@ -176,6 +177,11 @@ begin
     UpdateButtons;
   end;
   TDAO.Table.Edit;
+end;
+
+procedure TWindowMain.ActCheckAllExecute(Sender: TObject);
+begin
+  CheckAll.Checked := not CheckAll.Checked;
 end;
 
 //REPOSITORIES MANAGEMENT
@@ -352,30 +358,33 @@ begin
   end;
 end;
 
-procedure TWindowMain.ActCheckAllExecute(Sender: TObject);
-begin
-  CheckAll.Checked := not CheckAll.Checked;
-end;
-
 procedure TWindowMain.ActCheckoutExecute(Sender: TObject);
 var
-  Cont: integer;
-  Paths: TStringList;
+  Paths, Files: TStringList;
+  Item: string;
 begin
-  {
   try
     Paths := TDAO.GetCheckeds('Path');
 
-    for Cont := 0 to Paths.Count - 1 do
+    if Paths.Count = 1 then
     begin
-      TGit.Checkout(Paths[Cont]);
-    end;
+      Files := WindowCheckout.ShowModal(Paths[0]);
 
-    TDAO.SetCheckeds('LastAct', 'Checkout');
+      if Files.Count <= 0 then
+      begin
+        ShowMessage('Teste');
+      end;
+
+      for Item in Files do
+      begin
+        //TGit.Checkout(Paths[0], Item);
+      end;
+
+      TDAO.SetCheckeds('LastAct', 'Checkout');
+    end;
   finally
     FreeAndNil(Paths);
   end;
-  }
 end;
 
 procedure TWindowMain.ActPushExecute(Sender: TObject);

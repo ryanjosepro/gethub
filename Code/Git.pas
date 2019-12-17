@@ -102,7 +102,7 @@ class procedure TGit.Checkout(Path, FileName: string);
 var
   Comand: string;
 begin
-  Comand := '/C echo "Checkout -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" checkout ' + FileName + ' && ' + ConfigCloseCmd;
+  Comand := '/C echo "Checkout -> ' + Path + '" && cd "' + GitBin + '" && git -C "' + Path + '" checkout -- ' + FileName + ' && ' + ConfigCloseCmd;
   TUtils.ExecCmd(Comand, 1);
 end;
 

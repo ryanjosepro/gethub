@@ -18,20 +18,20 @@ type
     TxtName: TEdit;
     BtnSave: TSpeedButton;
     BtnDiscard: TSpeedButton;
-    BtnDBFile: TSpeedButton;
+    BtnDir: TSpeedButton;
     Images: TImageList;
     Actions: TActionList;
-    ActDBFile: TAction;
+    ActDir: TAction;
     ActAdd: TAction;
     ActCancel: TAction;
     ActEsc: TAction;
     OpenFile: TFileOpenDialog;
     CheckCloneRepo: TCheckBox;
-    procedure ActDBFileExecute(Sender: TObject);
+    procedure ActDirExecute(Sender: TObject);
     procedure ActAddExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
-    procedure ActDBFileHint(var HintStr: string; var CanShow: Boolean);
+    procedure ActDirHint(var HintStr: string; var CanShow: Boolean);
     procedure TxtChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
   public
@@ -56,7 +56,7 @@ begin
   Done;
 end;
 
-procedure TWindowAddRepo.ActDBFileExecute(Sender: TObject);
+procedure TWindowAddRepo.ActDirExecute(Sender: TObject);
 begin
   if OpenFile.Execute then
   begin
@@ -64,7 +64,7 @@ begin
   end;
 end;
 
-procedure TWindowAddRepo.ActDBFileHint(var HintStr: string; var CanShow: Boolean);
+procedure TWindowAddRepo.ActDirHint(var HintStr: string; var CanShow: Boolean);
 begin
   if OpenFile.FileName <> '' then
   begin

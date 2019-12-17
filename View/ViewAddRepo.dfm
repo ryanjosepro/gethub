@@ -76,13 +76,13 @@ object WindowAddRepo: TWindowAddRepo
     Anchors = [akTop, akRight]
     ExplicitLeft = 141
   end
-  object BtnDBFile: TSpeedButton
+  object BtnDir: TSpeedButton
     Left = 306
     Top = 85
     Width = 27
     Height = 24
     Cursor = crHandPoint
-    Action = ActDBFile
+    Action = ActDir
     Anchors = [akTop]
     ParentShowHint = False
     ShowHint = True
@@ -152,7 +152,7 @@ object WindowAddRepo: TWindowAddRepo
     Left = 104
     Top = 128
     Bitmap = {
-      494C0101010008000C0110001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C010101000800040010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -295,10 +295,10 @@ object WindowAddRepo: TWindowAddRepo
     Images = Images
     Left = 56
     Top = 128
-    object ActDBFile: TAction
+    object ActDir: TAction
       ImageIndex = 0
-      OnExecute = ActDBFileExecute
-      OnHint = ActDBFileHint
+      OnExecute = ActDirExecute
+      OnHint = ActDirHint
     end
     object ActAdd: TAction
       Caption = 'Adicionar (Ctrl+S)'
