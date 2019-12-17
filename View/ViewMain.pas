@@ -361,29 +361,31 @@ end;
 procedure TWindowMain.ActCheckoutExecute(Sender: TObject);
 var
   Paths, Files: TStringList;
-  Item: string;
+  Path, FileName: string;
 begin
   try
     Paths := TDAO.GetCheckeds('Path');
 
     if Paths.Count = 1 then
     begin
-      Files := WindowCheckout.ShowModal(Paths[0]);
+      Path := Paths[0];
 
-      if Files.Count <= 0 then
-      begin
-        ShowMessage('Teste');
-      end;
+      Files := WindowCheckout.ShowModal(TDAO.GetCheckeds('Name')[0], Path);
 
-      for Item in Files do
+      if Files.Count > 0 then
       begin
-        //TGit.Checkout(Paths[0], Item);
+        for FileName in Files do
+        begin
+          ShowMessage(FileName);
+          TGit.Checkout(Path, FileName);
+        end;
       end;
 
       TDAO.SetCheckeds('LastAct', 'Checkout');
     end;
   finally
     FreeAndNil(Paths);
+    FreeAndNil(Files);
   end;
 end;
 
