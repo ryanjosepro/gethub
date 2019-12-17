@@ -376,7 +376,6 @@ begin
       begin
         for FileName in Files do
         begin
-          ShowMessage(FileName);
           TGit.Checkout(Path, FileName);
         end;
       end;

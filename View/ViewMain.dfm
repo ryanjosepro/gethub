@@ -240,18 +240,19 @@ object WindowMain: TWindowMain
         Visible = True
       end
       item
+        Alignment = taCenter
         Expanded = False
         FieldName = 'LastAct'
         ReadOnly = True
         Title.Caption = #218'ltima A'#231#227'o'
-        Width = 140
+        Width = 65
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Msg'
         Title.Caption = 'Mensagem de Commit'
-        Width = 204
+        Width = 276
         Visible = True
       end>
   end
