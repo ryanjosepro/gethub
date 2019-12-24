@@ -33,7 +33,7 @@ end;
 
 class function TGit.ConfigCloseCmd: string;
 begin
-  Result := TUtils.Iif(TConfig.GetConfig('OPTIONS', 'CloseCmd') = '1', 'timeout -t 5', 'pause');
+  Result := TUtils.Iif(TConfig.GetConfig('OPTIONS', 'CloseCmd') = '1', 'timeout -t ' + TConfig.GetConfig('OPTIONS', 'CloseTime'), 'pause');
 end;
 
 class function TGit.ConfigCloseStatus: string;
@@ -44,7 +44,7 @@ begin
   end
   else
   begin
-    Result := TUTils.Iif(TConfig.GetConfig('OPTIONS', 'CloseStatus') = '1', 'timeout -t 5', 'pause');
+    Result := TUTils.Iif(TConfig.GetConfig('OPTIONS', 'CloseStatus') = '1', 'timeout -t ' + TConfig.GetConfig('OPTIONS', 'CloseTime'), 'pause');
   end;
 end;
 

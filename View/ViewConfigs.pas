@@ -4,14 +4,13 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls, System.Types,
   Vcl.StdCtrls, Vcl.Buttons, System.Actions, Vcl.ActnList, MyDialogs, Git, Vcl.ComCtrls,
   System.ImageList, Vcl.ImgList,
   Config, MyUtils;
 
 type
   TWindowConfigs = class(TForm)
-    Logo: TImage;
     LblEmail: TLabel;
     LblName: TLabel;
     BtnDBFile: TSpeedButton;
@@ -35,6 +34,14 @@ type
     OpenFile: TFileOpenDialog;
     CheckCloseCmd: TCheckBox;
     CheckCloseStatus: TCheckBox;
+    TxtCloseTime: TEdit;
+    LblCloseSeconds: TLabel;
+    PanelCloseCmd: TPanel;
+    PanelExecTime: TPanel;
+    LblExecTime: TLabel;
+    LblSeconds: TLabel;
+    LblMiliseconds: TLabel;
+    TxtExecTime: TEdit;
     procedure ActEscExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
@@ -86,6 +93,8 @@ begin
   TxtGitBin.Text := TConfig.GetConfig('SYSTEM', 'GitBin');
   CheckCloseCmd.Checked := TConfig.GetConfig('OPTIONS', 'CloseCmd') = '1';
   CheckCloseStatus.Checked := TConfig.GetConfig('OPTIONS', 'CloseStatus') = '1';
+  TxtCloseTime.Text := TConfig.GetConfig('OPTIONS', 'CloseTime');
+  TxtExecTime.Text := TConfig.GetConfig('OPTIONS', 'ExecTime');
 end;
 
 procedure TWindowConfigs.ActSaveExecute(Sender: TObject);
@@ -95,6 +104,8 @@ begin
   TConfig.SetConfig('SYSTEM', 'GitBin', Trim(TxtGitBin.Text));
   TConfig.SetConfig('OPTIONS', 'CloseCmd', TUtils.Iif(CheckCloseCmd.Checked, '1', '0'));
   TConfig.SetConfig('OPTIONS', 'CloseStatus', TUtils.Iif(CheckCloseStatus.Checked, '1', '0'));
+  TConfig.SetConfig('OPTIONS', 'CloseTime', TxtCloseTime.Text);
+  TConfig.SetConfig('OPTIONS', 'ExecTime', TxtExecTime.Text);
 
   TGit.ConfigGit;
 
@@ -143,6 +154,10 @@ begin
   ActSave.Enabled := true;
 
   CheckCloseStatus.Enabled := CheckCloseCmd.Checked;
+
+  LblCloseSeconds.Enabled := CheckCloseCmd.Checked;
+
+  TxtCloseTime.Enabled := CheckCloseCmd.Checked;
 end;
 
 procedure TWindowConfigs.Done;

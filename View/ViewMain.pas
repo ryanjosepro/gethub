@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids, Vcl.CheckLst, Vcl.ButtonGroup,
   ViewConfigs, ViewAddRepo, ViewEditRepo, ViewCheckout, Config, MyUtils, MyDialogs, Git, DAO, Datas,
-  Datasnap.DSHTTP;
+  Datasnap.DSHTTP, IOUtils;
 
 type
   TWindowMain = class(TForm)
@@ -79,6 +79,7 @@ type
     procedure UpdateButtons;
     procedure UpdateTotRepos;
     procedure CheckFiles;
+    procedure SleepExec;
   end;
 
 var
@@ -242,14 +243,44 @@ var
   Cont: integer;
   Links, Paths: TStringList;
 begin
-  {
   try
     Links := TDAO.GetCheckeds('Link');
     Paths := TDAO.GetCheckeds('Path');
 
     for Cont := 0 to Paths.Count - 1 do
     begin
-      //TGit.Clone(Links[Cont], Paths[Cont]);
+      if (not TDirectory.Exists(Paths[Cont])) or (TDirectory.IsEmpty(Paths[Cont])) then
+      begin
+        if not TDirectory.Exists(Paths[Cont]) then
+        begin
+          TDirectory.CreateDirectory(Paths[Cont]);
+        end;
+
+        TGit.Clone(Links[Cont], Paths[Cont]);
+        if cont <> Paths.Count - 1 then
+          SleepExec;
+      end
+      else
+      begin
+        if TDialogs.YesNo('O diretório "' + Paths[Cont] + '" já existe, deseja sobrescrevê-lo?') = mrYes then
+        begin
+          TDirectory.Delete(Paths[Cont], true);
+
+          Sleep(1000);
+
+          if DirectoryExists(Paths[Cont]) then
+          begin
+            ShowMessage('Não foi possível sobreescrever o diretório "' + Paths[Cont] + '"');
+          end
+          else
+          begin
+            TDirectory.CreateDirectory(Paths[Cont]);
+            TGit.Clone(Links[Cont], Paths[Cont]);
+            if cont <> Paths.Count - 1 then
+              SleepExec;
+          end;
+        end;
+      end;
     end;
 
     TDAO.SetCheckeds('LastAct', 'Clone');
@@ -257,7 +288,6 @@ begin
     FreeAndNil(Links);
     FreeAndNil(Paths);
   end;
-  }
 end;
 
 procedure TWindowMain.ActStatusExecute(Sender: TObject);
@@ -271,6 +301,8 @@ begin
     for Cont := 0 to Paths.Count - 1 do
     begin
       TGit.Status(Paths[Cont]);
+      if cont <> Paths.Count - 1 then
+        SleepExec;
     end;
 
     TDAO.SetCheckeds('LastAct', 'Status');
@@ -290,6 +322,8 @@ begin
     for Cont := 0 to Paths.Count - 1 do
     begin
       TGit.Pull(Paths[Cont]);
+      if cont <> Paths.Count - 1 then
+        SleepExec;
     end;
 
     TDAO.SetCheckeds('LastAct', 'Pull');
@@ -308,6 +342,8 @@ begin
     for Cont := 0 to Paths.Count - 1 do
     begin
       TGit.Add(Paths[Cont]);
+      if cont <> Paths.Count - 1 then
+        SleepExec;
     end;
 
     TDAO.SetCheckeds('LastAct', 'Add');
@@ -349,6 +385,8 @@ begin
       for Cont := 0 to Paths.Count - 1 do
       begin
         TGit.Commit(Paths[Cont], Msgs[Cont]);
+        if cont <> Paths.Count - 1 then
+          SleepExec;
       end;
 
       TDAO.SetCheckeds('LastAct', 'Commit');
@@ -399,6 +437,9 @@ begin
     for Cont := 0 to Paths.Count - 1 do
     begin
       TGit.Push(Paths[Cont]);
+      if cont <> Paths.Count - 1 then
+
+        SleepExec;
     end;
 
     TDAO.SetCheckeds('LastAct', 'Push');
@@ -435,7 +476,7 @@ begin
 
   Value := (TDAO.Count > 0) and (TDAO.GetCheckeds('Checked').Count >= 1);
 
-  //ActClone.Enabled := Value;
+  ActClone.Enabled := Value;
   ActStatus.Enabled := Value;
   ActPull.Enabled := Value;
   ActAdd.Enabled := Value;
@@ -454,6 +495,11 @@ var
   Path: string;
 begin
   Path := ExtractFilePath(Application.ExeName) + '\Config.ini';
+end;
+
+procedure TWindowMain.SleepExec;
+begin
+  Sleep(StrToInt(TConfig.GetConfig('OPTIONS', 'ExecTime', '0')));
 end;
 
 end.
