@@ -956,8 +956,8 @@ object WindowMain: TWindowMain
     Top = 16
   end
   object MenuRepos: TPopupMenu
-    Left = 232
-    Top = 176
+    Left = 72
+    Top = 296
     object ItemRepoDir: TMenuItem
       Action = ActOpenDir
     end
