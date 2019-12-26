@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids, Vcl.CheckLst, Vcl.ButtonGroup,
   ViewConfigs, ViewAddRepo, ViewEditRepo, ViewCheckout, Config, MyUtils, MyDialogs, Git, DAO, Datas,
-  Datasnap.DSHTTP, IOUtils;
+  Datasnap.DSHTTP, IOUtils, Vcl.Menus;
 
 type
   TWindowMain = class(TForm)
@@ -52,6 +52,11 @@ type
     LblTotRepos: TLabel;
     TxtTotRepos: TLabel;
     ActCheckAll: TAction;
+    MenuRepos: TPopupMenu;
+    ItemRepoDir: TMenuItem;
+    ActOpenDir: TAction;
+    ItemEdit: TMenuItem;
+    ItemDel: TMenuItem;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -75,6 +80,8 @@ type
     procedure ActImportExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ActCheckAllExecute(Sender: TObject);
+    procedure ActOpenDirExecute(Sender: TObject);
+    procedure GridRepositoriesKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
@@ -137,6 +144,23 @@ begin
   end;
 end;
 
+procedure TWindowMain.GridRepositoriesKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if (key = 40) then
+  begin
+    if TDAO.GetIndex = TDAO.Count then
+    begin
+      TDAO.Table.First;
+      Key := Word(#0);
+    end;
+  end;
+
+  if (Shift = [ssCtrl]) and (Key = 46) then
+  begin
+    Key := 0;
+  end;
+end;
+
 procedure TWindowMain.GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
 begin
   if (key = Chr(9)) then
@@ -161,7 +185,6 @@ begin
   begin
     CellClicked := true;
     TDAO.SetField('Checked', not CheckSelect.Checked);
-
   end;
 end;
 
@@ -469,6 +492,7 @@ begin
     CheckAll.Enabled := true;
     CheckSelect.Enabled := true;
     GridRepositories.Enabled := true;
+    ActOpenDir.Enabled := true;
     ActEdit.Enabled := true;
     ActDel.Enabled := true;
     ActExport.Enabled := true;
@@ -500,6 +524,13 @@ end;
 procedure TWindowMain.SleepExec;
 begin
   Sleep(StrToInt(TConfig.GetConfig('OPTIONS', 'ExecTime', '0')));
+end;
+
+//POPUP MENU
+
+procedure TWindowMain.ActOpenDirExecute(Sender: TObject);
+begin
+  TUtils.OpenOnExplorer(TDAO.GetField('Path'));
 end;
 
 end.

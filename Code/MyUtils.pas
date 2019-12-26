@@ -32,6 +32,7 @@ type
 
     class procedure ExecCmd(Comand: string; ShowCmd: integer = 1);
     class function ExecDos(CommandLine: string; Work: string = 'C:\'): string;
+    class procedure OpenOnExplorer(Path: string);
 
     class procedure DeleteIfExistsDir(Dir: string);
     class procedure DeleteIfExistsFile(FileName: string);
@@ -292,6 +293,11 @@ begin
   finally
     CloseHandle(StdOutPipeRead);
   end;
+end;
+
+class procedure TUtils.OpenOnExplorer(Path: string);
+begin
+  ShellExecute(0, PWideChar('explore'), PWideChar(Path), nil, nil, SW_SHOWNORMAL);
 end;
 
 //Métodos para gerenciar arquivos e diretórios

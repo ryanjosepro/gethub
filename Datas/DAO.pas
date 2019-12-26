@@ -307,44 +307,13 @@ begin
 end;
 
 class function TDAO.GetIndex: integer;
-var
-  Name: string;
 begin
-  Name := Table.FieldByName('Name').AsString;
-
-  Result := 0;
-
-  Table.DisableControls;
-
-  Table.First;
-
-  while not (Table.FieldByName('Name').AsString = Name) do
-  begin
-    Inc(Result, 1);
-    Table.Next;
-  end;
-
-  Table.EnableControls;
-
+  Result := Table.RecNo;
 end;
 
 class procedure TDAO.SetIndex(Index: integer);
-var
-  Cont: integer;
 begin
-  Cont := 0;
-
-  Table.DisableControls;
-
-  Table.First;
-
-  while Cont < Index do
-  begin
-    Inc(Cont, 1);
-    Table.Next;
-  end;
-
-  Table.EnableControls;
+  Table.RecNo := Index;
 end;
 
 class procedure TDAO.Refresh;
