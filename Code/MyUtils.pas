@@ -4,8 +4,8 @@ interface
 
 uses
   System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils,
-  ShellAPI, Vcl.Forms, Windows, IOUtils,
-  MyArrays;
+  ShellAPI, Vcl.Forms, Windows, IOUtils, ClipBrd,
+  MyArrays, Vcl.Dialogs;
 
 type
 
@@ -32,7 +32,9 @@ type
 
     class procedure ExecCmd(Comand: string; ShowCmd: integer = 1);
     class function ExecDos(CommandLine: string; Work: string = 'C:\'): string;
+    class procedure ExecBat(FileName: string; Commands: TStringList);
     class procedure OpenOnExplorer(Path: string);
+    class procedure CopyToClipboard(Text: string);
 
     class procedure DeleteIfExistsDir(Dir: string);
     class procedure DeleteIfExistsFile(FileName: string);
@@ -295,9 +297,32 @@ begin
   end;
 end;
 
+class procedure TUtils.ExecBat(FileName: string; Commands: TStringList);
+var
+  Arq: TextFile;
+  Command: string;
+begin
+  AssignFile(Arq, FileName);
+  Rewrite(Arq);
+
+  for Command in Commands do
+  begin
+    Writeln(Arq, Command);
+  end;
+
+  CloseFile(Arq);
+
+  ShellExecute(0, nil, PWideChar(FileName), nil, nil, SW_SHOWNORMAL);
+end;
+
 class procedure TUtils.OpenOnExplorer(Path: string);
 begin
   ShellExecute(0, PWideChar('explore'), PWideChar(Path), nil, nil, SW_SHOWNORMAL);
+end;
+
+class procedure TUtils.CopyToClipboard(Text: string);
+begin
+  Clipboard.AsText := Text;
 end;
 
 //Métodos para gerenciar arquivos e diretórios

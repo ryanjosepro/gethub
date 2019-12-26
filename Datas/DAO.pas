@@ -274,7 +274,7 @@ begin
 
   Table.DisableControls;
 
-  Cont := 0;
+  Cont := 1;
 
   Table.First;
 
