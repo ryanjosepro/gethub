@@ -9,7 +9,8 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids, Vcl.CheckLst, Vcl.ButtonGroup,
   ViewConfigs, ViewAddRepo, ViewEditRepo, ViewCheckout, Config, MyUtils, MyDialogs, Git, DAO, Datas,
-  Datasnap.DSHTTP, IOUtils, Vcl.Menus;
+  Datasnap.DSHTTP, IOUtils, Vcl.Menus,
+  MySets, MyArrays, Repository;
 
 type
   TWindowMain = class(TForm)
@@ -262,212 +263,211 @@ end;
 
 procedure TWindowMain.ActCloneExecute(Sender: TObject);
 var
-  Cont: integer;
-  Links, Paths: TStringList;
+  I: integer;
+  Repositories: TRepositoryArray;
 begin
-  try
-    Links := TDAO.GetCheckeds('Link');
-    Paths := TDAO.GetCheckeds('Path');
+  TDAO.CheckedRepositories(Repositories);
 
-    for Cont := 0 to Paths.Count - 1 do
+  for I := 0 to Length(Repositories) - 1 do
+  begin
+    with Repositories[I] do
     begin
-      if (not TDirectory.Exists(Paths[Cont])) or (TDirectory.IsEmpty(Paths[Cont])) then
+      if (not TDirectory.Exists(Path)) or (TDirectory.IsEmpty(Path)) then
       begin
-        if not TDirectory.Exists(Paths[Cont]) then
+        if not TDirectory.Exists(Path) then
         begin
-          TDirectory.CreateDirectory(Paths[Cont]);
+          TDirectory.CreateDirectory(Path);
         end;
 
-        TGit.Clone(Links[Cont], Paths[Cont]);
-        if cont <> Paths.Count - 1 then
+        TGit.Git(Repositories[I], gmClone);
+        if I <> Length(Repositories) - 1 then
+        begin
           SleepExec;
+        end;
       end
       else
       begin
-        if TDialogs.YesNo('O diretório "' + Paths[Cont] + '" já existe, deseja sobrescrevê-lo?') = mrYes then
+        if TDialogs.YesNo('O diretório "' + Path + '" já existe, deseja sobrescrevê-lo?') = mrYes then
         begin
-          TDirectory.Delete(Paths[Cont], true);
+          TDirectory.Delete(Path, true);
 
           Sleep(1000);
 
-          if DirectoryExists(Paths[Cont]) then
+          if DirectoryExists(Path) then
           begin
-            ShowMessage('Não foi possível sobreescrever o diretório "' + Paths[Cont] + '"');
+            ShowMessage('Não foi possível sobreescrever o diretório "' + Path + '"');
           end
           else
           begin
-            TDirectory.CreateDirectory(Paths[Cont]);
-            TGit.Clone(Links[Cont], Paths[Cont]);
-            if cont <> Paths.Count - 1 then
+            TDirectory.CreateDirectory(Path);
+
+            TGit.Git(Repositories[I], gmClone);
+
+            if I <> Length(Repositories) - 1 then
+            begin
               SleepExec;
+            end;
           end;
         end;
       end;
     end;
-
-    TDAO.SetCheckeds('LastAct', 'Clone');
-  finally
-    FreeAndNil(Links);
-    FreeAndNil(Paths);
   end;
+
+  TDAO.SetCheckeds('LastAct', 'Clone');
 end;
 
 procedure TWindowMain.ActStatusExecute(Sender: TObject);
 var
-  Cont: integer;
-  Paths: TStringList;
+  I: integer;
+  Repositories: TRepositoryArray;
 begin
-  try
-    Paths := TDAO.GetCheckeds('Path');
+  TDAO.CheckedRepositories(Repositories);
 
-    for Cont := 0 to Paths.Count - 1 do
+  for I := 0 to Length(Repositories) - 1 do
+  begin
+    TGit.Git(Repositories[I], gmStatus);
+    if I <> Length(Repositories) - 1 then
     begin
-      TGit.Status(Paths[Cont]);
-      if cont <> Paths.Count - 1 then
-        SleepExec;
+      SleepExec;
     end;
-
-    TDAO.SetCheckeds('LastAct', 'Status');
-  finally
-    FreeAndNil(Paths);
   end;
+
+  TDAO.SetCheckeds('LastAct', 'Status');
 end;
 
 procedure TWindowMain.ActPullExecute(Sender: TObject);
 var
-  Cont: integer;
-  Paths: TStringList;
+  I: integer;
+  Repositories: TRepositoryArray;
 begin
-  try
-    Paths := TDAO.GetCheckeds('Path');
+  TDAO.CheckedRepositories(Repositories);
 
-    for Cont := 0 to Paths.Count - 1 do
+  for I := 0 to Length(Repositories) - 1 do
+  begin
+    TGit.Git(Repositories[I], gmPull);
+    if I <> Length(Repositories) - 1 then
     begin
-      TGit.Pull(Paths[Cont]);
-      if cont <> Paths.Count - 1 then
-        SleepExec;
+      SleepExec;
     end;
-
-    TDAO.SetCheckeds('LastAct', 'Pull');
-  finally
-    FreeAndNil(Paths);
   end;
+
+  TDAO.SetCheckeds('LastAct', 'Pull');
 end;
 
 procedure TWindowMain.ActAddExecute(Sender: TObject);
 var
-  Cont: integer;
-  Paths: TStringList;
+  I: integer;
+  Repositories: TRepositoryArray;
 begin
-  try
-    Paths := TDAO.GetCheckeds('Path');
-    for Cont := 0 to Paths.Count - 1 do
-    begin
-      TGit.Add(Paths[Cont]);
-      if cont <> Paths.Count - 1 then
-        SleepExec;
-    end;
+  TDAO.CheckedRepositories(Repositories);
 
-    TDAO.SetCheckeds('LastAct', 'Add');
-  finally
-    FreeAndNil(Paths);
+  for I := 0 to Length(Repositories) - 1 do
+  begin
+    TGit.Git(Repositories[I], gmAdd);
+    if I <> Length(Repositories) - 1 then
+    begin
+      SleepExec;
+    end;
   end;
+
+  TDAO.SetCheckeds('LastAct', 'Add');
 end;
 
 procedure TWindowMain.ActCommitExecute(Sender: TObject);
 var
-  Cont: integer;
-  Names, Paths, Msgs: TStringList;
+  I: integer;
+  Repositories: TRepositoryArray;
   Erro: boolean;
   MsgErro: string;
 begin
-  try
-    Names := TDAO.GetCheckeds('Name');
-    Paths := TDAO.GetCheckeds('Path');
-    Msgs := TDAO.GetCheckeds('Msg');
+  TDAO.CheckedRepositories(Repositories);
 
-    Erro := false;
-    MsgErro := 'Digite uma mensagem de commit para' + #13#10;
+  Erro := false;
+  MsgErro := 'Digite uma mensagem de commit para' + #13#10;
 
-    for Cont := 0 to Paths.Count - 1 do
+  for I := 0 to Length(Repositories) - 1 do
+  begin
+    with Repositories[I] do
     begin
-      if Trim(Msgs[Cont]) = '' then
+      if Trim(Msg) = '' then
       begin
         Erro := true;
-        MsgErro := MsgErro + ' -' + Names[Cont] + #13#10;
+        MsgErro := MsgErro + ' -' + Name + #13#10;
       end;
     end;
+  end;
 
-    if Erro then
+  if Erro then
+  begin
+    ShowMessage(MsgErro);
+  end
+  else
+  begin
+    for I := 0 to Length(Repositories) - 1 do
     begin
-      ShowMessage(MsgErro);
-    end
-    else
-    begin
-      for Cont := 0 to Paths.Count - 1 do
+      with Repositories[I] do
       begin
-        TGit.Commit(Paths[Cont], Msgs[Cont]);
-        if cont <> Paths.Count - 1 then
-          SleepExec;
-      end;
+        TGit.Git(Repositories[I], gmCommit);
 
-      TDAO.SetCheckeds('LastAct', 'Commit');
+        if I <> Length(Repositories) - 1 then
+        begin
+          SleepExec;
+        end;
+      end;
     end;
-  finally
-    FreeAndNil(Paths);
+
+    TDAO.SetCheckeds('LastAct', 'Commit');
   end;
 end;
 
 procedure TWindowMain.ActCheckoutExecute(Sender: TObject);
 var
-  Paths, Files: TStringList;
-  Path, FileName: string;
+  Repositories: TRepositoryArray;
+  Repository: TRepository;
+  Files: TStringList;
+  FileName: string;
 begin
   try
-    Paths := TDAO.GetCheckeds('Path');
+    TDAO.CheckedRepositories(Repositories);
 
-    if Paths.Count = 1 then
+    if Length(Repositories) = 1 then
     begin
-      Path := Paths[0];
+      Repository := Repositories[0];
 
-      Files := WindowCheckout.ShowModal(TDAO.GetCheckeds('Name')[0], Path);
+      Files := WindowCheckout.ShowModal(Repository);
 
       if Files.Count > 0 then
       begin
         for FileName in Files do
         begin
-          TGit.Checkout(Path, FileName);
+          TGit.Git(Repository, gmCheckout, FileName);
         end;
       end;
 
       TDAO.SetCheckeds('LastAct', 'Checkout');
     end;
   finally
-    FreeAndNil(Paths);
     FreeAndNil(Files);
   end;
 end;
 
 procedure TWindowMain.ActPushExecute(Sender: TObject);
 var
-  Cont: integer;
-  Paths: TStringList;
+  I: integer;
+  Repositories: TRepositoryArray;
 begin
-  try
-    Paths := TDAO.GetCheckeds('Path');
+  TDAO.CheckedRepositories(Repositories);
 
-    for Cont := 0 to Paths.Count - 1 do
+  for I := 0 to Length(Repositories) - 1 do
+  begin
+    TGit.Git(Repositories[I], gmPush);
+    if I <> Length(Repositories) - 1 then
     begin
-      TGit.Push(Paths[Cont]);
-      if cont <> Paths.Count - 1 then
-
-        SleepExec;
+      SleepExec;
     end;
-
-    TDAO.SetCheckeds('LastAct', 'Push');
-  finally
-    FreeAndNil(Paths);
   end;
+
+  TDAO.SetCheckeds('LastAct', 'Push');
 end;
 
 //OTHERS

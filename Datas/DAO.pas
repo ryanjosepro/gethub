@@ -4,8 +4,8 @@ interface
 
 uses
   System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, FireDAC.Comp.Client,
-  Vcl.Forms, FireDAC.Stan.Intf, Vcl.Dialogs,
-  MyArrays, MyUtils, Datas;
+  Vcl.Forms, FireDAC.Stan.Intf, Vcl.Dialogs, FireDAC.Phys.SQLiteVDataSet, FireDAC.Phys.SQLite,
+  MyArrays, MyUtils, Datas, Repository;
 
 type
   TDAO = class
@@ -20,13 +20,14 @@ type
     class function GetField(Field: string): variant;
     class procedure SetField(Field: string; Value: variant);
 
-    class procedure Insert(Link, Path, Name: string);
-    class procedure Edit(Link, Path, Name: string);
+    class procedure Insert(Repository: TRepository);
+    class procedure Edit(Repository: TRepository);
     class procedure Delete;
 
     class procedure SelectAll(Checked: boolean = true);
     class function GetCheckeds(Field: string): TStringList;
     class procedure SetCheckeds(Field, Value: string);
+    class procedure CheckedRepositories(var Repositories: TRepositoryArray);
     class function ValueExists(Field: string; Value: Variant; ConsiderCurrent: boolean = true): boolean;
 
     class function Count: integer;
@@ -162,25 +163,25 @@ begin
   Table.Post;
 end;
 
-class procedure TDAO.Insert(Link, Path, Name: string);
+class procedure TDAO.Insert(Repository: TRepository);
 begin
   Table.UpdateOptions.EnableInsert := true;
   Table.Insert;
   Table.FieldByName('Checked').AsVariant := false;
-  Table.FieldByName('Link').AsVariant := Link;
-  Table.FieldByName('Path').AsVariant := Path;
-  Table.FieldByName('Name').AsVariant := Name;
+  Table.FieldByName('Link').AsVariant := Repository.Link;
+  Table.FieldByName('Path').AsVariant := Repository.Path;
+  Table.FieldByName('Name').AsVariant := Repository.Name;
   Table.Post;
   Save;
   Table.UpdateOptions.EnableInsert := false;
 end;
 
-class procedure TDAO.Edit(Link, Path, Name: string);
+class procedure TDAO.Edit(Repository: TRepository);
 begin
   Table.Edit;
-  Table.FieldByName('Link').AsVariant := Link;
-  Table.FieldByName('Path').AsVariant := Path;
-  Table.FieldByName('Name').AsVariant := Name;
+  Table.FieldByName('Link').AsVariant := Repository.Link;
+  Table.FieldByName('Path').AsVariant := Repository.Path;
+  Table.FieldByName('Name').AsVariant := Repository.Name;
   Table.Post;
   Save;
 end;
@@ -212,17 +213,18 @@ begin
   Table.EnableControls;
 end;
 
+
 class function TDAO.GetCheckeds(Field: string): TStringList;
 var
   Index: integer;
 begin
   Index := GetIndex;
 
-  Result := TStringList.Create;
-
   Table.DisableControls;
 
   Table.First;
+
+  Result := TStringList.Create;
 
   while not Table.Eof do
   begin
@@ -262,6 +264,38 @@ begin
   SetIndex(Index);
 
   Table.EnableControls;
+end;
+
+class procedure TDAO.CheckedRepositories(var Repositories: TRepositoryArray);
+var
+  I: integer;
+  Links, Paths, Names, LastActs, Msgs: TStringList;
+begin
+  SetLength(Repositories, GetCheckeds('Checked').Count);
+
+  try
+    Links := GetCheckeds('Link');
+    Paths := GetCheckeds('Path');
+    Names := GetCheckeds('Name');
+    LastActs := GetCheckeds('LastAct');
+    Msgs := GetCheckeds('Msg');
+
+    for I := 0 to Length(Repositories) - 1 do
+    begin
+      Repositories[I] := TRepository.Create;
+      Repositories[I].Link := Links[I];
+      Repositories[I].Path := Paths[I];
+      Repositories[I].Name := Names[I];
+      Repositories[I].LastAct := LastActs[I];
+      Repositories[I].Msg := Msgs[I];
+    end;
+  finally
+    FreeAndNil(Links);
+    FreeAndNil(Paths);
+    FreeAndNil(Names);
+    FreeAndNil(LastActs);
+    FreeAndNil(Msgs);
+  end;
 end;
 
 class function TDAO.ValueExists(Field: string; Value: Variant; ConsiderCurrent: boolean = true): boolean;

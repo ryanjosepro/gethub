@@ -13,7 +13,9 @@ uses
   Config in 'Code\Config.pas',
   Git in 'Code\Git.pas',
   ViewCheckout in 'View\ViewCheckout.pas' {WindowCheckout},
-  MyArrays in 'Code\MyArrays.pas';
+  MyArrays in 'Code\MyArrays.pas',
+  Repository in 'Bean\Repository.pas',
+  MySets in 'Code\MySets.pas';
 
 {$R *.res}
 

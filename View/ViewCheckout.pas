@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, System.StrUtils,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.CheckLst, Vcl.StdCtrls,
   System.Actions, Vcl.ActnList, Vcl.Buttons, System.ImageList, Vcl.ImgList,
-  MyUtils;
+  MyUtils, Repository;
 
 type
   TWindowCheckout = class(TForm)
@@ -27,7 +27,7 @@ type
     procedure ActAddExecute(Sender: TObject);
     procedure ActRemoveExecute(Sender: TObject);
     procedure ActCheckoutExecute(Sender: TObject);
-    function ShowModal(Name, Path: string): TStringList;
+    function ShowModal(Repository: TRepository): TStringList;
     procedure FormActivate(Sender: TObject);
   private
     Path: string;
@@ -41,13 +41,13 @@ implementation
 
 {$R *.dfm}
 
-function TWindowCheckout.ShowModal(Name, Path: string): TStringList;
+function TWindowCheckout.ShowModal(Repository: TRepository): TStringList;
 var
   Item: string;
 begin
-  Self.Path := Path;
+  Self.Path := Repository.Path;
 
-  Self.Caption := 'Checkout - ' + Name;
+  Self.Caption := 'Checkout - ' + Repository.Name;
 
   inherited ShowModal;
 

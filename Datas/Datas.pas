@@ -7,7 +7,9 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   FireDAC.Stan.StorageBin, FireDAC.Stan.StorageJSON, FireDAC.Phys.SQLiteVDataSet,
-  FireDAC.Stan.Async, FireDAC.DApt;
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.UI.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef,
+  FireDAC.Stan.ExprFuncs, FireDAC.VCLUI.Wait;
 
 type
   TDataFactory = class(TDataModule)

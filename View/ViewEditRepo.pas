@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList,
-  MyDialogs, DAO;
+  MyDialogs, DAO, Repository;
 
 type
   TWindowEditRepo = class(TForm)
@@ -108,6 +108,7 @@ end;
 procedure TWindowEditRepo.ActSaveExecute(Sender: TObject);
 var
   MsgErro: string;
+  Repository: TRepository;
 begin
   if TDAO.ValueExists('Link', TxtLink.Text, false) then
   begin
@@ -124,7 +125,12 @@ begin
 
   if MsgErro = '' then
   begin
-    TDAO.Edit(TxtLink.Text, TxtPath.Text, TxtName.Text);
+    Repository := TRepository.Create;
+    Repository.Link := TxtLink.Text;
+    Repository.Path := TxtPath.Text;
+    Repository.Name := TxtName.Text;
+
+    TDAO.Edit(Repository);
     Done;
     Close;
   end
