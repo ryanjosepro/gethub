@@ -27,7 +27,7 @@ type
     class procedure SelectAll(Checked: boolean = true);
     class function GetCheckeds(Field: string): TStringList;
     class procedure SetCheckeds(Field, Value: string);
-    class procedure CheckedRepositories(var Repositories: TRepositoryArray);
+    class function GetCheckedRepositories: TRepositoryArray;
     class function ValueExists(Field: string; Value: Variant; ConsiderCurrent: boolean = true): boolean;
 
     class function Count: integer;
@@ -153,7 +153,14 @@ end;
 
 class function TDAO.GetField(Field: string): variant;
 begin
-  Result := Table.FieldByName(Field).AsVariant;
+  if not Table.FieldByName(Field).IsNull then
+  begin
+    Result := Table.FieldByName(Field).AsVariant;
+  end
+  else
+  begin
+    Result := '';
+  end;
 end;
 
 class procedure TDAO.SetField(Field: string; Value: variant);
@@ -213,7 +220,6 @@ begin
   Table.EnableControls;
 end;
 
-
 class function TDAO.GetCheckeds(Field: string): TStringList;
 var
   Index: integer;
@@ -266,10 +272,11 @@ begin
   Table.EnableControls;
 end;
 
-class procedure TDAO.CheckedRepositories(var Repositories: TRepositoryArray);
+class function TDAO.GetCheckedRepositories: TRepositoryArray;
 var
   I: integer;
   Links, Paths, Names, LastActs, Msgs: TStringList;
+  Repositories: TRepositoryArray;
 begin
   SetLength(Repositories, GetCheckeds('Checked').Count);
 
@@ -289,6 +296,8 @@ begin
       Repositories[I].LastAct := LastActs[I];
       Repositories[I].Msg := Msgs[I];
     end;
+
+    Result := Repositories;
   finally
     FreeAndNil(Links);
     FreeAndNil(Paths);

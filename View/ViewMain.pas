@@ -266,7 +266,7 @@ var
   I: integer;
   Repositories: TRepositoryArray;
 begin
-  TDAO.CheckedRepositories(Repositories);
+  Repositories := TDAO.GetCheckedRepositories;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
@@ -321,7 +321,7 @@ var
   I: integer;
   Repositories: TRepositoryArray;
 begin
-  TDAO.CheckedRepositories(Repositories);
+  Repositories := TDAO.GetCheckedRepositories;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
@@ -340,7 +340,7 @@ var
   I: integer;
   Repositories: TRepositoryArray;
 begin
-  TDAO.CheckedRepositories(Repositories);
+  Repositories := TDAO.GetCheckedRepositories;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
@@ -359,7 +359,7 @@ var
   I: integer;
   Repositories: TRepositoryArray;
 begin
-  TDAO.CheckedRepositories(Repositories);
+  Repositories := TDAO.GetCheckedRepositories;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
@@ -380,7 +380,7 @@ var
   Erro: boolean;
   MsgErro: string;
 begin
-  TDAO.CheckedRepositories(Repositories);
+  Repositories := TDAO.GetCheckedRepositories;
 
   Erro := false;
   MsgErro := 'Digite uma mensagem de commit para' + #13#10;
@@ -428,7 +428,7 @@ var
   FileName: string;
 begin
   try
-    TDAO.CheckedRepositories(Repositories);
+    Repositories := TDAO.GetCheckedRepositories;
 
     if Length(Repositories) = 1 then
     begin
@@ -456,7 +456,7 @@ var
   I: integer;
   Repositories: TRepositoryArray;
 begin
-  TDAO.CheckedRepositories(Repositories);
+  Repositories := TDAO.GetCheckedRepositories;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
