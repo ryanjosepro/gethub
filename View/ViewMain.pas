@@ -58,6 +58,8 @@ type
     ActOpenDir: TAction;
     ItemEdit: TMenuItem;
     ItemDel: TMenuItem;
+    BtnDetails: TSpeedButton;
+    ActDetails: TAction;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -83,6 +85,7 @@ type
     procedure ActCheckAllExecute(Sender: TObject);
     procedure ActOpenDirExecute(Sender: TObject);
     procedure GridRepositoriesKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure ActDetailsExecute(Sender: TObject);
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
@@ -236,6 +239,24 @@ begin
     UpdateButtons;
     UpdateTotRepos;
   end;
+end;
+
+procedure TWindowMain.ActDetailsExecute(Sender: TObject);
+var
+  Arq: TextFile;
+  TextTemp, TextOut: String;
+begin
+  AssignFile(Arq, TDAO.GetField('Path') + '\README.md');
+
+  Reset(Arq);
+
+  while not Eof(Arq) do
+  begin
+    ReadLn(Arq, TextTemp);
+    TextOut := TextOut + TextTemp + #13#10;
+  end;
+
+  ShowMessage(TextOut);
 end;
 
 procedure TWindowMain.ActImportExecute(Sender: TObject);
@@ -494,6 +515,7 @@ begin
     ActOpenDir.Enabled := true;
     ActEdit.Enabled := true;
     ActDel.Enabled := true;
+    ActDetails.Enabled := true;
     ActExport.Enabled := true;
   end;
 

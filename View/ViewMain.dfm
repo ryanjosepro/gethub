@@ -152,8 +152,8 @@ object WindowMain: TWindowMain
     ExplicitTop = 406
   end
   object BtnImport: TSpeedButton
-    Left = 347
-    Top = 381
+    Left = 461
+    Top = 349
     Width = 108
     Height = 26
     Action = ActImport
@@ -195,6 +195,22 @@ object WindowMain: TWindowMain
     Top = 351
     Width = 3
     Height = 13
+  end
+  object BtnDetails: TSpeedButton
+    Left = 239
+    Top = 381
+    Width = 108
+    Height = 26
+    Action = ActDetails
+    Anchors = [akLeft, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clTeal
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
   end
   object GridRepositories: TDBGrid
     Left = 8
@@ -324,6 +340,11 @@ object WindowMain: TWindowMain
       Hint = 'Remover reposit'#243'rio selecionado'
       ShortCut = 115
       OnExecute = ActDelExecute
+    end
+    object ActDetails: TAction
+      Caption = 'Detalhes'
+      Enabled = False
+      OnExecute = ActDetailsExecute
     end
     object ActImport: TAction
       Caption = 'Importar (Ctrl+I)'
