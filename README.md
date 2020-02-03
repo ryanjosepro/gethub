@@ -1,2 +1,2 @@
 # ProjectGethub
-Project created to make an app that commit to github easier...
+Git repositories manager
