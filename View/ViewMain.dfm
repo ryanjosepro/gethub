@@ -342,8 +342,9 @@ object WindowMain: TWindowMain
       OnExecute = ActDelExecute
     end
     object ActDetails: TAction
-      Caption = 'Detalhes'
+      Caption = 'Detalhes (F1)'
       Enabled = False
+      ShortCut = 112
       OnExecute = ActDetailsExecute
     end
     object ActImport: TAction
