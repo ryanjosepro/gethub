@@ -114,6 +114,13 @@ begin
   GridRepositories.Enabled := true;
   CheckAll.Enabled := true;
   CheckSelect.Enabled := true;
+  ActClone.Enabled := true;
+  ActStatus.Enabled := true;
+  ActPull.Enabled := true;
+  ActAdd.Enabled := true;
+  ActCommit.Enabled := true;
+  ActCheckout.Enabled := true;
+  ActPush.Enabled := true;
   Source.DataSet := nil;
 end;
 
