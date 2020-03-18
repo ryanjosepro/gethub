@@ -60,6 +60,13 @@ type
     ItemDel: TMenuItem;
     BtnDetails: TSpeedButton;
     ActDetails: TAction;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    SpeedButton6: TSpeedButton;
+    SpeedButton7: TSpeedButton;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -389,12 +396,20 @@ var
 begin
   Repositories := TDAO.GetCheckedRepositories;
 
-  for I := 0 to Length(Repositories) - 1 do
+  if Length(Repositories) = 1 then
   begin
-    TGit.Git(Repositories[I], gmAdd);
-    if I <> Length(Repositories) - 1 then
+    TDialogs.CustomDialog('Deseja executar "add" em todos os arquivos ou em arquivos específicos?',
+    mtConfirmation, [mbYes, mbNo], ['Todos', 'Específicos'], 'Git Add');
+  end
+  else
+  begin
+    for I := 0 to Length(Repositories) - 1 do
     begin
-      SleepExec;
+      TGit.Git(Repositories[I], gmAdd);
+      if I <> Length(Repositories) - 1 then
+      begin
+        SleepExec;
+      end;
     end;
   end;
 

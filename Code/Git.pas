@@ -53,7 +53,7 @@ begin
   end;
 end;
 
-class procedure TGit.Git(Repository: TRepository; Mode: TGitMode; CheckoutFile: string);
+class procedure TGit.Git(Repository: TRepository; Mode: TGitMode; CheckoutFile: string = '');
 var
   StrMode, GitCommand, CmdTitle, EchoMessage, CloseCommand, Command: string;
 begin
