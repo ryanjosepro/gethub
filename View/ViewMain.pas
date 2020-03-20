@@ -393,15 +393,16 @@ procedure TWindowMain.ActAddExecute(Sender: TObject);
 var
   I: integer;
   Repositories: TRepositoryArray;
+  DialogAnswer: integer;
 begin
   Repositories := TDAO.GetCheckedRepositories;
 
   if Length(Repositories) = 1 then
   begin
-    TDialogs.CustomDialog('Deseja executar "add" em todos os arquivos ou em arquivos específicos?',
-    mtConfirmation, [mbYes, mbNo], ['Todos', 'Específicos'], 'Git Add');
-  end
-  else
+    DialogAnswer := TDialogs.CustomDialog('Arquivos', mtConfirmation, [mbYes, mbNo], ['Todos', 'Específicos'], 'Git Add');
+  end;
+
+  if DialogAnswer = mrYes then
   begin
     for I := 0 to Length(Repositories) - 1 do
     begin
@@ -411,6 +412,10 @@ begin
         SleepExec;
       end;
     end;
+  end
+  else if DialogAnswer = mrNo then
+  begin
+
   end;
 
   TDAO.SetCheckeds('LastAct', 'Add');
