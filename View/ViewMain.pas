@@ -397,6 +397,8 @@ var
 begin
   Repositories := TDAO.GetCheckedRepositories;
 
+  DialogAnswer := mrYes;
+
   if Length(Repositories) = 1 then
   begin
     DialogAnswer := TDialogs.CustomDialog('Arquivos', mtConfirmation, [mbYes, mbNo], ['Todos', 'Específicos'], 'Git Add');
