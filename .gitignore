@@ -171,3 +171,5 @@ Thumbs.db
 
 *.todo
 ModelSupport*
+
+*.json
