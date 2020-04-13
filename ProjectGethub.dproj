@@ -128,13 +128,11 @@
         <DCCReference Include="Code\MyDialogs.pas"/>
         <DCCReference Include="Code\Config.pas"/>
         <DCCReference Include="Code\Git.pas"/>
-        <DCCReference Include="View\ViewCheckout.pas">
-            <Form>WindowCheckout</Form>
+        <DCCReference Include="View\ViewFiles.pas">
+            <Form>WindowFiles</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Code\MyArrays.pas"/>
-        <DCCReference Include="Bean\Repository.pas"/>
-        <DCCReference Include="Code\MySets.pas"/>
+        <DCCReference Include="Code\ConfigGethub.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

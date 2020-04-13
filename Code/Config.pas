@@ -3,14 +3,14 @@ unit Config;
 interface
 
 uses
-System.SysUtils, System.Classes, System.Types, System.Variants, Vcl.Forms, IniFiles,
-  MyUtils;
+  System.SysUtils, System.Classes, System.Types, System.Variants, Vcl.Forms, IniFiles;
 
 type
   TConfig = class
-  strict private
+  private
     class function Source: string;
-    class procedure CreateFile(Path: string);
+  protected
+    class procedure CreateFile(Path: string); virtual; abstract;
   public
     class function GetConfig(const Section, Name: string; Default: string = ''): string;
     class procedure SetConfig(const Section, Name: string; Value: string = '');
@@ -33,25 +33,6 @@ begin
   end;
 
   Result := Path;
-end;
-
-//Cria o arquivo Config.ini
-class procedure TConfig.CreateFile(Path: string);
-var
-  Arq: TIniFile;
-begin
-  Arq := TIniFile.Create(Path);
-  try
-    Arq.WriteString('ACCOUNT', 'Name', '');
-    Arq.WriteString('ACCOUNT', 'Email', '');
-    Arq.WriteString('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin');
-    Arq.WriteString('OPTIONS', 'CloseCmd', '1');
-    Arq.WriteString('OPTIONS', 'CloseStatus', '0');
-    Arq.WriteString('OPTIONS', 'CloseTime', '5');
-    Arq.WriteString('OPTIONS', 'ExecTime', '0');
-  finally
-    FreeAndNil(Arq);
-  end;
 end;
 
 //Busca uma configuração específica

@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, FireDAC.Comp.Client,
   Vcl.Forms, FireDAC.Stan.Intf, Vcl.Dialogs, FireDAC.Phys.SQLiteVDataSet, FireDAC.Phys.SQLite,
-  MyArrays, MyUtils, Datas, Repository;
+  MyUtils, Datas, Git;
 
 type
   TDAO = class
@@ -27,10 +27,14 @@ type
     class procedure SelectAll(Checked: boolean = true);
     class function GetCheckeds(Field: string): TStringList;
     class procedure SetCheckeds(Field, Value: string);
+
     class function GetCheckedRepositories: TRepositoryArray;
+
     class function ValueExists(Field: string; Value: Variant; ConsiderCurrent: boolean = true): boolean;
 
     class function Count: integer;
+    class function CountChecked: integer;
+
     class function GetIndex: integer;
     class procedure SetIndex(Index: integer);
 
@@ -276,9 +280,8 @@ class function TDAO.GetCheckedRepositories: TRepositoryArray;
 var
   I: integer;
   Links, Paths, Names, LastActs, Msgs: TStringList;
-  Repositories: TRepositoryArray;
 begin
-  SetLength(Repositories, GetCheckeds('Checked').Count);
+  SetLength(Result, GetCheckeds('Checked').Count);
 
   try
     Links := GetCheckeds('Link');
@@ -287,17 +290,15 @@ begin
     LastActs := GetCheckeds('LastAct');
     Msgs := GetCheckeds('Msg');
 
-    for I := 0 to Length(Repositories) - 1 do
+    for I := 0 to Length(Result) - 1 do
     begin
-      Repositories[I] := TRepository.Create;
-      Repositories[I].Link := Links[I];
-      Repositories[I].Path := Paths[I];
-      Repositories[I].Name := Names[I];
-      Repositories[I].LastAct := LastActs[I];
-      Repositories[I].Msg := Msgs[I];
+      Result[I] := TRepository.Create;
+      Result[I].Link := Links[I];
+      Result[I].Path := Paths[I];
+      Result[I].Name := Names[I];
+      Result[I].LastAct := LastActs[I];
+      Result[I].Msg := Msgs[I];
     end;
-
-    Result := Repositories;
   finally
     FreeAndNil(Links);
     FreeAndNil(Paths);
@@ -347,6 +348,11 @@ end;
 class function TDAO.Count: integer;
 begin
   Result := Table.RecordCount;
+end;
+
+class function TDAO.CountChecked: integer;
+begin
+  Result := GetCheckeds('Checked').Count;
 end;
 
 class function TDAO.GetIndex: integer;

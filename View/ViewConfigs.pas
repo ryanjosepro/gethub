@@ -5,9 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls, System.Types,
-  Vcl.StdCtrls, Vcl.Buttons, System.Actions, Vcl.ActnList, MyDialogs, Git, Vcl.ComCtrls,
-  System.ImageList, Vcl.ImgList,
-  Config, MyUtils;
+  Vcl.StdCtrls, Vcl.Buttons, System.Actions, Vcl.ActnList, Vcl.ComCtrls, System.ImageList, Vcl.ImgList,
+  ConfigGethub, MyUtils, MyDialogs, Git;
 
 type
   TWindowConfigs = class(TForm)
@@ -88,26 +87,26 @@ end;
 
 procedure TWindowConfigs.LoadConfigs;
 begin
-  TxtUserName.Text := TConfig.GetConfig('ACCOUNT', 'Name');
-  TxtEmail.Text := TConfig.GetConfig('ACCOUNT', 'Email');
-  TxtGitBin.Text := TConfig.GetConfig('SYSTEM', 'GitBin');
-  CheckCloseCmd.Checked := TConfig.GetConfig('OPTIONS', 'CloseCmd') = '1';
-  CheckCloseStatus.Checked := TConfig.GetConfig('OPTIONS', 'CloseStatus') = '1';
-  TxtCloseTime.Text := TConfig.GetConfig('OPTIONS', 'CloseTime');
-  TxtExecTime.Text := TConfig.GetConfig('OPTIONS', 'ExecTime');
+  TxtUserName.Text := TConfigGethub.GetConfig('ACCOUNT', 'Name');
+  TxtEmail.Text := TConfigGethub.GetConfig('ACCOUNT', 'Email');
+  TxtGitBin.Text := TConfigGethub.GetConfig('SYSTEM', 'GitBin');
+  CheckCloseCmd.Checked := TConfigGethub.GetConfig('OPTIONS', 'CloseCmd') = '1';
+  CheckCloseStatus.Checked := TConfigGethub.GetConfig('OPTIONS', 'CloseStatus') = '1';
+  TxtCloseTime.Text := TConfigGethub.GetConfig('OPTIONS', 'CloseTime');
+  TxtExecTime.Text := TConfigGethub.GetConfig('OPTIONS', 'ExecTime');
 end;
 
 procedure TWindowConfigs.ActSaveExecute(Sender: TObject);
 begin
-  TConfig.SetConfig('ACCOUNT', 'Name', Trim(TxtUserName.Text));
-  TConfig.SetConfig('ACCOUNT', 'Email', Trim(TxtEmail.Text));
-  TConfig.SetConfig('SYSTEM', 'GitBin', Trim(TxtGitBin.Text));
-  TConfig.SetConfig('OPTIONS', 'CloseCmd', TUtils.Iif(CheckCloseCmd.Checked, '1', '0'));
-  TConfig.SetConfig('OPTIONS', 'CloseStatus', TUtils.Iif(CheckCloseStatus.Checked, '1', '0'));
-  TConfig.SetConfig('OPTIONS', 'CloseTime', TxtCloseTime.Text);
-  TConfig.SetConfig('OPTIONS', 'ExecTime', TxtExecTime.Text);
+  TConfigGethub.SetConfig('ACCOUNT', 'Name', Trim(TxtUserName.Text));
+  TConfigGethub.SetConfig('ACCOUNT', 'Email', Trim(TxtEmail.Text));
+  TConfigGethub.SetConfig('SYSTEM', 'GitBin', Trim(TxtGitBin.Text));
+  TConfigGethub.SetConfig('OPTIONS', 'CloseCmd', TUtils.Iif(CheckCloseCmd.Checked, '1', '0'));
+  TConfigGethub.SetConfig('OPTIONS', 'CloseStatus', TUtils.Iif(CheckCloseStatus.Checked, '1', '0'));
+  TConfigGethub.SetConfig('OPTIONS', 'CloseTime', TxtCloseTime.Text);
+  TConfigGethub.SetConfig('OPTIONS', 'ExecTime', TxtExecTime.Text);
 
-  TGit.ConfigGit;
+  TConfigGethub.ConfigGitAccount;
 
   Done;
 

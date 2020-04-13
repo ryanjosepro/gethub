@@ -55,7 +55,6 @@
     TabStop = False
     object TabConta: TTabSheet
       Caption = 'Conta'
-      ExplicitWidth = 241
       object LblEmail: TLabel
         Left = 3
         Top = 55
@@ -114,7 +113,10 @@
     object TabSistema: TTabSheet
       Caption = 'Sistema'
       ImageIndex = 1
-      ExplicitWidth = 241
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         249
         269)
@@ -163,7 +165,10 @@
     object Opções: TTabSheet
       Caption = 'Op'#231#245'es'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 245
+      ExplicitHeight = 0
       object PanelCloseCmd: TPanel
         Left = 3
         Top = 3

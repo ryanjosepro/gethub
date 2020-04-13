@@ -116,7 +116,7 @@ object WindowMain: TWindowMain
     Top = 413
     Width = 75
     Height = 33
-    Action = ActCheckout
+    Action = ActRestore
     Anchors = [akRight, akBottom]
     ExplicitTop = 434
   end
@@ -467,10 +467,10 @@ object WindowMain: TWindowMain
       ShortCut = 119
       OnExecute = ActCommitExecute
     end
-    object ActCheckout: TAction
-      Caption = 'Checkout'
+    object ActRestore: TAction
+      Caption = 'Restore'
       Enabled = False
-      OnExecute = ActCheckoutExecute
+      OnExecute = ActRestoreExecute
     end
     object ActPush: TAction
       Caption = 'Push(F9)'
@@ -481,6 +481,11 @@ object WindowMain: TWindowMain
     object ActEsc: TAction
       ShortCut = 27
       OnExecute = ActEscExecute
+    end
+    object ActGitBash: TAction
+      Caption = 'Git Bash'
+      Enabled = False
+      OnExecute = ActGitBashExecute
     end
   end
   object Images: TImageList
@@ -1069,6 +1074,9 @@ object WindowMain: TWindowMain
     object ItemDel: TMenuItem
       Action = ActDel
       Caption = 'Remover'
+    end
+    object GitBash1: TMenuItem
+      Action = ActGitBash
     end
   end
 end

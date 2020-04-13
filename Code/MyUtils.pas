@@ -4,10 +4,10 @@ interface
 
 uses
   System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils,
-  ShellAPI, Vcl.Forms, Windows, IOUtils, ClipBrd,
-  MyArrays, Vcl.Dialogs;
+  ShellAPI, Vcl.Forms, Windows, IOUtils, ClipBrd, Vcl.Dialogs;
 
 type
+  TStringArray = array of string;
 
   TUtils = class
   public
@@ -22,15 +22,12 @@ type
 
     class function Cut(Text, Separator: string): TStringArray;
 
-    class function ArrayToStr(StrArray: TStringArray; Separator: string; StrFinal: string; Starts: integer = 0; EndsBefore: integer = 0): string; overload;
-    class function ArrayToStr(StrArray: System.TArray<System.string>; Separator: string; StrFinal: string; Starts: integer = 0; EndsBefore: integer = 0): string; overload;
+    class function ArrayToStr(StrArray: array of string; Separator: string): string; overload;
+    class function ArrayToStr(StrArray: System.TArray<System.string>; Separator: string): string; overload;
 
-    class function Extract(StrList: TStringList; Starts, Ends: integer): TStringList; overload;
-    class function Extract(StrList: TStringList; Starts, Ends: string; IncStarts: boolean = true; IncEnds: boolean = true): TStringList; overload;
-    class function Extract(StrList: TStringList; Starts: integer; Ends: string; IncEnds: boolean = false): TStringList; overload;
-    class function Extract(StrList: TStringList; Starts: string; Ends: integer; IncStarts: boolean = false): TStringList; overload;
+    class function ExtractStringList(StrList: TStringList; Starts, Count: integer): TStringList;
 
-    class procedure ExecCmd(Comand: string; ShowCmd: integer = 1);
+    class procedure ExecCmd(Comand: string; ShowCmd: boolean = true);
     class function ExecDos(CommandLine: string; Work: string = 'C:\'): string;
     class procedure ExecBat(FileName: string; Commands: TStringList);
     class procedure OpenOnExplorer(Path: string);
@@ -119,126 +116,45 @@ begin
 end;
 
 //Transforma um array em uma string
-class function TUtils.ArrayToStr(StrArray: TStringArray; Separator, StrFinal: string; Starts: integer; EndsBefore: integer): string;
+class function TUtils.ArrayToStr(StrArray: array of string; Separator: string): string;
 var
   Cont: integer;
 begin
   Result := '';
-  for Cont := TUtils.Iif(Starts >= Length(StrArray), 0, Starts) to Length(StrArray) - 1 - EndsBefore do
+  for Cont := 0 to Length(StrArray) - 1 do
   begin
-    if Cont = Length(StrArray) - 1 - EndsBefore then
-    begin
-      Result := Result + StrArray[Cont] + StrFinal;
-    end
-    else
-    begin
-      Result := Result + StrArray[Cont] + Separator;
-    end;
+    Result := Result + StrArray[Cont] + Iif(Cont <> Length(StrArray) - 1, Separator, '');
   end;
 end;
 
-class function TUtils.ArrayToStr(StrArray: System.TArray<System.string>; Separator, StrFinal: string; Starts: integer; EndsBefore: integer): string;
+class function TUtils.ArrayToStr(StrArray: System.TArray<System.string>; Separator: string): string;
 var
   Cont: integer;
 begin
   Result := '';
-  for Cont := TUtils.Iif(Starts >= Length(StrArray), 0, Starts) to Length(StrArray) - 1 - EndsBefore do
+  for Cont := 0 to Length(StrArray) - 1 do
   begin
-    if Cont = Length(StrArray) - 1 - EndsBefore then
-    begin
-      Result := Result + StrArray[Cont] + StrFinal;
-    end
-    else
-    begin
-      Result := Result + StrArray[Cont] + Separator;
-    end;
+    Result := Result + StrArray[Cont] + Iif(Cont <> Length(StrArray) - 1, Separator, '');
   end;
 end;
 
 //Extrai uma parte de uma StringList
-class function TUtils.Extract(StrList: TStringList; Starts, Ends: integer): TStringList;
+class function TUtils.ExtractStringList(StrList: TStringList; Starts, Count: integer): TStringList;
 var
   Cont: integer;
 begin
   Result := TStringList.Create;
-  Ends := IfLess(Ends + 1, StrList.Count);
-  for Cont := Starts to Ends do
-  begin
-    Result.Add(StrList[Cont]);
-  end;
-end;
 
-class function TUtils.Extract(StrList: TStringList; Starts, Ends: string; IncStarts: boolean; IncEnds: boolean): TStringList;
-var
-  Cont: integer;
-begin
-  Result := TStringList.Create;
-  Cont := 0;
-  while StrList[Cont] <> Starts do
-  begin
-    Inc(Cont);
-  end;
-
-  for Cont := Iif(IncStarts, Cont, Cont + 1) to StrList.Count - 1 do
-  begin
-    if StrList[Cont] <> Ends then
-    begin
-      Result.Add(StrList[Cont]);
-    end
-    else
-    begin
-      if IncEnds then
-      begin
-        Result.Add(StrList[Cont]);
-      end;
-      Break;
-    end;
-  end;
-end;
-
-class function TUtils.Extract(StrList: TStringList; Starts: integer; Ends: string; IncEnds: boolean): TStringList;
-var
-  Cont: integer;
-begin
-  Result := TStringList.Create;
-  for Cont := 0 to StrList.Count - 1 do
-  begin
-    if StrList[Cont] <> Ends then
-    begin
-      Result.Add(StrList[Cont]);
-    end
-    else
-    begin
-      if IncEnds then
-      begin
-        Result.Add(StrList[Cont]);
-      end;
-      Break;
-    end;
-  end;
-end;
-
-class function TUtils.Extract(StrList: TStringList; Starts: string; Ends: integer; IncStarts: boolean): TStringList;
-var
-  Cont: integer;
-begin
-  Result := TStringList.Create;
-  Cont := 0;
-  while StrList[Cont] <> Starts do
-  begin
-    Inc(Cont);
-  end;
-
-  for Cont := Iif(IncStarts, Cont, Cont + 1) to Ends do
+  for Cont := Starts to Starts + Count - 1 do
   begin
     Result.Add(StrList[Cont]);
   end;
 end;
 
 //Executa um comando cmd - async
-class procedure TUtils.ExecCmd(Comand: string; ShowCmd: integer = 1);
+class procedure TUtils.ExecCmd(Comand: string; ShowCmd: boolean);
 begin
-  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, ShowCmd);
+  ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, Iif(ShowCmd, 1, 0));
 end;
 
 //Executa um comando cmd - sync

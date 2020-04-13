@@ -12,10 +12,8 @@ uses
   MyDialogs in 'Code\MyDialogs.pas',
   Config in 'Code\Config.pas',
   Git in 'Code\Git.pas',
-  ViewCheckout in 'View\ViewCheckout.pas' {WindowCheckout},
-  MyArrays in 'Code\MyArrays.pas',
-  Repository in 'Bean\Repository.pas',
-  MySets in 'Code\MySets.pas';
+  ViewFiles in 'View\ViewFiles.pas' {WindowFiles},
+  ConfigGethub in 'Code\ConfigGethub.pas';
 
 {$R *.res}
 
@@ -27,6 +25,6 @@ begin
   Application.CreateForm(TWindowConfigs, WindowConfigs);
   Application.CreateForm(TDataFactory, DataFactory);
   Application.CreateForm(TWindowAddRepo, WindowAddRepo);
-  Application.CreateForm(TWindowCheckout, WindowCheckout);
+  Application.CreateForm(TWindowFiles, WindowFiles);
   Application.Run;
 end.

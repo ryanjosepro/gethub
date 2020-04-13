@@ -8,9 +8,8 @@ uses
   Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids, Vcl.CheckLst, Vcl.ButtonGroup,
-  ViewConfigs, ViewAddRepo, ViewEditRepo, ViewCheckout, Config, MyUtils, MyDialogs, Git, DAO, Datas,
   Datasnap.DSHTTP, IOUtils, Vcl.Menus,
-  MySets, MyArrays, Repository;
+  ViewConfigs, ViewAddRepo, ViewEditRepo, ViewFiles, ConfigGethub, MyDialogs, MyUtils, DAO, Git;
 
 type
   TWindowMain = class(TForm)
@@ -23,7 +22,7 @@ type
     ActPush: TAction;
     ActAdd: TAction;
     ActConfigs: TAction;
-    ActCheckout: TAction;
+    ActRestore: TAction;
     LblLogo: TLabel;
     BtnConfigs: TSpeedButton;
     BtnEdit: TSpeedButton;
@@ -67,12 +66,14 @@ type
     SpeedButton5: TSpeedButton;
     SpeedButton6: TSpeedButton;
     SpeedButton7: TSpeedButton;
+    ActGitBash: TAction;
+    GitBash1: TMenuItem;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
     procedure ActAddExecute(Sender: TObject);
     procedure ActCommitExecute(Sender: TObject);
-    procedure ActCheckoutExecute(Sender: TObject);
+    procedure ActRestoreExecute(Sender: TObject);
     procedure ActPushExecute(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure GridRepositoriesDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
@@ -93,6 +94,7 @@ type
     procedure ActOpenDirExecute(Sender: TObject);
     procedure GridRepositoriesKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ActDetailsExecute(Sender: TObject);
+    procedure ActGitBashExecute(Sender: TObject);
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
@@ -111,7 +113,7 @@ procedure TWindowMain.FormActivate(Sender: TObject);
 begin
   GridRepositories.SetFocus;
   TDAO.Load;
-  TGit.ConfigGit;
+  TConfigGethub.ConfigGitAccount;
   UpdateButtons;
   UpdateTotRepos;
 end;
@@ -126,7 +128,7 @@ begin
   ActPull.Enabled := true;
   ActAdd.Enabled := true;
   ActCommit.Enabled := true;
-  ActCheckout.Enabled := true;
+  ActRestore.Enabled := true;
   ActPush.Enabled := true;
   Source.DataSet := nil;
 end;
@@ -294,31 +296,31 @@ begin
   end;
 end;
 
-//GITHUB COMMANDS
+//GIT COMMANDS
 
 procedure TWindowMain.ActCloneExecute(Sender: TObject);
 var
   I: integer;
   Repositories: TRepositoryArray;
+  GitExecution: TGitExecution;
 begin
   Repositories := TDAO.GetCheckedRepositories;
+
+  GitExecution := TGitExecution.Create;
+  GitExecution.Action := gaClone;
+  GitExecution.Config := TConfigGethub.GitConfig;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
     with Repositories[I] do
     begin
+      GitExecution.Repository := Repositories[I];
+
       if (not TDirectory.Exists(Path)) or (TDirectory.IsEmpty(Path)) then
       begin
-        if not TDirectory.Exists(Path) then
-        begin
-          TDirectory.CreateDirectory(Path);
-        end;
+        TDirectory.CreateDirectory(Path);
 
-        TGit.Git(Repositories[I], gmClone);
-        if I <> Length(Repositories) - 1 then
-        begin
-          SleepExec;
-        end;
+        TGit.GitExec(GitExecution);
       end
       else
       begin
@@ -336,15 +338,16 @@ begin
           begin
             TDirectory.CreateDirectory(Path);
 
-            TGit.Git(Repositories[I], gmClone);
-
-            if I <> Length(Repositories) - 1 then
-            begin
-              SleepExec;
-            end;
+            TGit.GitExec(GitExecution);
           end;
         end;
       end;
+
+    end;
+
+    if I <> Length(Repositories) - 1 then
+    begin
+      SleepExec;
     end;
   end;
 
@@ -355,12 +358,20 @@ procedure TWindowMain.ActStatusExecute(Sender: TObject);
 var
   I: integer;
   Repositories: TRepositoryArray;
+  GitExecution: TGitExecution;
 begin
   Repositories := TDAO.GetCheckedRepositories;
 
+  GitExecution := TGitExecution.Create;
+  GitExecution.Action := gaStatus;
+  GitExecution.Config := TConfigGethub.GitConfig;
+
   for I := 0 to Length(Repositories) - 1 do
   begin
-    TGit.Git(Repositories[I], gmStatus);
+    GitExecution.Repository := Repositories[I];
+
+    TGit.GitExec(GitExecution);
+
     if I <> Length(Repositories) - 1 then
     begin
       SleepExec;
@@ -374,12 +385,20 @@ procedure TWindowMain.ActPullExecute(Sender: TObject);
 var
   I: integer;
   Repositories: TRepositoryArray;
+  GitExecution: TGitExecution;
 begin
   Repositories := TDAO.GetCheckedRepositories;
 
+  GitExecution := TGitExecution.Create;
+  GitExecution.Action := gaPull;
+  GitExecution.Config := TConfigGethub.GitConfig;
+
   for I := 0 to Length(Repositories) - 1 do
   begin
-    TGit.Git(Repositories[I], gmPull);
+    GitExecution.Repository := Repositories[I];
+
+    TGit.GitExec(GitExecution);
+
     if I <> Length(Repositories) - 1 then
     begin
       SleepExec;
@@ -394,8 +413,13 @@ var
   I: integer;
   Repositories: TRepositoryArray;
   DialogAnswer: integer;
+  GitExecution: TGitExecution;
 begin
   Repositories := TDAO.GetCheckedRepositories;
+
+  GitExecution := TGitExecution.Create;
+  GitExecution.Action := gaAdd;
+  GitExecution.Config := TConfigGethub.GitConfig;
 
   DialogAnswer := mrYes;
 
@@ -406,9 +430,15 @@ begin
 
   if DialogAnswer = mrYes then
   begin
+    GitExecution.Files := TStringList.Create;
+    GitExecution.Files.Add('.');
+
     for I := 0 to Length(Repositories) - 1 do
     begin
-      TGit.Git(Repositories[I], gmAdd);
+      GitExecution.Repository := Repositories[I];
+
+      TGit.GitExec(GitExecution);
+
       if I <> Length(Repositories) - 1 then
       begin
         SleepExec;
@@ -417,7 +447,14 @@ begin
   end
   else if DialogAnswer = mrNo then
   begin
+    GitExecution.Files := WindowFiles.ShowModal('Restore - ' + Repositories[0].Name, Repositories[0]);
 
+    if GitExecution.Files.Count > 0 then
+    begin
+      GitExecution.Repository := Repositories[0];
+
+      TGit.GitExec(GitExecution);
+    end;
   end;
 
   TDAO.SetCheckeds('LastAct', 'Add');
@@ -429,11 +466,12 @@ var
   Repositories: TRepositoryArray;
   Erro: boolean;
   MsgErro: string;
+  GitExecution: TGitExecution;
 begin
   Repositories := TDAO.GetCheckedRepositories;
 
   Erro := false;
-  MsgErro := 'Digite uma mensagem de commit para' + #13#10;
+  MsgErro := 'Digite uma mensagem de commit para:' + #13#10;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
@@ -453,11 +491,17 @@ begin
   end
   else
   begin
+    GitExecution := TGitExecution.Create;
+    GitExecution.Action := gaCommit;
+    GitExecution.Config := TConfigGethub.GitConfig;
+
     for I := 0 to Length(Repositories) - 1 do
     begin
       with Repositories[I] do
       begin
-        TGit.Git(Repositories[I], gmCommit);
+        GitExecution.Repository := Repositories[I];
+
+        TGit.GitExec(GitExecution);
 
         if I <> Length(Repositories) - 1 then
         begin
@@ -470,34 +514,50 @@ begin
   end;
 end;
 
-procedure TWindowMain.ActCheckoutExecute(Sender: TObject);
+procedure TWindowMain.ActRestoreExecute(Sender: TObject);
 var
+  I: integer;
   Repositories: TRepositoryArray;
-  Repository: TRepository;
-  Files: TStringList;
-  FileName: string;
+  DialogAnswer: integer;
+  GitExecution: TGitExecution;
 begin
-  try
-    Repositories := TDAO.GetCheckedRepositories;
+  Repositories := TDAO.GetCheckedRepositories;
 
-    if Length(Repositories) = 1 then
+  GitExecution := TGitExecution.Create;
+  GitExecution.Action := gaRestore;
+  GitExecution.Config := TConfigGethub.GitConfig;
+
+  DialogAnswer := mrYes;
+
+  if Length(Repositories) = 1 then
+  begin
+    DialogAnswer := TDialogs.CustomDialog('Arquivos', mtConfirmation, [mbYes, mbNo], ['Todos', 'Específicos'], 'Git Restore');
+  end;
+
+  if DialogAnswer = mrYes then
+  begin
+    GitExecution.Files := TStringList.Create;
+    GitExecution.Files.Add('.');
+
+    for I := 0 to Length(Repositories) do
     begin
-      Repository := Repositories[0];
+      GitExecution.Repository := Repositories[I];
 
-      Files := WindowCheckout.ShowModal(Repository);
-
-      if Files.Count > 0 then
-      begin
-        for FileName in Files do
-        begin
-          TGit.Git(Repository, gmCheckout, FileName);
-        end;
-      end;
+      TGit.GitExec(GitExecution);
 
       TDAO.SetCheckeds('LastAct', 'Checkout');
     end;
-  finally
-    FreeAndNil(Files);
+  end
+  else if DialogAnswer = mrNo then
+  begin
+    GitExecution.Files := WindowFiles.ShowModal('Restore - ' + Repositories[0].Name, Repositories[0]);
+
+    if GitExecution.Files.Count > 0 then
+    begin
+      GitExecution.Repository := Repositories[0];
+
+      TGit.GitExec(GitExecution);
+    end;
   end;
 end;
 
@@ -505,12 +565,19 @@ procedure TWindowMain.ActPushExecute(Sender: TObject);
 var
   I: integer;
   Repositories: TRepositoryArray;
+  GitExecution: TGitExecution;
 begin
+  GitExecution := TGitExecution.Create;
   Repositories := TDAO.GetCheckedRepositories;
+  GitExecution.Action := gaPush;
+  GitExecution.Config := TConfigGethub.GitConfig;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
-    TGit.Git(Repositories[I], gmPush);
+    GitExecution.Repository := Repositories[I];
+
+    TGit.GitExec(GitExecution);
+
     if I <> Length(Repositories) - 1 then
     begin
       SleepExec;
@@ -544,18 +611,19 @@ begin
     ActOpenDir.Enabled := true;
     ActEdit.Enabled := true;
     ActDel.Enabled := true;
+    ActGitBash.Enabled := true;
     ActDetails.Enabled := true;
     ActExport.Enabled := true;
   end;
 
-  Value := (TDAO.Count > 0) and (TDAO.GetCheckeds('Checked').Count >= 1);
+  Value := (TDAO.Count > 0) and (TDAO.CountChecked >= 1);
 
   ActClone.Enabled := Value;
   ActStatus.Enabled := Value;
   ActPull.Enabled := Value;
   ActAdd.Enabled := Value;
   ActCommit.Enabled := Value;
-  ActCheckout.Enabled := TDAO.GetCheckeds('Checked').Count = 1;
+  ActRestore.Enabled := Value;
   ActPush.Enabled := Value;
 end;
 
@@ -566,7 +634,7 @@ end;
 
 procedure TWindowMain.SleepExec;
 begin
-  Sleep(StrToInt(TConfig.GetConfig('OPTIONS', 'ExecTime', '0')));
+  Sleep(StrToInt(TConfigGethub.GetConfig('OPTIONS', 'ExecTime', '0')));
 end;
 
 //POPUP MENU
@@ -574,6 +642,14 @@ end;
 procedure TWindowMain.ActOpenDirExecute(Sender: TObject);
 begin
   TUtils.OpenOnExplorer(TDAO.GetField('Path'));
+end;
+
+procedure TWindowMain.ActGitBashExecute(Sender: TObject);
+var
+  Comando: string;
+begin
+  Comando := '/K cd "' + TDAO.GetField('Path') + '" && "' + TConfigGethub.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin') + '\bash"';
+  TUtils.ExecCmd(Comando);
 end;
 
 end.

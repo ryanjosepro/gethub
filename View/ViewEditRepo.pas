@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList,
-  MyDialogs, DAO, Repository;
+  MyDialogs, DAO, Git;
 
 type
   TWindowEditRepo = class(TForm)

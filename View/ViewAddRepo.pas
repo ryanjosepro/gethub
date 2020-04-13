@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList,
-  MySets, Git, DAO, Repository;
+  ConfigGethub, Git, DAO;
 
 type
   TWindowAddRepo = class(TForm)
@@ -76,6 +76,7 @@ procedure TWindowAddRepo.ActAddExecute(Sender: TObject);
 var
   MsgErro: string;
   Repository: TRepository;
+  GitExecution: TGitExecution;
 begin
   if TDAO.ValueExists('Link', TxtLink.Text) then
   begin
@@ -102,11 +103,15 @@ begin
     Close;
     if CheckCloneRepo.Checked then
     begin
-      if not DirectoryExists(TxtPath.Text) then
-      begin
-        CreateDir(TxtPath.Text);
-      end;
-      TGit.Git(Repository, gmClone);
+      CreateDir(TxtPath.Text);
+
+      GitExecution := TGitExecution.Create;
+
+      GitExecution.Repository := Repository;
+      GitExecution.Action := gaClone;
+      GitExecution.Config := TConfigGethub.GitConfig;
+
+      TGit.GitExec(GitExecution);
     end;
   end
   else

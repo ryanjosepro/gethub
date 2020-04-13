@@ -4,115 +4,242 @@ interface
 
 uses
   System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, Vcl.Dialogs,
-  Config, MyUtils, MySets, DAO, Repository;
+  MyUtils;
 
 type
+  TGitAction = (gaClone, gaStatus, gaPull, gaAdd, gaCommit, gaRestore, gaPush);
+
+  TStringArray = array of string;
+
+  TRepository = class
+  private
+    FLink: string;
+    FName: string;
+    FPath: string;
+    FMsg: string;
+    FLastAct: string;
+    procedure SetLink(const Value: string);
+    procedure SetLastAct(const Value: string);
+    procedure SetMsg(const Value: string);
+    procedure SetName(const Value: string);
+    procedure SetPath(const Value: string);
+
+  public
+    property Link: string read FLink write SetLink;
+    property Path: string read FPath write SetPath;
+    property Name: string read FName write SetName;
+    property LastAct: string read FLastAct write SetLastAct;
+    property Msg: string read FMsg write SetMsg;
+  end;
+
+  TRepositoryArray = array of TRepository;
+
+  TGitConfig = class
+  private
+    FGitBin: string;
+    FCloseCmd: boolean;
+    FCloseStatus: boolean;
+    FCloseTime: integer;
+    procedure SetGitBin(const Value: string);
+    procedure SetCloseCmd(const Value: boolean);
+    procedure SetCloseStatus(const Value: boolean);
+    procedure SetCloseTime(const Value: integer);
+
+  public
+    property GitBin: string read FGitBin write SetGitBin;
+    property CloseCmd: boolean read FCloseCmd write SetCloseCmd;
+    property CloseStatus: boolean read FCloseStatus write SetCloseStatus;
+    property CloseTime: integer read FCloseTime write SetCloseTime;
+
+    constructor Create;
+  end;
+
+  TGitExecution = class
+  private
+    FRepository: TRepository;
+    FAction: TGitAction;
+    FFiles: TStringList;
+    FConfig: TGitConfig;
+    procedure SetRepository(const Value: TRepository);
+    procedure SetAction(const Value: TGitAction);
+    procedure SetFiles(const Value: TStringList);
+    procedure SetConfig(const Value: TGitConfig);
+  public
+    property Repository: TRepository read FRepository write SetRepository;
+    property Action: TGitAction read FAction write SetAction;
+    property Files: TStringList read FFiles write SetFiles;
+    property Config: TGitConfig read FConfig write SetConfig;
+
+  end;
+
   TGit = class
   public
-    class function GitBin: string;
-    class procedure ConfigGit;
-    class function CloseCmdConfig: string;
-    class function CloseStatusConfig: string;
-
-    class procedure Git(Repository: TRepository; Mode: TGitMode; CheckoutFile: string = '');
+    class procedure GitExec(Execution: TGitExecution);
   end;
 
 implementation
 
+{ TRepository }
+
+procedure TRepository.SetLink(const Value: string);
+begin
+  FLink := Value;
+end;
+
+procedure TRepository.SetPath(const Value: string);
+begin
+  FPath := Value;
+end;
+
+procedure TRepository.SetName(const Value: string);
+begin
+  FName := Value;
+end;
+
+procedure TRepository.SetLastAct(const Value: string);
+begin
+  FLastAct := Value;
+end;
+
+procedure TRepository.SetMsg(const Value: string);
+begin
+  FMsg := Value;
+end;
+
+{ TGitConfig }
+
+procedure TGitConfig.SetGitBin(const Value: string);
+begin
+  FGitBin := Value;
+end;
+
+procedure TGitConfig.SetCloseCmd(const Value: boolean);
+begin
+  FCloseCmd := Value;
+end;
+
+procedure TGitConfig.SetCloseStatus(const Value: boolean);
+begin
+  FCloseStatus := Value;
+end;
+
+procedure TGitConfig.SetCloseTime(const Value: integer);
+begin
+  FCloseTime := Value;
+end;
+
+constructor TGitConfig.Create;
+begin
+  self.GitBin := 'C:\Program Files\Git\Bin';
+end;
+
+{ TGitExecution }
+
+procedure TGitExecution.SetRepository(const Value: TRepository);
+begin
+  FRepository := Value;
+end;
+
+procedure TGitExecution.SetAction(const Value: TGitAction);
+begin
+  FAction := Value;
+end;
+
+procedure TGitExecution.SetFiles(const Value: TStringList);
+begin
+  FFiles := Value;
+end;
+
+procedure TGitExecution.SetConfig(const Value: TGitConfig);
+begin
+  FConfig := Value;
+end;
+
 { TGit }
 
-class function TGit.GitBin: string;
-begin
-  Result := TConfig.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin');
-end;
-
-class procedure TGit.ConfigGit;
-var
-  Name, Email, Comand: string;
-begin
-  Name := TConfig.GetConfig('ACCOUNT', 'Name');
-  Email := TConfig.GetConfig('ACCOUNT', 'Email');
-  Comand := '/C cd "' + GitBin + '" && git config --global user.name ' + Name + ' && git config --global user.email ' + Email;
-  TUtils.ExecCmd(Comand, 0);
-end;
-
-class function TGit.CloseCmdConfig: string;
-begin
-  Result := TUtils.Iif(TConfig.GetConfig('OPTIONS', 'CloseCmd') = '1', 'timeout -t ' + TConfig.GetConfig('OPTIONS', 'CloseTime'), 'pause');
-end;
-
-class function TGit.CloseStatusConfig: string;
-begin
-  if CloseCmdConfig = 'pause' then
-  begin
-    Result := 'pause';
-  end
-  else
-  begin
-    Result := TUTils.Iif(TConfig.GetConfig('OPTIONS', 'CloseStatus') = '1', 'timeout -t ' + TConfig.GetConfig('OPTIONS', 'CloseTime'), 'pause');
-  end;
-end;
-
-class procedure TGit.Git(Repository: TRepository; Mode: TGitMode; CheckoutFile: string = '');
+class procedure TGit.GitExec(Execution: TGitExecution);
 var
   StrMode, GitCommand, CmdTitle, EchoMessage, CloseCommand, Command: string;
 begin
-  case Mode of
-    gmClone:
-    begin
-      StrMode := 'Clone';
-      GitCommand := 'clone ' + Repository.Link + ' .\';
+  with Execution do
+  begin
+    case Action of
+      gaClone:
+      begin
+        StrMode := 'Clone';
+        GitCommand := 'clone ' + Repository.Link + ' .\';
+      end;
+
+      gaStatus:
+      begin
+        StrMode := 'Status';
+        GitCommand := 'status'
+      end;
+
+      gaPull:
+      begin
+        StrMode := 'Pull';
+        GitCommand := 'pull';
+      end;
+
+      gaAdd:
+      begin
+        StrMode := 'Add';
+        Files.Delimiter := ' ';
+        GitCommand := 'add ' + Files.DelimitedText;
+        ShowMessage(GitCommand);
+      end;
+
+      gaCommit:
+      begin
+        StrMode := 'Commit';
+        GitCommand := 'commit -m "' + Repository.Msg + '"';
+      end;
+
+      gaRestore:
+      begin
+        StrMode := 'Checkout';
+        Files.Delimiter := ' ';
+        GitCommand := 'restore ' + Files.DelimitedText;
+      end;
+
+      gaPush:
+      begin
+        StrMode := 'Push';
+        GitCommand := 'push';
+      end;
     end;
 
-    gmStatus:
+    CmdTitle := StrMode + ' ' + Repository.Name;
+
+    EchoMessage := StrMode + ' -> ' + Repository.Path;
+
+    if Config.CloseCmd then
     begin
-      StrMode := 'Status';
-      GitCommand := 'status'
+      if Action in [gaStatus] then
+      begin
+        if Config.CloseStatus then
+        begin
+          CloseCommand := 'timeout -t ' + IntToStr(Config.CloseTime);
+        end;
+      end
+      else
+      begin
+        CloseCommand := 'timeout -t ' + IntToStr(Config.CloseTime);
+      end;
+    end
+    else
+    begin
+      CloseCommand := 'pause';
     end;
 
-    gmPull:
-    begin
-      StrMode := 'Pull';
-      GitCommand := 'pull';
-    end;
-
-    gmAdd:
-    begin
-      StrMode := 'Add';
-      GitCommand := 'add .';
-    end;
-
-    gmCommit:
-    begin
-      StrMode := 'Commit';
-      GitCommand := 'commit -m "' + Repository.Msg + '"';
-    end;
-
-    gmCheckout:
-    begin
-      StrMode := 'Checkout';
-      GitCommand := 'checkout -- "' + CheckoutFile + '"';
-    end;
-
-    gmPush:
-    begin
-      StrMode := 'Push';
-      GitCommand := 'push'
-    end;
+    Command := '/K title ' + CmdTitle +
+    ' && echo "' + EchoMessage + '"' +
+    ' && cd "' + Config.GitBin + '"' +
+    ' && git -C "' + Repository.Path + '" ' + GitCommand +
+    ' && ' + CloseCommand +
+    ' && exit';
   end;
-
-  CmdTitle := StrMode + ' ' + Repository.Name;
-
-  EchoMessage := StrMode + ' -> ' + Repository.Path;
-
-  CloseCommand := TUtils.Iif(Mode in [gmStatus], CloseStatusConfig, CloseCmdConfig);
-
-  Command := '/K title ' + CmdTitle +
-  ' && echo "' + EchoMessage + '"' +
-  ' && cd "' + GitBin + '"' +
-  ' && git -C "' + Repository.Path + '" ' + GitCommand +
-  ' && ' + CloseCommand +
-  ' && exit';
 
   TUtils.ExecCmd(Command);
 end;
