@@ -431,6 +431,7 @@ begin
   if DialogAnswer = mrYes then
   begin
     GitExecution.Files := TStringList.Create;
+
     GitExecution.Files.Add('.');
 
     for I := 0 to Length(Repositories) - 1 do

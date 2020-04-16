@@ -83,7 +83,7 @@
       end
       object TxtEmail: TEdit
         Left = 3
-        Top = 25
+        Top = 77
         Width = 243
         Height = 24
         Font.Charset = DEFAULT_CHARSET
@@ -97,7 +97,7 @@
       end
       object TxtUserName: TEdit
         Left = 3
-        Top = 77
+        Top = 25
         Width = 243
         Height = 24
         Font.Charset = DEFAULT_CHARSET
@@ -113,10 +113,6 @@
     object TabSistema: TTabSheet
       Caption = 'Sistema'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         249
         269)
@@ -159,16 +155,11 @@
         ParentFont = False
         TabOrder = 0
         OnChange = ConfigChange
-        ExplicitWidth = 208
       end
     end
     object Opções: TTabSheet
       Caption = 'Op'#231#245'es'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 245
-      ExplicitHeight = 0
       object PanelCloseCmd: TPanel
         Left = 3
         Top = 3

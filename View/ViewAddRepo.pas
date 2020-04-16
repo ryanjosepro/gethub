@@ -34,6 +34,8 @@ type
     procedure ActDirHint(var HintStr: string; var CanShow: Boolean);
     procedure TxtChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure TxtPathKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   public
     procedure Changed;
     procedure Done;
@@ -138,6 +140,15 @@ begin
   Path := Trim(TxtPath.Text) <> '';
   Name := Trim(TxtName.Text) <> '';
   ActAdd.Enabled := Link and Path and Name;
+end;
+
+procedure TWindowAddRepo.TxtPathKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = 112 then
+  begin
+    ActDir.Execute;
+  end;
 end;
 
 procedure TWindowAddRepo.Changed;

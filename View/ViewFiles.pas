@@ -56,8 +56,6 @@ begin
 
   if Execute then
   begin
-    ShowMessage(IntToStr(ListFiles.Count));
-
     for Item in ListFiles.Items do
     begin
       Result.Add(Item);

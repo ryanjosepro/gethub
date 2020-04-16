@@ -187,7 +187,6 @@ begin
         StrMode := 'Add';
         Files.Delimiter := ' ';
         GitCommand := 'add ' + Files.DelimitedText;
-        ShowMessage(GitCommand);
       end;
 
       gaCommit:

@@ -116,6 +116,7 @@ object WindowAddRepo: TWindowAddRepo
     ParentFont = False
     TabOrder = 1
     OnChange = TxtChange
+    OnKeyDown = TxtPathKeyDown
   end
   object TxtName: TEdit
     Left = 8

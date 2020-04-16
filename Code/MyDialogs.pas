@@ -11,7 +11,7 @@ type
   public
     class function YesNo(Msg: string; BtnDefault: TMsgDlgBtn = mbNo): integer;
     class function YesNoCancel(Msg: string; BtnDefault: TMsgDlgBtn = mbCancel): integer;
-    class function CustomDialog(CONST Msg: string; DlgType: TmsgDlgType; Button: TMsgDlgButtons; ButtonsCaption: ARRAY OF string; dlgcaption: string): Integer;
+    class function CustomDialog(const Msg: string; DlgType: TmsgDlgType; Buttons: TMsgDlgButtons; ButtonsCaption: array of string; dlgcaption: string): Integer;
   end;
 
 implementation
@@ -28,22 +28,22 @@ begin
   Result := MessageDlg(Msg, mtConfirmation, mbYesNoCancel, 0, BtnDefault);
 end;
 
-class function TDialogs.CustomDialog(CONST Msg: string; DlgType: TmsgDlgType; Button: TMsgDlgButtons; ButtonsCaption: ARRAY OF string; dlgcaption: string): Integer;
+class function TDialogs.CustomDialog(const Msg: string; DlgType: TmsgDlgType; Buttons: TMsgDlgButtons; ButtonsCaption: array of string; dlgcaption: string): Integer;
 var
   aMsgdlg: TForm;
-  i: Integer;
+  I: Integer;
   Dlgbutton: Tbutton;
   Captionindex: Integer;
 begin
-  aMsgdlg := createMessageDialog(Msg, DlgType, button);
+  aMsgdlg := createMessageDialog(Msg, DlgType, Buttons);
   aMsgdlg.Caption := dlgcaption;
   aMsgdlg.BiDiMode := bdRightToLeft;
   Captionindex := 0;
-  for i := 0 to aMsgdlg.componentcount - 1 Do
+  for I := 0 to aMsgdlg.componentcount - 1 Do
   begin
-    if (aMsgdlg.components[i] is Tbutton) then
+    if (aMsgdlg.components[I] is Tbutton) then
     Begin
-      Dlgbutton := Tbutton(aMsgdlg.components[i]);
+      Dlgbutton := Tbutton(aMsgdlg.components[I]);
       if Captionindex <= High(ButtonsCaption) then
         Dlgbutton.Caption := ButtonsCaption[Captionindex];
       inc(Captionindex);
