@@ -351,7 +351,7 @@ begin
     end;
   end;
 
-  TDAO.SetCheckeds('LastAct', 'Clone');
+  TDAO.SetCheckeds('LastAction', 'Clone');
 end;
 
 procedure TWindowMain.ActStatusExecute(Sender: TObject);
@@ -378,7 +378,7 @@ begin
     end;
   end;
 
-  TDAO.SetCheckeds('LastAct', 'Status');
+  TDAO.SetCheckeds('LastAction', 'Status');
 end;
 
 procedure TWindowMain.ActPullExecute(Sender: TObject);
@@ -405,7 +405,7 @@ begin
     end;
   end;
 
-  TDAO.SetCheckeds('LastAct', 'Pull');
+  TDAO.SetCheckeds('LastAction', 'Pull');
 end;
 
 procedure TWindowMain.ActAddExecute(Sender: TObject);
@@ -458,7 +458,7 @@ begin
     end;
   end;
 
-  TDAO.SetCheckeds('LastAct', 'Add');
+  TDAO.SetCheckeds('LastAction', 'Add');
 end;
 
 procedure TWindowMain.ActCommitExecute(Sender: TObject);
@@ -511,7 +511,7 @@ begin
       end;
     end;
 
-    TDAO.SetCheckeds('LastAct', 'Commit');
+    TDAO.SetCheckeds('LastAction', 'Commit');
   end;
 end;
 
@@ -546,7 +546,9 @@ begin
 
       TGit.GitExec(GitExecution);
 
-      TDAO.SetCheckeds('LastAct', 'Checkout');
+      TDAO.SetCheckeds('LastAction', 'Checkout');
+
+
     end;
   end
   else if DialogAnswer = mrNo then
@@ -585,7 +587,7 @@ begin
     end;
   end;
 
-  TDAO.SetCheckeds('LastAct', 'Push');
+  TDAO.SetCheckeds('LastAction', 'Push');
 end;
 
 //OTHERS

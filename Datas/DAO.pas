@@ -54,7 +54,7 @@ class procedure TDAO.Load(CleanChecked: boolean = true);
 var
   Path: string;
 begin
-  Path := ExtractFilePath(Application.ExeName) + 'Data\Repos.json';
+  Path := ExtractFilePath(Application.ExeName) + 'Data\Data.json';
 
   if FileExists(Path) then
   begin
@@ -68,7 +68,7 @@ begin
       while not Table.Eof do
       begin
         SetField('Checked', false);
-        SetField('Msg', '');
+        SetField('Message', '');
         Table.Next;
       end;
       Table.First;
@@ -103,7 +103,7 @@ begin
 
   TUtils.CreateIfNotExistsDir(TUtils.AppPath + 'Data');
 
-  Table.SaveToFile(TUtils.AppPath + 'Data\Repos.json', sfJSON);
+  Table.SaveToFile(TUtils.AppPath + 'Data\Data.json', sfJSON);
 end;
 
 class procedure TDAO.Load(Path: string; CleanChecked: boolean = true);
@@ -141,7 +141,7 @@ begin
     while not Table.Eof do
     begin
       SetField('Checked', false);
-      SetField('Msg', '');
+      SetField('Message', '');
       Table.Next;
     end;
 
@@ -287,8 +287,8 @@ begin
     Links := GetCheckeds('Link');
     Paths := GetCheckeds('Path');
     Names := GetCheckeds('Name');
-    LastActs := GetCheckeds('LastAct');
-    Msgs := GetCheckeds('Msg');
+    LastActs := GetCheckeds('LastAction');
+    Msgs := GetCheckeds('Message');
 
     for I := 0 to Length(Result) - 1 do
     begin

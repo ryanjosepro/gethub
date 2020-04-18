@@ -3,7 +3,7 @@ object WindowAddRepo: TWindowAddRepo
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Adicionar Reposit'#243'rio'
-  ClientHeight = 215
+  ClientHeight = 268
   ClientWidth = 341
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,7 +16,7 @@ object WindowAddRepo: TWindowAddRepo
   OnActivate = FormActivate
   DesignSize = (
     341
-    215)
+    268)
   PixelsPerInch = 96
   TextHeight = 13
   object LblName: TLabel
@@ -60,21 +60,21 @@ object WindowAddRepo: TWindowAddRepo
   end
   object BtnSave: TSpeedButton
     Left = 239
-    Top = 173
+    Top = 227
     Width = 97
     Height = 34
     Action = ActAdd
-    Anchors = [akTop, akRight]
-    ExplicitLeft = 244
+    Anchors = [akLeft, akBottom]
+    ExplicitTop = 224
   end
   object BtnDiscard: TSpeedButton
     Left = 136
-    Top = 173
+    Top = 227
     Width = 97
     Height = 34
     Action = ActCancel
-    Anchors = [akTop, akRight]
-    ExplicitLeft = 141
+    Anchors = [akLeft, akBottom]
+    ExplicitTop = 224
   end
   object BtnDir: TSpeedButton
     Left = 306
@@ -86,6 +86,19 @@ object WindowAddRepo: TWindowAddRepo
     Anchors = [akTop]
     ParentShowHint = False
     ShowHint = True
+  end
+  object LblDescription: TLabel
+    Left = 8
+    Top = 172
+    Width = 141
+    Height = 16
+    Caption = 'Descri'#231#227'o do Reposit'#243'rio'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
   end
   object TxtLink: TEdit
     Left = 8
@@ -135,9 +148,10 @@ object WindowAddRepo: TWindowAddRepo
   end
   object CheckCloneRepo: TCheckBox
     Left = 8
-    Top = 184
+    Top = 238
     Width = 122
     Height = 23
+    Anchors = [akLeft, akBottom]
     Caption = 'Clonar Reposit'#243'rio'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -146,12 +160,28 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 3
+    ExplicitTop = 235
+  end
+  object TxtDescription: TEdit
+    Left = 8
+    Top = 194
+    Width = 326
+    Height = 24
+    Anchors = [akLeft, akTop, akRight]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+    OnChange = TxtChange
   end
   object Images: TImageList
     BlendColor = clWhite
     BkColor = clWhite
-    Left = 104
-    Top = 128
+    Left = 304
+    Top = 168
     Bitmap = {
       494C010101000800040010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
@@ -294,8 +324,8 @@ object WindowAddRepo: TWindowAddRepo
   end
   object Actions: TActionList
     Images = Images
-    Left = 56
-    Top = 128
+    Left = 256
+    Top = 168
     object ActDir: TAction
       ImageIndex = 0
       OnExecute = ActDirExecute
@@ -320,7 +350,7 @@ object WindowAddRepo: TWindowAddRepo
     FavoriteLinks = <>
     FileTypes = <>
     Options = [fdoPickFolders]
-    Left = 8
-    Top = 128
+    Left = 208
+    Top = 168
   end
 end

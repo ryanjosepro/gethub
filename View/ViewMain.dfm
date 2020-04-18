@@ -4,10 +4,9 @@ object WindowMain: TWindowMain
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Gethub'
-  ClientHeight = 493
-  ClientWidth = 577
+  ClientHeight = 497
+  ClientWidth = 728
   Color = clBtnFace
-  Constraints.MaxWidth = 583
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -18,14 +17,14 @@ object WindowMain: TWindowMain
   OnActivate = FormActivate
   OnClose = FormClose
   DesignSize = (
-    577
-    493)
+    728
+    497)
   PixelsPerInch = 96
   TextHeight = 13
   object LblLogo: TLabel
     Left = 8
     Top = 8
-    Width = 561
+    Width = 712
     Height = 54
     Alignment = taCenter
     Anchors = [akLeft, akTop, akRight]
@@ -37,9 +36,10 @@ object WindowMain: TWindowMain
     Font.Name = 'Kristen ITC'
     Font.Style = []
     ParentFont = False
+    ExplicitWidth = 561
   end
   object BtnConfigs: TSpeedButton
-    Left = 512
+    Left = 663
     Top = 8
     Width = 57
     Height = 54
@@ -48,10 +48,11 @@ object WindowMain: TWindowMain
     Flat = True
     ParentShowHint = False
     ShowHint = True
+    ExplicitLeft = 512
   end
   object BtnEdit: TSpeedButton
     Left = 8
-    Top = 381
+    Top = 386
     Width = 111
     Height = 25
     Action = ActEdit
@@ -64,11 +65,11 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    ExplicitTop = 402
+    ExplicitTop = 382
   end
   object BtnDel: TSpeedButton
     Left = 125
-    Top = 381
+    Top = 386
     Width = 108
     Height = 25
     Action = ActDel
@@ -81,7 +82,7 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    ExplicitTop = 402
+    ExplicitTop = 382
   end
   object BtnAddRepository: TSpeedButton
     Left = 8
@@ -94,71 +95,65 @@ object WindowMain: TWindowMain
     ShowHint = True
   end
   object BtnAdd: TSpeedButton
-    Left = 251
-    Top = 412
-    Width = 75
+    Left = 317
+    Top = 417
+    Width = 97
     Height = 33
     Action = ActAdd
-    Anchors = [akRight, akBottom]
+    Anchors = [akLeft, akBottom]
     Caption = 'Add (F7)'
   end
   object BtnCommit: TSpeedButton
-    Left = 332
-    Top = 413
-    Width = 75
+    Left = 420
+    Top = 417
+    Width = 97
     Height = 33
     Action = ActCommit
-    Anchors = [akRight, akBottom]
-    ExplicitTop = 434
+    Anchors = [akLeft, akBottom]
   end
   object BtnCheckout: TSpeedButton
-    Left = 413
-    Top = 413
-    Width = 75
+    Left = 523
+    Top = 416
+    Width = 97
     Height = 33
     Action = ActRestore
-    Anchors = [akRight, akBottom]
-    ExplicitTop = 434
+    Anchors = [akLeft, akBottom]
   end
   object BtnPush: TSpeedButton
-    Left = 494
-    Top = 413
-    Width = 75
+    Left = 626
+    Top = 416
+    Width = 97
     Height = 33
     Action = ActPush
-    Anchors = [akRight, akBottom]
-    ExplicitTop = 434
+    Anchors = [akLeft, akBottom]
   end
   object BtnPull: TSpeedButton
-    Left = 170
-    Top = 413
-    Width = 75
+    Left = 214
+    Top = 417
+    Width = 97
     Height = 33
     Action = ActPull
-    Anchors = [akRight, akBottom]
-    ExplicitTop = 434
+    Anchors = [akLeft, akBottom]
   end
   object BtnStatus: TSpeedButton
-    Left = 89
-    Top = 413
-    Width = 75
+    Left = 111
+    Top = 417
+    Width = 97
     Height = 33
     Action = ActStatus
-    Anchors = [akRight, akBottom]
-    ExplicitTop = 434
+    Anchors = [akLeft, akBottom]
   end
   object BtnClone: TSpeedButton
     Left = 8
-    Top = 413
-    Width = 75
+    Top = 417
+    Width = 97
     Height = 33
     Action = ActClone
-    Anchors = [akRight, akBottom]
-    ExplicitTop = 434
+    Anchors = [akLeft, akBottom]
   end
   object BtnImport: TSpeedButton
-    Left = 461
-    Top = 349
+    Left = 615
+    Top = 353
     Width = 108
     Height = 25
     Action = ActImport
@@ -171,11 +166,10 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    ExplicitTop = 370
   end
   object Btn: TSpeedButton
-    Left = 461
-    Top = 381
+    Left = 615
+    Top = 384
     Width = 108
     Height = 25
     Action = ActExport
@@ -188,11 +182,10 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    ExplicitTop = 402
   end
   object LblTotRepos: TLabel
     Left = 8
-    Top = 349
+    Top = 370
     Width = 63
     Height = 13
     Caption = 'Reposit'#243'rios:'
@@ -205,7 +198,7 @@ object WindowMain: TWindowMain
   end
   object BtnDetails: TSpeedButton
     Left = 239
-    Top = 381
+    Top = 386
     Width = 108
     Height = 25
     Action = ActDetails
@@ -218,83 +211,75 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    ExplicitTop = 402
   end
   object SpeedButton1: TSpeedButton
     Left = 8
-    Top = 452
-    Width = 75
+    Top = 456
+    Width = 97
     Height = 33
-    Anchors = [akRight, akBottom]
+    Anchors = [akLeft, akBottom]
     Enabled = False
     OnClick = ActCloneExecute
-    ExplicitTop = 473
   end
   object SpeedButton2: TSpeedButton
-    Left = 89
-    Top = 452
-    Width = 75
+    Left = 111
+    Top = 456
+    Width = 97
     Height = 33
-    Anchors = [akRight, akBottom]
+    Anchors = [akLeft, akBottom]
     Enabled = False
     OnClick = ActCloneExecute
-    ExplicitTop = 473
   end
   object SpeedButton3: TSpeedButton
-    Left = 170
-    Top = 452
-    Width = 75
+    Left = 214
+    Top = 456
+    Width = 97
     Height = 33
-    Anchors = [akRight, akBottom]
+    Anchors = [akLeft, akBottom]
     Enabled = False
     OnClick = ActCloneExecute
-    ExplicitTop = 473
   end
   object SpeedButton4: TSpeedButton
-    Left = 251
-    Top = 452
-    Width = 75
+    Left = 317
+    Top = 456
+    Width = 97
     Height = 33
-    Anchors = [akRight, akBottom]
+    Anchors = [akLeft, akBottom]
     Enabled = False
     OnClick = ActCloneExecute
-    ExplicitTop = 473
   end
   object SpeedButton5: TSpeedButton
-    Left = 332
-    Top = 452
-    Width = 75
+    Left = 420
+    Top = 456
+    Width = 97
     Height = 33
-    Anchors = [akRight, akBottom]
+    Anchors = [akLeft, akBottom]
     Enabled = False
     OnClick = ActCloneExecute
-    ExplicitTop = 473
   end
   object SpeedButton6: TSpeedButton
-    Left = 413
-    Top = 452
-    Width = 75
+    Left = 523
+    Top = 455
+    Width = 97
     Height = 33
-    Anchors = [akRight, akBottom]
+    Anchors = [akLeft, akBottom]
     Enabled = False
     OnClick = ActCloneExecute
-    ExplicitTop = 473
   end
   object SpeedButton7: TSpeedButton
-    Left = 494
-    Top = 452
-    Width = 75
+    Left = 626
+    Top = 455
+    Width = 97
     Height = 33
-    Anchors = [akRight, akBottom]
+    Anchors = [akLeft, akBottom]
     Enabled = False
     OnClick = ActCloneExecute
-    ExplicitTop = 473
   end
   object GridRepositories: TDBGrid
     Left = 8
-    Top = 68
-    Width = 561
-    Height = 275
+    Top = 66
+    Width = 715
+    Height = 279
     Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = Source
     Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -314,12 +299,13 @@ object WindowMain: TWindowMain
       item
         Expanded = False
         FieldName = 'Checked'
-        Width = 16
+        Width = 15
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Link'
+        Width = -1
         Visible = False
       end
       item
@@ -331,25 +317,31 @@ object WindowMain: TWindowMain
         Expanded = False
         FieldName = 'Name'
         ReadOnly = True
-        Title.Caption = 'Nome do Reposit'#243'rio'
-        Width = 163
+        Title.Caption = 'Nome'
+        Width = 155
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'Msg'
-        Title.Caption = 'Mensagem de Commit'
-        Width = 276
-        Visible = True
-      end
-      item
-        Alignment = taRightJustify
-        Expanded = False
-        FieldName = 'LastAct'
+        FieldName = 'Description'
         ReadOnly = True
-        Title.Alignment = taRightJustify
+        Title.Caption = 'Descri'#231#227'o'
+        Width = 132
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Message'
+        Title.Caption = 'Mensagem de Commit'
+        Width = 304
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'LastAction'
+        ReadOnly = True
         Title.Caption = #218'ltima A'#231#227'o'
-        Width = 65
+        Width = 68
         Visible = True
       end>
   end
@@ -383,7 +375,7 @@ object WindowMain: TWindowMain
   end
   object Actions: TActionList
     Images = Images
-    Left = 464
+    Left = 640
     Top = 16
     object ActAddRepository: TAction
       Hint = 'Adicionar Reposit'#243'rio'
@@ -491,7 +483,7 @@ object WindowMain: TWindowMain
   object Images: TImageList
     Height = 32
     Width = 32
-    Left = 408
+    Left = 592
     Top = 16
     Bitmap = {
       494C010103001400040020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600

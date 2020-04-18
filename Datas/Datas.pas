@@ -21,6 +21,7 @@ type
     TableName: TStringField;
     TableLastAct: TStringField;
     TableMsg: TStringField;
+    TableDescription: TStringField;
   end;
 
 var

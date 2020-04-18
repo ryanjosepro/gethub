@@ -18,16 +18,19 @@ type
     FPath: string;
     FMsg: string;
     FLastAct: string;
+    FDesc: string;
     procedure SetLink(const Value: string);
     procedure SetLastAct(const Value: string);
     procedure SetMsg(const Value: string);
     procedure SetName(const Value: string);
     procedure SetPath(const Value: string);
+    procedure SetDesc(const Value: string);
 
   public
     property Link: string read FLink write SetLink;
     property Path: string read FPath write SetPath;
     property Name: string read FName write SetName;
+    property Desc: string read FDesc write SetDesc;
     property LastAct: string read FLastAct write SetLastAct;
     property Msg: string read FMsg write SetMsg;
   end;
@@ -94,6 +97,11 @@ end;
 procedure TRepository.SetName(const Value: string);
 begin
   FName := Value;
+end;
+
+procedure TRepository.SetDesc(const Value: string);
+begin
+  FDesc := Value;
 end;
 
 procedure TRepository.SetLastAct(const Value: string);

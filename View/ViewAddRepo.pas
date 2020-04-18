@@ -27,6 +27,8 @@ type
     ActEsc: TAction;
     OpenFile: TFileOpenDialog;
     CheckCloneRepo: TCheckBox;
+    LblDescription: TLabel;
+    TxtDescription: TEdit;
     procedure ActDirExecute(Sender: TObject);
     procedure ActAddExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
@@ -99,6 +101,7 @@ begin
     Repository.Link := TxtLink.Text;
     Repository.Path := TxtPath.Text;
     Repository.Name := TxtName.Text;
+    Repository.Desc := TxtDescription.Text;
 
     TDAO.Insert(Repository);
     Done;
