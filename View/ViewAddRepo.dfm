@@ -64,7 +64,7 @@ object WindowAddRepo: TWindowAddRepo
     Width = 97
     Height = 34
     Action = ActAdd
-    Anchors = [akLeft, akBottom]
+    Anchors = [akRight, akBottom]
     ExplicitTop = 224
   end
   object BtnDiscard: TSpeedButton
@@ -73,7 +73,7 @@ object WindowAddRepo: TWindowAddRepo
     Width = 97
     Height = 34
     Action = ActCancel
-    Anchors = [akLeft, akBottom]
+    Anchors = [akRight, akBottom]
     ExplicitTop = 224
   end
   object BtnDir: TSpeedButton
@@ -111,6 +111,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Height = -13
     Font.Name = 'Tahoma'
     Font.Style = []
+    MaxLength = 60
     ParentFont = False
     TabOrder = 0
     OnChange = TxtChange
@@ -126,6 +127,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Height = -13
     Font.Name = 'Tahoma'
     Font.Style = []
+    MaxLength = 150
     ParentFont = False
     TabOrder = 1
     OnChange = TxtChange
@@ -142,6 +144,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Height = -13
     Font.Name = 'Tahoma'
     Font.Style = []
+    MaxLength = 30
     ParentFont = False
     TabOrder = 2
     OnChange = TxtChange
@@ -160,7 +163,6 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 3
-    ExplicitTop = 235
   end
   object TxtDescription: TEdit
     Left = 8
@@ -173,6 +175,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Height = -13
     Font.Name = 'Tahoma'
     Font.Style = []
+    MaxLength = 40
     ParentFont = False
     TabOrder = 4
     OnChange = TxtChange

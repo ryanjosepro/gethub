@@ -185,14 +185,14 @@ object WindowMain: TWindowMain
   end
   object LblTotRepos: TLabel
     Left = 8
-    Top = 370
+    Top = 366
     Width = 63
     Height = 13
     Caption = 'Reposit'#243'rios:'
   end
   object TxtTotRepos: TLabel
     Left = 77
-    Top = 351
+    Top = 366
     Width = 3
     Height = 13
   end
@@ -305,7 +305,6 @@ object WindowMain: TWindowMain
       item
         Expanded = False
         FieldName = 'Link'
-        Width = -1
         Visible = False
       end
       item
@@ -326,14 +325,14 @@ object WindowMain: TWindowMain
         FieldName = 'Description'
         ReadOnly = True
         Title.Caption = 'Descri'#231#227'o'
-        Width = 132
+        Width = 172
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Message'
         Title.Caption = 'Mensagem de Commit'
-        Width = 304
+        Width = 258
         Visible = True
       end
       item

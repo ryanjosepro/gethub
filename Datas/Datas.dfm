@@ -28,9 +28,9 @@ object DataFactory: TDataFactory
       Size = 60
     end
     object TablePath: TStringField
-      DisplayWidth = 70
+      DisplayWidth = 150
       FieldName = 'Path'
-      Size = 70
+      Size = 150
     end
     object TableName: TStringField
       FieldName = 'Name'
@@ -38,6 +38,7 @@ object DataFactory: TDataFactory
     end
     object TableDescription: TStringField
       FieldName = 'Description'
+      Size = 40
     end
     object TableMsg: TStringField
       FieldName = 'Message'

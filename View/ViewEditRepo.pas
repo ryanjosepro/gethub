@@ -26,6 +26,8 @@ type
     ActDiscard: TAction;
     ActEsc: TAction;
     OpenFile: TFileOpenDialog;
+    TxtDescription: TEdit;
+    LblDescription: TLabel;
     procedure ActDBFileExecute(Sender: TObject);
     procedure ActDiscardExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
@@ -53,6 +55,7 @@ begin
   TxtLink.Text := TDAO.GetField('Link');
   TxtPath.Text := TDAO.GetField('Path');
   TxtName.Text := TDAO.GetField('Name');
+  TxtDescription.Text := TDAO.GetField('Description');
   Done;
 end;
 
@@ -129,6 +132,7 @@ begin
     Repository.Link := TxtLink.Text;
     Repository.Path := TxtPath.Text;
     Repository.Name := TxtName.Text;
+    Repository.Desc := TxtDescription.Text;
 
     TDAO.Edit(Repository);
     Done;

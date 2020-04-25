@@ -3,7 +3,7 @@ object WindowEditRepo: TWindowEditRepo
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Editar Reposit'#243'rio'
-  ClientHeight = 215
+  ClientHeight = 273
   ClientWidth = 341
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +17,7 @@ object WindowEditRepo: TWindowEditRepo
   OnClose = FormClose
   DesignSize = (
     341
-    215)
+    273)
   PixelsPerInch = 96
   TextHeight = 13
   object LblName: TLabel
@@ -60,23 +60,23 @@ object WindowEditRepo: TWindowEditRepo
     ParentFont = False
   end
   object BtnSave: TSpeedButton
-    Left = 239
-    Top = 173
+    Left = 236
+    Top = 231
     Width = 97
     Height = 34
     Action = ActSave
-    Anchors = [akTop, akRight]
+    Anchors = [akRight, akBottom]
     Caption = 'Salvar (Ctrl+S)'
-    ExplicitLeft = 244
+    ExplicitTop = 235
   end
   object BtnDiscard: TSpeedButton
-    Left = 136
-    Top = 173
+    Left = 133
+    Top = 231
     Width = 97
     Height = 34
     Action = ActDiscard
-    Anchors = [akTop, akRight]
-    ExplicitLeft = 141
+    Anchors = [akRight, akBottom]
+    ExplicitTop = 235
   end
   object BtnDBFile: TSpeedButton
     Left = 306
@@ -89,6 +89,19 @@ object WindowEditRepo: TWindowEditRepo
     ParentShowHint = False
     ShowHint = True
   end
+  object LblDescription: TLabel
+    Left = 8
+    Top = 172
+    Width = 141
+    Height = 16
+    Caption = 'Descri'#231#227'o do Reposit'#243'rio'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
   object TxtLink: TEdit
     Left = 8
     Top = 30
@@ -100,6 +113,7 @@ object WindowEditRepo: TWindowEditRepo
     Font.Height = -13
     Font.Name = 'Tahoma'
     Font.Style = []
+    MaxLength = 60
     ParentFont = False
     TabOrder = 0
     OnChange = TxtChange
@@ -115,6 +129,7 @@ object WindowEditRepo: TWindowEditRepo
     Font.Height = -13
     Font.Name = 'Tahoma'
     Font.Style = []
+    MaxLength = 150
     ParentFont = False
     TabOrder = 1
     OnChange = TxtChange
@@ -130,15 +145,32 @@ object WindowEditRepo: TWindowEditRepo
     Font.Height = -13
     Font.Name = 'Tahoma'
     Font.Style = []
+    MaxLength = 30
     ParentFont = False
     TabOrder = 2
+    OnChange = TxtChange
+  end
+  object TxtDescription: TEdit
+    Left = 8
+    Top = 194
+    Width = 326
+    Height = 24
+    Anchors = [akLeft, akTop, akRight]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    MaxLength = 40
+    ParentFont = False
+    TabOrder = 3
     OnChange = TxtChange
   end
   object Images: TImageList
     BlendColor = clWhite
     BkColor = clWhite
     Left = 104
-    Top = 168
+    Top = 216
     Bitmap = {
       494C010101000800040010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
@@ -282,7 +314,7 @@ object WindowEditRepo: TWindowEditRepo
   object Actions: TActionList
     Images = Images
     Left = 56
-    Top = 168
+    Top = 216
     object ActDBFile: TAction
       ImageIndex = 0
       OnExecute = ActDBFileExecute
@@ -308,6 +340,6 @@ object WindowEditRepo: TWindowEditRepo
     FileTypes = <>
     Options = [fdoPickFolders]
     Left = 8
-    Top = 168
+    Top = 216
   end
 end

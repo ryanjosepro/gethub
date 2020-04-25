@@ -92,7 +92,7 @@ begin
     while not Table.Eof do
     begin
       SetField('Checked', false);
-      SetField('Msg', '');
+      SetField('Message', '');
       Table.Next;
     end;
 
@@ -182,6 +182,7 @@ begin
   Table.FieldByName('Link').AsVariant := Repository.Link;
   Table.FieldByName('Path').AsVariant := Repository.Path;
   Table.FieldByName('Name').AsVariant := Repository.Name;
+  Table.FieldByName('Description').AsVariant := Repository.Desc;
   Table.Post;
   Save;
   Table.UpdateOptions.EnableInsert := false;
@@ -193,6 +194,7 @@ begin
   Table.FieldByName('Link').AsVariant := Repository.Link;
   Table.FieldByName('Path').AsVariant := Repository.Path;
   Table.FieldByName('Name').AsVariant := Repository.Name;
+  Table.FieldByName('Description').AsVariant := Repository.Desc;
   Table.Post;
   Save;
 end;
@@ -279,7 +281,7 @@ end;
 class function TDAO.GetCheckedRepositories: TRepositoryArray;
 var
   I: integer;
-  Links, Paths, Names, LastActs, Msgs: TStringList;
+  Links, Paths, Names, Descriptions, LastActs, Msgs: TStringList;
 begin
   SetLength(Result, GetCheckeds('Checked').Count);
 
@@ -287,6 +289,7 @@ begin
     Links := GetCheckeds('Link');
     Paths := GetCheckeds('Path');
     Names := GetCheckeds('Name');
+    Descriptions := GetCheckeds('Description');
     LastActs := GetCheckeds('LastAction');
     Msgs := GetCheckeds('Message');
 
@@ -296,6 +299,7 @@ begin
       Result[I].Link := Links[I];
       Result[I].Path := Paths[I];
       Result[I].Name := Names[I];
+      Result[I].Desc := Descriptions[I];
       Result[I].LastAct := LastActs[I];
       Result[I].Msg := Msgs[I];
     end;
@@ -303,6 +307,7 @@ begin
     FreeAndNil(Links);
     FreeAndNil(Paths);
     FreeAndNil(Names);
+    FreeAndNil(Descriptions);
     FreeAndNil(LastActs);
     FreeAndNil(Msgs);
   end;
