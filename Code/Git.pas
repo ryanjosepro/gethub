@@ -78,6 +78,7 @@ type
   TGit = class
   public
     class procedure GitExec(Execution: TGitExecution);
+    class procedure SetLocalGitAccount(Repository: TRepository; Config: TGitConfig);
   end;
 
 implementation
@@ -247,6 +248,18 @@ begin
     ' && ' + CloseCommand +
     ' && exit';
   end;
+
+  TUtils.ExecCmd(Command);
+end;
+
+class procedure TGit.SetLocalGitAccount(Repository: TRepository; Config: TGitConfig);
+var
+  GitCommand, Command: string;
+begin
+  GitCommand := 'git config --local user.name && git config --local user.email ';
+
+  Command := '/C cd ' + Config.GitBin +
+  ' && git -C "' + Repository.Path + '" ' + GitCommand;
 
   TUtils.ExecCmd(Command);
 end;

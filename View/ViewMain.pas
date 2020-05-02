@@ -113,7 +113,7 @@ procedure TWindowMain.FormActivate(Sender: TObject);
 begin
   GridRepositories.SetFocus;
   TDAO.Load;
-  TConfigGethub.ConfigGitAccount;
+  TConfigGethub.SetGlobalGitAccount;
   UpdateButtons;
   UpdateTotRepos;
 end;

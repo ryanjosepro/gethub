@@ -11,7 +11,7 @@ type
   protected
     class procedure CreateFile(Path: string);
   public
-    class procedure ConfigGitAccount;
+    class procedure SetGlobalGitAccount;
     class function GitConfig: TGitConfig;
   end;
 
@@ -37,7 +37,7 @@ begin
   end;
 end;
 
-class procedure TConfigGethub.ConfigGitAccount;
+class procedure TConfigGethub.SetGlobalGitAccount;
 var
   GitBin, Name, Email, Comand: string;
 begin

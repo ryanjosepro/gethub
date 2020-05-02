@@ -106,7 +106,7 @@ begin
   TConfigGethub.SetConfig('OPTIONS', 'CloseTime', TxtCloseTime.Text);
   TConfigGethub.SetConfig('OPTIONS', 'ExecTime', TxtExecTime.Text);
 
-  TConfigGethub.ConfigGitAccount;
+  TConfigGethub.SetGlobalGitAccount;
 
   Done;
 

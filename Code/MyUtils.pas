@@ -152,6 +152,8 @@ begin
 end;
 
 //Executa um comando cmd - async
+// /C -> Executa os comandos e fecha
+// /K -> Executa os comandos e continua aberto
 class procedure TUtils.ExecCmd(Comand: string; ShowCmd: boolean);
 begin
   ShellExecute(0, nil, 'cmd.exe', PWideChar(Comand), nil, Iif(ShowCmd, 1, 0));
