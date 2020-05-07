@@ -56,6 +56,8 @@ begin
   TxtLink.Clear;
   TxtPath.Clear;
   TxtName.Clear;
+  TxtDescription.Clear;
+  CheckCloneRepo.Checked := false;
   TxtLink.SetFocus;
   Done;
 end;

@@ -162,7 +162,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 4
   end
   object TxtDescription: TEdit
     Left = 8
@@ -177,7 +177,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     MaxLength = 40
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 3
     OnChange = TxtChange
   end
   object Images: TImageList
