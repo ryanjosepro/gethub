@@ -59,8 +59,8 @@ type
     ItemDel: TMenuItem;
     BtnDetails: TSpeedButton;
     ActDetails: TAction;
-    SpeedButton1: TSpeedButton;
-    SpeedButton2: TSpeedButton;
+    BtnSwitch: TSpeedButton;
+    BtnDiff: TSpeedButton;
     SpeedButton3: TSpeedButton;
     SpeedButton4: TSpeedButton;
     SpeedButton5: TSpeedButton;
@@ -68,6 +68,8 @@ type
     SpeedButton7: TSpeedButton;
     ActGitBash: TAction;
     GitBash1: TMenuItem;
+    ActSwitch: TAction;
+    ActDiff: TAction;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -95,6 +97,8 @@ type
     procedure GridRepositoriesKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ActDetailsExecute(Sender: TObject);
     procedure ActGitBashExecute(Sender: TObject);
+    procedure ActSwitchExecute(Sender: TObject);
+    procedure ActDiffExecute(Sender: TObject);
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
@@ -567,13 +571,14 @@ end;
 procedure TWindowMain.ActPushExecute(Sender: TObject);
 var
   I: integer;
-  Repositories: TRepositoryArray;
   GitExecution: TGitExecution;
+  Repositories: TRepositoryArray;
 begin
   GitExecution := TGitExecution.Create;
-  Repositories := TDAO.GetCheckedRepositories;
   GitExecution.Action := gaPush;
   GitExecution.Config := TConfigGethub.GitConfig;
+
+  Repositories := TDAO.GetCheckedRepositories;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
@@ -588,6 +593,55 @@ begin
   end;
 
   TDAO.SetCheckeds('LastAction', 'Push');
+end;
+
+procedure TWindowMain.ActSwitchExecute(Sender: TObject);
+var
+  Repository: TRepository;
+  GitExecution: TGitExecution;
+begin
+  Repository := TDAO.GetCheckedRepositories[0];
+
+  Repository.Branch := InputBox('Para qual branch você deseja mudar?', 'Branch:', '').Trim;
+
+  if Repository.Branch <> '' then
+  begin
+    GitExecution := TGitExecution.Create;
+    GitExecution.Repository := Repository;
+    GitExecution.Action := gaSwitch;
+    GitExecution.Config := TConfigGethub.GitConfig;
+
+    TGit.GitExec(GitExecution);
+
+    TDAO.SetCheckeds('LastAction', 'Switch');
+  end;
+end;
+
+procedure TWindowMain.ActDiffExecute(Sender: TObject);
+var
+  I: integer;
+  Repositories: TRepositoryArray;
+  GitExecution: TGitExecution;
+begin
+  Repositories := TDAO.GetCheckedRepositories;
+
+  GitExecution := TGitExecution.Create;
+  GitExecution.Action := gaDiff;
+  GitExecution.Config := TConfigGethub.GitConfig;
+
+  for I := 0 to Length(Repositories) - 1 do
+  begin
+    GitExecution.Repository := Repositories[I];
+
+    TGit.GitExec(GitExecution);
+
+    if I <> Length(Repositories) - 1 then
+    begin
+      SleepExec;
+    end;
+  end;
+
+  TDAO.SetCheckeds('LastAction', 'Diff');
 end;
 
 //OTHERS
@@ -628,6 +682,9 @@ begin
   ActCommit.Enabled := Value;
   ActRestore.Enabled := Value;
   ActPush.Enabled := Value;
+  ActDiff.Enabled := Value;
+
+  ActSwitch.Enabled := TDAO.CountChecked = 1;
 end;
 
 procedure TWindowMain.UpdateTotRepos;

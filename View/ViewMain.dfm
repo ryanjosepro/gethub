@@ -212,23 +212,21 @@ object WindowMain: TWindowMain
     ParentShowHint = False
     ShowHint = True
   end
-  object SpeedButton1: TSpeedButton
+  object BtnSwitch: TSpeedButton
     Left = 8
     Top = 456
     Width = 97
     Height = 33
+    Action = ActSwitch
     Anchors = [akLeft, akBottom]
-    Enabled = False
-    OnClick = ActCloneExecute
   end
-  object SpeedButton2: TSpeedButton
+  object BtnDiff: TSpeedButton
     Left = 111
     Top = 456
     Width = 97
     Height = 33
+    Action = ActDiff
     Anchors = [akLeft, akBottom]
-    Enabled = False
-    OnClick = ActCloneExecute
   end
   object SpeedButton3: TSpeedButton
     Left = 214
@@ -468,6 +466,16 @@ object WindowMain: TWindowMain
       Enabled = False
       ShortCut = 120
       OnExecute = ActPushExecute
+    end
+    object ActSwitch: TAction
+      Caption = 'Switch'
+      Enabled = False
+      OnExecute = ActSwitchExecute
+    end
+    object ActDiff: TAction
+      Caption = 'Diff'#13#10
+      Enabled = False
+      OnExecute = ActDiffExecute
     end
     object ActEsc: TAction
       ShortCut = 27

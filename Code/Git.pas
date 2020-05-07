@@ -7,7 +7,7 @@ uses
   MyUtils;
 
 type
-  TGitAction = (gaClone, gaStatus, gaPull, gaAdd, gaCommit, gaRestore, gaPush);
+  TGitAction = (gaClone, gaStatus, gaPull, gaAdd, gaCommit, gaRestore, gaPush, gaSwitch, gaDiff);
 
   TStringArray = array of string;
 
@@ -19,12 +19,14 @@ type
     FMsg: string;
     FLastAct: string;
     FDesc: string;
+    FBranch: string;
     procedure SetLink(const Value: string);
     procedure SetLastAct(const Value: string);
     procedure SetMsg(const Value: string);
     procedure SetName(const Value: string);
     procedure SetPath(const Value: string);
     procedure SetDesc(const Value: string);
+    procedure SetBranch(const Value: string);
 
   public
     property Link: string read FLink write SetLink;
@@ -33,6 +35,7 @@ type
     property Desc: string read FDesc write SetDesc;
     property LastAct: string read FLastAct write SetLastAct;
     property Msg: string read FMsg write SetMsg;
+    property Branch: string read FBranch write SetBranch;
   end;
 
   TRepositoryArray = array of TRepository;
@@ -98,6 +101,11 @@ end;
 procedure TRepository.SetName(const Value: string);
 begin
   FName := Value;
+end;
+
+procedure TRepository.SetBranch(const Value: string);
+begin
+  FBranch := Value;
 end;
 
 procedure TRepository.SetDesc(const Value: string);
@@ -215,6 +223,18 @@ begin
       begin
         StrMode := 'Push';
         GitCommand := 'push';
+      end;
+
+      gaSwitch:
+      begin
+        StrMode := 'Switch';
+        GitCommand := 'switch ' + Repository.Branch;
+      end;
+
+      gaDiff:
+      begin
+        StrMode := 'Diff';
+        GitCommand := 'diff'
       end;
     end;
 
