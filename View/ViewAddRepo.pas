@@ -13,7 +13,6 @@ type
     LblName: TLabel;
     LblPath: TLabel;
     LblLink: TLabel;
-    TxtLink: TEdit;
     TxtPath: TEdit;
     TxtName: TEdit;
     BtnSave: TSpeedButton;
@@ -29,6 +28,7 @@ type
     CheckCloneRepo: TCheckBox;
     LblDescription: TLabel;
     TxtDescription: TEdit;
+    TxtLink: TComboBox;
     procedure ActDirExecute(Sender: TObject);
     procedure ActAddExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
@@ -53,7 +53,8 @@ implementation
 
 procedure TWindowAddRepo.FormActivate(Sender: TObject);
 begin
-  TxtLink.Clear;
+  TxtLink.ItemIndex := -1;
+  TxtLink.Text := '';
   TxtPath.Clear;
   TxtName.Clear;
   TxtDescription.Clear;
