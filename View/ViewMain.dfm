@@ -23,7 +23,7 @@ object WindowMain: TWindowMain
   TextHeight = 13
   object LblLogo: TLabel
     Left = 8
-    Top = 8
+    Top = 6
     Width = 712
     Height = 54
     Alignment = taCenter
@@ -36,7 +36,6 @@ object WindowMain: TWindowMain
     Font.Name = 'Kristen ITC'
     Font.Style = []
     ParentFont = False
-    ExplicitWidth = 561
   end
   object BtnConfigs: TSpeedButton
     Left = 663
