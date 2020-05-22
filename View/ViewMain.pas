@@ -134,6 +134,8 @@ begin
   ActCommit.Enabled := true;
   ActRestore.Enabled := true;
   ActPush.Enabled := true;
+  ActSwitch.Enabled := true;
+  ActDiff.Enabled := true;
   Source.DataSet := nil;
 end;
 

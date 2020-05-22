@@ -226,6 +226,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActDiff
     Anchors = [akLeft, akBottom]
+    Caption = 'Diff'
   end
   object SpeedButton3: TSpeedButton
     Left = 214
