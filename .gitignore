@@ -174,3 +174,4 @@ ModelSupport*
 
 *.json
 Win32/
+Win64/

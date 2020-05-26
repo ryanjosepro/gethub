@@ -43,6 +43,9 @@ type
 
 implementation
 
+var
+  DataPath: string = 'Data.json';
+
 { TDAO }
 
 class function TDAO.Table: TFDMemTable;
@@ -54,7 +57,7 @@ class procedure TDAO.Load(CleanChecked: boolean = true);
 var
   Path: string;
 begin
-  Path := ExtractFilePath(Application.ExeName) + 'Data\Data.json';
+  Path := ExtractFilePath(Application.ExeName) + DataPath;
 
   if FileExists(Path) then
   begin
@@ -101,9 +104,9 @@ begin
     Table.EnableControls;
   end;
 
-  TUtils.CreateIfNotExistsDir(TUtils.AppPath + 'Data');
+  //TUtils.CreateIfNotExistsDir(TUtils.AppPath + 'Data');
 
-  Table.SaveToFile(TUtils.AppPath + 'Data\Data.json', sfJSON);
+  Table.SaveToFile(TUtils.AppPath + DataPath, sfJSON);
 end;
 
 class procedure TDAO.Load(Path: string; CleanChecked: boolean = true);
@@ -118,7 +121,7 @@ begin
     while not Table.Eof do
     begin
       SetField('Checked', false);
-      SetField('Msg', '');
+      SetField('Message', '');
       Table.Next;
     end;
     Table.First;
