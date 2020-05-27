@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids, Vcl.CheckLst, Vcl.ButtonGroup,
   Datasnap.DSHTTP, IOUtils, Vcl.Menus,
-  ViewConfigs, ViewAddRepo, ViewEditRepo, ViewFiles, ConfigGethub, MyDialogs, MyUtils, DAO, Git;
+  ViewConfigs, ViewAddRepo, ViewEditRepo, ViewFiles, Config, MyDialogs, MyUtils, DAO, Git;
 
 type
   TWindowMain = class(TForm)
@@ -117,7 +117,7 @@ procedure TWindowMain.FormActivate(Sender: TObject);
 begin
   GridRepositories.SetFocus;
   TDAO.Load;
-  TConfigGethub.SetGlobalGitAccount;
+  TConfig.SetGlobalGitAccount;
   UpdateButtons;
   UpdateTotRepos;
 end;
@@ -314,7 +314,7 @@ begin
 
   GitExecution := TGitExecution.Create;
   GitExecution.Action := gaClone;
-  GitExecution.Config := TConfigGethub.GitConfig;
+  GitExecution.Config := TConfig.GetGitConfig;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
@@ -370,7 +370,7 @@ begin
 
   GitExecution := TGitExecution.Create;
   GitExecution.Action := gaStatus;
-  GitExecution.Config := TConfigGethub.GitConfig;
+  GitExecution.Config := TConfig.GetGitConfig;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
@@ -397,7 +397,7 @@ begin
 
   GitExecution := TGitExecution.Create;
   GitExecution.Action := gaPull;
-  GitExecution.Config := TConfigGethub.GitConfig;
+  GitExecution.Config := TConfig.GetGitConfig;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
@@ -425,7 +425,7 @@ begin
 
   GitExecution := TGitExecution.Create;
   GitExecution.Action := gaAdd;
-  GitExecution.Config := TConfigGethub.GitConfig;
+  GitExecution.Config := TConfig.GetGitConfig;
 
   DialogAnswer := mrYes;
 
@@ -500,7 +500,7 @@ begin
   begin
     GitExecution := TGitExecution.Create;
     GitExecution.Action := gaCommit;
-    GitExecution.Config := TConfigGethub.GitConfig;
+    GitExecution.Config := TConfig.GetGitConfig;
 
     for I := 0 to Length(Repositories) - 1 do
     begin
@@ -532,7 +532,7 @@ begin
 
   GitExecution := TGitExecution.Create;
   GitExecution.Action := gaRestore;
-  GitExecution.Config := TConfigGethub.GitConfig;
+  GitExecution.Config := TConfig.GetGitConfig;
 
   DialogAnswer := mrYes;
 
@@ -578,7 +578,7 @@ var
 begin
   GitExecution := TGitExecution.Create;
   GitExecution.Action := gaPush;
-  GitExecution.Config := TConfigGethub.GitConfig;
+  GitExecution.Config := TConfig.GetGitConfig;
 
   Repositories := TDAO.GetCheckedRepositories;
 
@@ -611,7 +611,7 @@ begin
     GitExecution := TGitExecution.Create;
     GitExecution.Repository := Repository;
     GitExecution.Action := gaSwitch;
-    GitExecution.Config := TConfigGethub.GitConfig;
+    GitExecution.Config := TConfig.GetGitConfig;
 
     TGit.GitExec(GitExecution);
 
@@ -629,7 +629,7 @@ begin
 
   GitExecution := TGitExecution.Create;
   GitExecution.Action := gaDiff;
-  GitExecution.Config := TConfigGethub.GitConfig;
+  GitExecution.Config := TConfig.GetGitConfig;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
@@ -696,7 +696,7 @@ end;
 
 procedure TWindowMain.SleepExec;
 begin
-  Sleep(StrToInt(TConfigGethub.GetConfig('OPTIONS', 'ExecTime', '0')));
+  Sleep(StrToInt(TConfig.GetConfig('OPTIONS', 'ExecTime', '0')));
 end;
 
 //POPUP MENU
@@ -710,7 +710,7 @@ procedure TWindowMain.ActGitBashExecute(Sender: TObject);
 var
   Comando: string;
 begin
-  Comando := '/K cd "' + TDAO.GetField('Path') + '" && "' + TConfigGethub.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin') + '\bash"';
+  Comando := '/K cd "' + TDAO.GetField('Path') + '" && "' + TConfig.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin') + '\bash"';
   TUtils.ExecCmd(Comando);
 end;
 

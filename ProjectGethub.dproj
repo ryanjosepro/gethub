@@ -133,7 +133,6 @@
             <Form>WindowFiles</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Code\ConfigGethub.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -169,7 +168,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win32\Debug\ProjectGethub.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Win32\Debug\src\ProjectGethub.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>ProjectGethub.exe</RemoteName>
                         <Overwrite>true</Overwrite>

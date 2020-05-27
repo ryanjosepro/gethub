@@ -249,6 +249,10 @@ begin
         if Config.CloseStatus then
         begin
           CloseCommand := 'timeout -t ' + IntToStr(Config.CloseTime);
+        end
+        else
+        begin
+          CloseCommand := 'pause';
         end;
       end
       else

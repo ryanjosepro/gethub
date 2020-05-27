@@ -12,8 +12,7 @@ uses
   MyDialogs in 'Code\MyDialogs.pas',
   Config in 'Code\Config.pas',
   Git in 'Code\Git.pas',
-  ViewFiles in 'View\ViewFiles.pas' {WindowFiles},
-  ConfigGethub in 'Code\ConfigGethub.pas';
+  ViewFiles in 'View\ViewFiles.pas' {WindowFiles};
 
 {$R *.res}
 

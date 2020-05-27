@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList,
-  ConfigGethub, Git, DAO;
+  Config, Git, DAO;
 
 type
   TWindowAddRepo = class(TForm)
@@ -117,7 +117,7 @@ begin
 
       GitExecution.Repository := Repository;
       GitExecution.Action := gaClone;
-      GitExecution.Config := TConfigGethub.GitConfig;
+      GitExecution.Config := TConfig.GetGitConfig;
 
       TGit.GitExec(GitExecution);
     end;

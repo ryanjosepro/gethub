@@ -113,6 +113,10 @@
     object TabSistema: TTabSheet
       Caption = 'Sistema'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         249
         269)
@@ -160,6 +164,10 @@
     object Opções: TTabSheet
       Caption = 'Op'#231#245'es'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object PanelCloseCmd: TPanel
         Left = 3
         Top = 3
