@@ -116,12 +116,12 @@
             <Form>WindowConfigs</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Datas\Datas.pas">
-            <Form>DataFactory</Form>
+        <DCCReference Include="Modal\Connection.pas">
+            <Form>DataModuleConn</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Datas\DAO.pas"/>
+        <DCCReference Include="Controller\DAO.pas"/>
         <DCCReference Include="View\ViewAddRepo.pas">
             <Form>WindowAddRepo</Form>
             <FormType>dfm</FormType>
