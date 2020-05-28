@@ -1,4 +1,4 @@
-unit Datas;
+unit Connection;
 
 interface
 
@@ -12,7 +12,7 @@ uses
   FireDAC.Stan.ExprFuncs, FireDAC.VCLUI.Wait;
 
 type
-  TDataFactory = class(TDataModule)
+  TDataModuleConn = class(TDataModule)
     JSON: TFDStanStorageJSONLink;
     Table: TFDMemTable;
     TableChecked: TBooleanField;
@@ -25,7 +25,7 @@ type
   end;
 
 var
-  DataFactory: TDataFactory;
+  DataModuleConn: TDataModuleConn;
 
 implementation
 
