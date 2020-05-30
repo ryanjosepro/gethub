@@ -1043,7 +1043,6 @@ object WindowMain: TWindowMain
     Top = 16
   end
   object Source: TDataSource
-    DataSet = DataFactory.Table
     Left = 16
     Top = 296
   end

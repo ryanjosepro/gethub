@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Classes, System.Types, System.Variants, System.StrUtils, FireDAC.Comp.Client,
   Vcl.Forms, FireDAC.Stan.Intf, Vcl.Dialogs, FireDAC.Phys.SQLiteVDataSet, FireDAC.Phys.SQLite,
-  MyUtils, Datas, Git;
+  MyUtils, Connection, Git;
 
 type
   TDAO = class
@@ -50,7 +50,7 @@ var
 
 class function TDAO.Table: TFDMemTable;
 begin
-  Result := DataFactory.Table;
+  Result := DataModuleConn.Table;
 end;
 
 class procedure TDAO.Load(CleanChecked: boolean = true);

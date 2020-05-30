@@ -117,6 +117,7 @@ procedure TWindowMain.FormActivate(Sender: TObject);
 begin
   GridRepositories.SetFocus;
   TDAO.Load;
+  Source.DataSet := TDAO.Table;
   TConfig.SetGlobalGitAccount;
   UpdateButtons;
   UpdateTotRepos;
