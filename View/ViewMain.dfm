@@ -16,6 +16,7 @@ object WindowMain: TWindowMain
   Position = poMainFormCenter
   OnActivate = FormActivate
   OnClose = FormClose
+  OnCreate = FormCreate
   DesignSize = (
     728
     497)
@@ -50,7 +51,7 @@ object WindowMain: TWindowMain
     ExplicitLeft = 512
   end
   object BtnEdit: TSpeedButton
-    Left = 8
+    Left = 122
     Top = 386
     Width = 111
     Height = 25
@@ -64,10 +65,9 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    ExplicitTop = 382
   end
   object BtnDel: TSpeedButton
-    Left = 125
+    Left = 239
     Top = 386
     Width = 108
     Height = 25
@@ -81,7 +81,6 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    ExplicitTop = 382
   end
   object BtnAddRepository: TSpeedButton
     Left = 8
@@ -196,7 +195,7 @@ object WindowMain: TWindowMain
     Height = 13
   end
   object BtnDetails: TSpeedButton
-    Left = 239
+    Left = 8
     Top = 386
     Width = 108
     Height = 25
@@ -272,6 +271,22 @@ object WindowMain: TWindowMain
     Anchors = [akLeft, akBottom]
     Enabled = False
     OnClick = ActCloneExecute
+  end
+  object BtnGitBash: TSpeedButton
+    Left = 353
+    Top = 386
+    Width = 108
+    Height = 25
+    Action = ActGitBash
+    Anchors = [akLeft, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clTeal
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
   end
   object GridRepositories: TDBGrid
     Left = 8
@@ -482,8 +497,9 @@ object WindowMain: TWindowMain
       OnExecute = ActEscExecute
     end
     object ActGitBash: TAction
-      Caption = 'Git Bash'
+      Caption = 'Git Bash (Ctrl+B)'
       Enabled = False
+      ShortCut = 16450
       OnExecute = ActGitBashExecute
     end
   end

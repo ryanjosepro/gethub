@@ -70,6 +70,7 @@ type
     GitBash1: TMenuItem;
     ActSwitch: TAction;
     ActDiff: TAction;
+    BtnGitBash: TSpeedButton;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -99,6 +100,7 @@ type
     procedure ActGitBashExecute(Sender: TObject);
     procedure ActSwitchExecute(Sender: TObject);
     procedure ActDiffExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
@@ -138,6 +140,11 @@ begin
   ActSwitch.Enabled := true;
   ActDiff.Enabled := true;
   Source.DataSet := nil;
+end;
+
+procedure TWindowMain.FormCreate(Sender: TObject);
+begin
+
 end;
 
 //GRID DRAWN
