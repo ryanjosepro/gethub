@@ -36,6 +36,7 @@ type
     property LastAct: string read FLastAct write SetLastAct;
     property Msg: string read FMsg write SetMsg;
     property Branch: string read FBranch write SetBranch;
+    constructor Create;
   end;
 
   TRepositoryArray = array of TRepository;
@@ -101,6 +102,11 @@ end;
 procedure TRepository.SetName(const Value: string);
 begin
   FName := Value;
+end;
+
+constructor TRepository.Create;
+begin
+  self.Branch := 'master';
 end;
 
 procedure TRepository.SetBranch(const Value: string);
@@ -222,7 +228,7 @@ begin
       gaPush:
       begin
         StrMode := 'Push';
-        GitCommand := 'push';
+        GitCommand := 'push origin ' + Repository.Branch;
       end;
 
       gaSwitch:

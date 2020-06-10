@@ -179,18 +179,22 @@ end;
 
 procedure TWindowMain.GridRepositoriesKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-  if (key = 40) then
-  begin
+  case Key of
+  38:
+    if TDAO.GetIndex = 1 then
+    begin
+      TDAO.Table.Last;
+      Key := Word(#0);
+    end;
+  40:
     if TDAO.GetIndex = TDAO.Count then
     begin
       TDAO.Table.First;
       Key := Word(#0);
     end;
-  end;
-
-  if (Shift = [ssCtrl]) and (Key = 46) then
-  begin
-    Key := 0;
+  46:
+    if (Shift = [ssCtrl]) then
+      Key := 0;
   end;
 end;
 
@@ -424,9 +428,8 @@ end;
 
 procedure TWindowMain.ActAddExecute(Sender: TObject);
 var
-  I: integer;
+  I, DialogAnswer: integer;
   Repositories: TRepositoryArray;
-  DialogAnswer: integer;
   GitExecution: TGitExecution;
 begin
   Repositories := TDAO.GetCheckedRepositories;
@@ -589,6 +592,11 @@ begin
   GitExecution.Config := TConfig.GetGitConfig;
 
   Repositories := TDAO.GetCheckedRepositories;
+
+  if Length(Repositories) = 1 then
+  begin
+    Repositories[0].Branch := InputBox('Upstream', 'Branch', 'master').Trim;
+  end;
 
   for I := 0 to Length(Repositories) - 1 do
   begin
