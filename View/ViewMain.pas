@@ -586,6 +586,8 @@ var
   I: integer;
   GitExecution: TGitExecution;
   Repositories: TRepositoryArray;
+  Branch: string;
+  DialogAnswer: boolean;
 begin
   GitExecution := TGitExecution.Create;
   GitExecution.Action := gaPush;
@@ -593,45 +595,58 @@ begin
 
   Repositories := TDAO.GetCheckedRepositories;
 
+  DialogAnswer := true;
+
   if Length(Repositories) = 1 then
   begin
-    Repositories[0].Branch := InputBox('Upstream', 'Branch', 'master').Trim;
+    Branch := 'master';
+
+    DialogAnswer := InputQuery('Upstream', 'Branch', Branch);
   end;
 
-  for I := 0 to Length(Repositories) - 1 do
+  if DialogAnswer then
   begin
-    GitExecution.Repository := Repositories[I];
+    Repositories[0].Branch := Branch;
 
-    TGit.GitExec(GitExecution);
-
-    if I <> Length(Repositories) - 1 then
+    for I := 0 to Length(Repositories) - 1 do
     begin
-      SleepExec;
-    end;
-  end;
+      GitExecution.Repository := Repositories[I];
 
-  TDAO.SetCheckeds('LastAction', 'Push');
+      TGit.GitExec(GitExecution);
+
+      if I <> Length(Repositories) - 1 then
+      begin
+        SleepExec;
+      end;
+    end;
+
+    TDAO.SetCheckeds('LastAction', 'Push');
+  end;
 end;
 
 procedure TWindowMain.ActSwitchExecute(Sender: TObject);
 var
   Repository: TRepository;
   GitExecution: TGitExecution;
+  Branch: string;
 begin
   Repository := TDAO.GetCheckedRepositories[0];
 
-  Repository.Branch := InputBox('Para qual branch você deseja mudar?', 'Branch:', '').Trim;
-
-  if Repository.Branch <> '' then
+  if InputQuery('Para qual branch você deseja mudar?', 'Branch:', Branch) then
   begin
-    GitExecution := TGitExecution.Create;
-    GitExecution.Repository := Repository;
-    GitExecution.Action := gaSwitch;
-    GitExecution.Config := TConfig.GetGitConfig;
+    Repository.Branch := Branch;
 
-    TGit.GitExec(GitExecution);
+    if Repository.Branch <> '' then
+    begin
+      GitExecution := TGitExecution.Create;
+      GitExecution.Repository := Repository;
+      GitExecution.Action := gaSwitch;
+      GitExecution.Config := TConfig.GetGitConfig;
 
-    TDAO.SetCheckeds('LastAction', 'Switch');
+      TGit.GitExec(GitExecution);
+
+      TDAO.SetCheckeds('LastAction', 'Switch');
+    end;
   end;
 end;
 
