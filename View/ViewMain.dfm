@@ -99,7 +99,6 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActAdd
     Anchors = [akLeft, akBottom]
-    Caption = 'Add (F7)'
   end
   object BtnCommit: TSpeedButton
     Left = 420
@@ -460,7 +459,7 @@ object WindowMain: TWindowMain
       OnExecute = ActPullExecute
     end
     object ActAdd: TAction
-      Caption = 'Add .(F7)'
+      Caption = 'Add (F7)'
       Enabled = False
       ShortCut = 118
       OnExecute = ActAddExecute

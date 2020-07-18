@@ -691,7 +691,7 @@ end;
 
 procedure TWindowMain.UpdateButtons;
 var
-  Value: boolean;
+  AnySelected: boolean;
 begin
   if TDAO.Count > 0 then
   begin
@@ -706,18 +706,33 @@ begin
     ActExport.Enabled := true;
   end;
 
-  Value := (TDAO.Count > 0) and (TDAO.CountChecked >= 1);
+  AnySelected := (TDAO.Count > 0) and (TDAO.CountChecked >= 1);
 
-  ActClone.Enabled := Value;
-  ActStatus.Enabled := Value;
-  ActPull.Enabled := Value;
-  ActAdd.Enabled := Value;
-  ActCommit.Enabled := Value;
-  ActRestore.Enabled := Value;
-  ActPush.Enabled := Value;
-  ActDiff.Enabled := Value;
+  ActClone.Enabled := AnySelected;
+  ActStatus.Enabled := AnySelected;
+  ActPull.Enabled := AnySelected;
+  ActAdd.Enabled := AnySelected;
+  ActCommit.Enabled := AnySelected;
+  ActRestore.Enabled := AnySelected;
+  ActPush.Enabled := AnySelected;
+  ActDiff.Enabled := AnySelected;
 
   ActSwitch.Enabled := TDAO.CountChecked = 1;
+
+  if (TDAO.Count > 0) and (TDAO.CountChecked = 1) then
+  begin
+    ActAdd.Caption := 'Add (F7)*';
+    ActRestore.Caption := 'Restore*';
+    ActPush.Caption := 'Push(F9)*';
+    //ActDiff.Caption := 'Diff*';
+  end
+  else
+  begin
+    ActAdd.Caption := 'Add (F7)';
+    ActRestore.Caption := 'Restore';
+    ActPush.Caption := 'Push(F9)';
+    //ActDiff.Caption := 'Diff';
+  end;
 end;
 
 procedure TWindowMain.UpdateTotRepos;
