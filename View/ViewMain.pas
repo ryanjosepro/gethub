@@ -682,6 +682,7 @@ end;
 procedure TWindowMain.CheckAllClick(Sender: TObject);
 begin
   TDAO.SelectAll(CheckAll.Checked);
+  UpdateButtons;
 end;
 
 procedure TWindowMain.ActEscExecute(Sender: TObject);
