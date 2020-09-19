@@ -220,7 +220,7 @@ begin
 
       gaRestore:
       begin
-        StrMode := 'Checkout';
+        StrMode := 'Restore';
         Files.Delimiter := ' ';
         GitCommand := 'restore ' + Files.DelimitedText;
       end;
