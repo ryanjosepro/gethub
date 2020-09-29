@@ -127,7 +127,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Code\MyDialogs.pas"/>
-        <DCCReference Include="Code\Config.pas"/>
+        <DCCReference Include="Controller\Config.pas"/>
         <DCCReference Include="Code\Git.pas"/>
         <DCCReference Include="View\ViewFiles.pas">
             <Form>WindowFiles</Form>
