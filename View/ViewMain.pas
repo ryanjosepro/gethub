@@ -9,7 +9,8 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids, Vcl.CheckLst, Vcl.ButtonGroup,
   Datasnap.DSHTTP, IOUtils, Vcl.Menus,
-  ViewConfigs, ViewAddRepo, ViewEditRepo, ViewFiles, Config, MyDialogs, MyUtils, DAO, Git;
+  ViewConfigs, ViewAddRepo, ViewEditRepo, ViewFiles, Config, MyDialogs, MyUtils, DAO, Git,
+  NsEditBtn;
 
 type
   TWindowMain = class(TForm)
@@ -101,6 +102,7 @@ type
     procedure ActSwitchExecute(Sender: TObject);
     procedure ActDiffExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure TxtSearchChange(Sender: TObject);
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
@@ -140,6 +142,7 @@ begin
   ActSwitch.Enabled := true;
   ActDiff.Enabled := true;
   Source.DataSet := nil;
+  Application.ProcessMessages;
 end;
 
 procedure TWindowMain.FormCreate(Sender: TObject);
@@ -744,6 +747,12 @@ end;
 procedure TWindowMain.SleepExec;
 begin
   Sleep(StrToInt(TConfig.GetConfig('OPTIONS', 'ExecTime', '0')));
+end;
+
+procedure TWindowMain.TxtSearchChange(Sender: TObject);
+begin
+  //TDAO.Search(TxtSearch.Text);
+  Application.ProcessMessages;
 end;
 
 //POPUP MENU

@@ -24,6 +24,8 @@ type
     class procedure Edit(Repository: TRepository);
     class procedure Delete;
 
+    class procedure Search(Name: string);
+
     class procedure SelectAll(Checked: boolean = true);
     class function GetCheckeds(Field: string): TStringList;
     class procedure SetCheckeds(Field, Value: string);
@@ -206,6 +208,19 @@ class procedure TDAO.Delete;
 begin
   Table.Delete;
   Save;
+end;
+
+class procedure TDAO.Search(Name: string);
+begin
+  if Name <> '' then
+  begin
+    Table.Filter := 'Name like ''%' + Name + '%''';
+    Table.Filtered := true;
+  end
+  else
+  begin
+    Table.Filtered := false;
+  end;
 end;
 
 class procedure TDAO.SelectAll(Checked: boolean = true);

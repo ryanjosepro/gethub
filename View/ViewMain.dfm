@@ -4,7 +4,7 @@ object WindowMain: TWindowMain
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Gethub'
-  ClientHeight = 497
+  ClientHeight = 536
   ClientWidth = 728
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,14 +19,14 @@ object WindowMain: TWindowMain
   OnCreate = FormCreate
   DesignSize = (
     728
-    497)
+    536)
   PixelsPerInch = 96
   TextHeight = 13
   object LblLogo: TLabel
     Left = 8
     Top = 6
-    Width = 712
-    Height = 54
+    Width = 715
+    Height = 80
     Alignment = taCenter
     Anchors = [akLeft, akTop, akRight]
     AutoSize = False
@@ -52,7 +52,7 @@ object WindowMain: TWindowMain
   end
   object BtnEdit: TSpeedButton
     Left = 122
-    Top = 386
+    Top = 425
     Width = 111
     Height = 25
     Action = ActEdit
@@ -65,10 +65,11 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
+    ExplicitTop = 386
   end
   object BtnDel: TSpeedButton
     Left = 239
-    Top = 386
+    Top = 425
     Width = 108
     Height = 25
     Action = ActDel
@@ -81,6 +82,7 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
+    ExplicitTop = 386
   end
   object BtnAddRepository: TSpeedButton
     Left = 8
@@ -94,63 +96,70 @@ object WindowMain: TWindowMain
   end
   object BtnAdd: TSpeedButton
     Left = 317
-    Top = 417
+    Top = 456
     Width = 97
     Height = 33
     Action = ActAdd
     Anchors = [akLeft, akBottom]
+    ExplicitTop = 417
   end
   object BtnCommit: TSpeedButton
     Left = 420
-    Top = 417
+    Top = 456
     Width = 97
     Height = 33
     Action = ActCommit
     Anchors = [akLeft, akBottom]
+    ExplicitTop = 417
   end
   object BtnCheckout: TSpeedButton
     Left = 523
-    Top = 416
+    Top = 455
     Width = 97
     Height = 33
     Action = ActRestore
     Anchors = [akLeft, akBottom]
+    ExplicitTop = 416
   end
   object BtnPush: TSpeedButton
     Left = 626
-    Top = 416
+    Top = 455
     Width = 97
     Height = 33
     Action = ActPush
     Anchors = [akLeft, akBottom]
+    ExplicitTop = 416
   end
   object BtnPull: TSpeedButton
     Left = 214
-    Top = 417
+    Top = 456
     Width = 97
     Height = 33
     Action = ActPull
     Anchors = [akLeft, akBottom]
+    ExplicitTop = 417
   end
   object BtnStatus: TSpeedButton
     Left = 111
-    Top = 417
+    Top = 456
     Width = 97
     Height = 33
     Action = ActStatus
     Anchors = [akLeft, akBottom]
+    ExplicitTop = 417
   end
   object BtnClone: TSpeedButton
     Left = 8
-    Top = 417
+    Top = 456
     Width = 97
     Height = 33
     Action = ActClone
     Anchors = [akLeft, akBottom]
+    ExplicitTop = 417
   end
   object BtnImport: TSpeedButton
     Left = 615
-    Top = 353
+    Top = 392
     Width = 108
     Height = 25
     Action = ActImport
@@ -163,10 +172,11 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
+    ExplicitTop = 353
   end
   object Btn: TSpeedButton
     Left = 615
-    Top = 384
+    Top = 423
     Width = 108
     Height = 25
     Action = ActExport
@@ -179,13 +189,16 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
+    ExplicitTop = 384
   end
   object LblTotRepos: TLabel
     Left = 8
-    Top = 366
+    Top = 406
     Width = 63
     Height = 13
+    Anchors = [akLeft, akBottom]
     Caption = 'Reposit'#243'rios:'
+    ExplicitTop = 387
   end
   object TxtTotRepos: TLabel
     Left = 77
@@ -195,7 +208,7 @@ object WindowMain: TWindowMain
   end
   object BtnDetails: TSpeedButton
     Left = 8
-    Top = 386
+    Top = 425
     Width = 108
     Height = 25
     Action = ActDetails
@@ -208,72 +221,80 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
+    ExplicitTop = 386
   end
   object BtnSwitch: TSpeedButton
     Left = 8
-    Top = 456
+    Top = 495
     Width = 97
     Height = 33
     Action = ActSwitch
     Anchors = [akLeft, akBottom]
+    ExplicitTop = 456
   end
   object BtnDiff: TSpeedButton
     Left = 111
-    Top = 456
+    Top = 495
     Width = 97
     Height = 33
     Action = ActDiff
     Anchors = [akLeft, akBottom]
     Caption = 'Diff'
+    ExplicitTop = 456
   end
   object SpeedButton3: TSpeedButton
     Left = 214
-    Top = 456
+    Top = 495
     Width = 97
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
     OnClick = ActCloneExecute
+    ExplicitTop = 456
   end
   object SpeedButton4: TSpeedButton
     Left = 317
-    Top = 456
+    Top = 495
     Width = 97
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
     OnClick = ActCloneExecute
+    ExplicitTop = 456
   end
   object SpeedButton5: TSpeedButton
     Left = 420
-    Top = 456
+    Top = 495
     Width = 97
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
     OnClick = ActCloneExecute
+    ExplicitTop = 456
   end
   object SpeedButton6: TSpeedButton
     Left = 523
-    Top = 455
+    Top = 494
     Width = 97
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
     OnClick = ActCloneExecute
+    ExplicitTop = 455
   end
   object SpeedButton7: TSpeedButton
     Left = 626
-    Top = 455
+    Top = 494
     Width = 97
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
     OnClick = ActCloneExecute
+    ExplicitTop = 455
   end
   object BtnGitBash: TSpeedButton
     Left = 353
-    Top = 386
+    Top = 425
     Width = 108
     Height = 25
     Action = ActGitBash
@@ -286,12 +307,13 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
+    ExplicitTop = 386
   end
   object GridRepositories: TDBGrid
     Left = 8
-    Top = 66
+    Top = 92
     Width = 715
-    Height = 279
+    Height = 292
     Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = Source
     Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -358,9 +380,9 @@ object WindowMain: TWindowMain
   end
   object CheckSelect: TDBCheckBox
     Left = 23
-    Top = 88
+    Top = 110
     Width = 14
-    Height = 17
+    Height = 21
     Ctl3D = True
     DataField = 'Checked'
     DataSource = Source
@@ -378,9 +400,9 @@ object WindowMain: TWindowMain
   end
   object CheckAll: TCheckBox
     Left = 23
-    Top = 70
+    Top = 95
     Width = 13
-    Height = 15
+    Height = 16
     TabOrder = 1
     OnClick = CheckAllClick
   end
