@@ -185,6 +185,7 @@ begin
   Table.Insert;
   Table.FieldByName('Checked').AsVariant := false;
   Table.FieldByName('Link').AsVariant := Repository.Link;
+  Table.FieldByName('Branch').AsVariant := Repository.Branch;
   Table.FieldByName('Path').AsVariant := Repository.Path;
   Table.FieldByName('Name').AsVariant := Repository.Name;
   Table.FieldByName('Description').AsVariant := Repository.Desc;
@@ -197,6 +198,7 @@ class procedure TDAO.Edit(Repository: TRepository);
 begin
   Table.Edit;
   Table.FieldByName('Link').AsVariant := Repository.Link;
+  Table.FieldByName('Branch').AsVariant := Repository.Branch;
   Table.FieldByName('Path').AsVariant := Repository.Path;
   Table.FieldByName('Name').AsVariant := Repository.Name;
   Table.FieldByName('Description').AsVariant := Repository.Desc;

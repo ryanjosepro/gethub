@@ -29,6 +29,8 @@ type
     LblDescription: TLabel;
     TxtDescription: TEdit;
     TxtLink: TComboBox;
+    LblBranchh: TLabel;
+    TxtBranch: TEdit;
     procedure ActDirExecute(Sender: TObject);
     procedure ActAddExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
@@ -102,6 +104,7 @@ begin
   begin
     Repository := TRepository.Create;
     Repository.Link := TxtLink.Text;
+    Repository.Branch := TxtBranch.Text;
     Repository.Path := TxtPath.Text;
     Repository.Name := TxtName.Text;
     Repository.Desc := TxtDescription.Text;

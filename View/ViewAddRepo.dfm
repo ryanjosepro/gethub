@@ -3,7 +3,7 @@ object WindowAddRepo: TWindowAddRepo
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Adicionar Reposit'#243'rio'
-  ClientHeight = 268
+  ClientHeight = 305
   ClientWidth = 341
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,15 +16,15 @@ object WindowAddRepo: TWindowAddRepo
   OnActivate = FormActivate
   DesignSize = (
     341
-    268)
+    305)
   PixelsPerInch = 96
   TextHeight = 13
   object LblName: TLabel
     Left = 8
-    Top = 118
-    Width = 124
+    Top = 159
+    Width = 38
     Height = 16
-    Caption = 'Nome do Reposit'#243'rio:'
+    Caption = 'Nome:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -34,10 +34,10 @@ object WindowAddRepo: TWindowAddRepo
   end
   object LblPath: TLabel
     Left = 8
-    Top = 63
-    Width = 141
+    Top = 107
+    Width = 55
     Height = 16
-    Caption = 'Caminho do Reposit'#243'rio:'
+    Caption = 'Caminho:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -60,7 +60,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object BtnSave: TSpeedButton
     Left = 239
-    Top = 227
+    Top = 264
     Width = 97
     Height = 34
     Action = ActAdd
@@ -69,7 +69,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object BtnDiscard: TSpeedButton
     Left = 136
-    Top = 227
+    Top = 264
     Width = 97
     Height = 34
     Action = ActCancel
@@ -78,7 +78,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object BtnDir: TSpeedButton
     Left = 306
-    Top = 85
+    Top = 129
     Width = 27
     Height = 24
     Cursor = crHandPoint
@@ -89,10 +89,23 @@ object WindowAddRepo: TWindowAddRepo
   end
   object LblDescription: TLabel
     Left = 8
-    Top = 172
-    Width = 141
+    Top = 213
+    Width = 60
     Height = 16
-    Caption = 'Descri'#231#227'o do Reposit'#243'rio'
+    Caption = 'Descri'#231#227'o:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object LblBranchh: TLabel
+    Left = 8
+    Top = 55
+    Width = 44
+    Height = 16
+    Caption = 'Branch:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -102,7 +115,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object TxtPath: TEdit
     Left = 8
-    Top = 85
+    Top = 129
     Width = 298
     Height = 24
     Anchors = [akLeft, akTop, akRight]
@@ -119,7 +132,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object TxtName: TEdit
     Left = 8
-    Top = 140
+    Top = 181
     Width = 326
     Height = 24
     Anchors = [akLeft, akTop, akRight]
@@ -135,7 +148,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object CheckCloneRepo: TCheckBox
     Left = 8
-    Top = 238
+    Top = 275
     Width = 122
     Height = 23
     Anchors = [akLeft, akBottom]
@@ -147,10 +160,11 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 3
+    ExplicitTop = 238
   end
   object TxtDescription: TEdit
     Left = 8
-    Top = 194
+    Top = 235
     Width = 326
     Height = 24
     Anchors = [akLeft, akTop, akRight]
@@ -174,6 +188,24 @@ object WindowAddRepo: TWindowAddRepo
       'https://github.com/'
       'https://gitlab.com/'
       'https://bitbucket.org/')
+  end
+  object TxtBranch: TEdit
+    Left = 8
+    Top = 77
+    Width = 325
+    Height = 24
+    Anchors = [akLeft, akTop, akRight]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    MaxLength = 150
+    ParentFont = False
+    TabOrder = 5
+    Text = 'main'
+    OnChange = TxtChange
+    OnKeyDown = TxtPathKeyDown
   end
   object Images: TImageList
     BlendColor = clWhite

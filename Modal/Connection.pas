@@ -22,6 +22,7 @@ type
     TableLastAct: TStringField;
     TableMsg: TStringField;
     TableDescription: TStringField;
+    TableBranch: TStringField;
   end;
 
 var

@@ -10,7 +10,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids, Vcl.CheckLst, Vcl.ButtonGroup,
   Datasnap.DSHTTP, IOUtils, Vcl.Menus,
   ViewConfigs, ViewAddRepo, ViewEditRepo, ViewFiles, Config, MyDialogs, MyUtils, DAO, Git,
-  NsEditBtn;
+  NsEditBtn, NsDbGrid, Connection;
 
 type
   TWindowMain = class(TForm)
@@ -72,6 +72,8 @@ type
     ActSwitch: TAction;
     ActDiff: TAction;
     BtnGitBash: TSpeedButton;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -101,7 +103,6 @@ type
     procedure ActGitBashExecute(Sender: TObject);
     procedure ActSwitchExecute(Sender: TObject);
     procedure ActDiffExecute(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure TxtSearchChange(Sender: TObject);
   private
     procedure UpdateButtons;
@@ -143,11 +144,6 @@ begin
   ActDiff.Enabled := true;
   Source.DataSet := nil;
   Application.ProcessMessages;
-end;
-
-procedure TWindowMain.FormCreate(Sender: TObject);
-begin
-
 end;
 
 //GRID DRAWN
