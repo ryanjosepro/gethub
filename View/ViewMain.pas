@@ -26,29 +26,18 @@ type
     ActRestore: TAction;
     LblLogo: TLabel;
     BtnConfigs: TSpeedButton;
-    BtnEdit: TSpeedButton;
-    BtnDel: TSpeedButton;
     BtnAddRepository: TSpeedButton;
-    BtnAdd: TSpeedButton;
-    BtnCommit: TSpeedButton;
-    BtnCheckout: TSpeedButton;
-    BtnPush: TSpeedButton;
     OpenFile: TFileOpenDialog;
     CheckSelect: TDBCheckBox;
     Source: TDataSource;
     GridRepositories: TDBGrid;
     ActEsc: TAction;
-    BtnPull: TSpeedButton;
     ActPull: TAction;
     CheckAll: TCheckBox;
     ActStatus: TAction;
-    BtnStatus: TSpeedButton;
     ActClone: TAction;
-    BtnClone: TSpeedButton;
     ActImport: TAction;
     ActExport: TAction;
-    BtnImport: TSpeedButton;
-    Btn: TSpeedButton;
     SaveFile: TFileSaveDialog;
     LblTotRepos: TLabel;
     TxtTotRepos: TLabel;
@@ -58,23 +47,36 @@ type
     ActOpenDir: TAction;
     ItemEdit: TMenuItem;
     ItemDel: TMenuItem;
-    BtnDetails: TSpeedButton;
     ActDetails: TAction;
-    BtnSwitch: TSpeedButton;
-    BtnDiff: TSpeedButton;
-    SpeedButton3: TSpeedButton;
-    SpeedButton4: TSpeedButton;
-    SpeedButton5: TSpeedButton;
-    SpeedButton6: TSpeedButton;
-    SpeedButton7: TSpeedButton;
     ActGitBash: TAction;
     GitBash1: TMenuItem;
     ActSwitch: TAction;
     ActDiff: TAction;
-    BtnGitBash: TSpeedButton;
-    SpeedButton1: TSpeedButton;
-    SpeedButton2: TSpeedButton;
-    SpeedButton8: TSpeedButton;
+    Switch1: TMenuItem;
+    ActGitignore: TAction;
+    BtnEdit: TButton;
+    BtnDel: TButton;
+    BtnAdd: TButton;
+    BtnCommit: TButton;
+    BtnCheckout: TButton;
+    BtnPush: TButton;
+    BtnPull: TButton;
+    BtnStatus: TButton;
+    BtnClone: TButton;
+    BtnImport: TButton;
+    Btn: TButton;
+    BtnDetails: TButton;
+    BtnSwitch: TButton;
+    BtnDiff: TButton;
+    BtnGitignore: TButton;
+    SpeedButton4: TButton;
+    SpeedButton5: TButton;
+    SpeedButton6: TButton;
+    SpeedButton7: TButton;
+    BtnGitBash: TButton;
+    SpeedButton1: TButton;
+    SpeedButton2: TButton;
+    SpeedButton8: TButton;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -87,7 +89,6 @@ type
     procedure GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
     procedure ActAddRepositoryExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
-    procedure GridRepositoriesMouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
     procedure CheckSelectClick(Sender: TObject);
     procedure ActPullExecute(Sender: TObject);
     procedure CheckAllClick(Sender: TObject);
@@ -105,6 +106,7 @@ type
     procedure ActSwitchExecute(Sender: TObject);
     procedure ActDiffExecute(Sender: TObject);
     procedure TxtSearchChange(Sender: TObject);
+    procedure ActGitignoreExecute(Sender: TObject);
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
@@ -163,6 +165,8 @@ begin
     CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
     CheckSelect.Width := 15;
     CheckSelect.Height := Rect.Bottom - Rect.Top;
+
+    UpdateTotRepos;
   end
   else
   begin
@@ -211,11 +215,6 @@ begin
   end;
 end;
 
-procedure TWindowMain.GridRepositoriesMouseWheel(Sender: TObject;Shift: TShiftState; WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
-begin
-  //
-end;
-
 procedure TWindowMain.GridRepositoriesCellClick(Column: TColumn);
 begin
   if Column.FieldName = CheckSelect.Field.FieldName then
@@ -260,21 +259,6 @@ begin
   UpdateTotRepos;
 end;
 
-procedure TWindowMain.ActEditExecute(Sender: TObject);
-begin
-  WindowEditRepo.ShowModal;
-end;
-
-procedure TWindowMain.ActDelExecute(Sender: TObject);
-begin
-  if TDialogs.YesNo('Tem certeza que deseja deletar este repositório?', mbYes) = mrYes then
-  begin
-    TDAO.Delete;
-    UpdateButtons;
-    UpdateTotRepos;
-  end;
-end;
-
 procedure TWindowMain.ActDetailsExecute(Sender: TObject);
 var
   Arq: TextFile;
@@ -293,8 +277,64 @@ begin
   ShowMessage(TextOut);
 end;
 
+procedure TWindowMain.ActEditExecute(Sender: TObject);
+begin
+  WindowEditRepo.ShowModal;
+end;
+
+procedure TWindowMain.ActDelExecute(Sender: TObject);
+begin
+  if TDialogs.YesNo('Tem certeza que deseja deletar este repositório?', mbYes) = mrYes then
+  begin
+    TDAO.Delete;
+    UpdateButtons;
+    UpdateTotRepos;
+  end;
+end;
+
+procedure TWindowMain.ActGitBashExecute(Sender: TObject);
+var
+  Comando: string;
+begin
+  Comando := '/K cd "' + TDAO.GetSelectedField('Path') + '" && "' + TConfig.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin') + '\bash"';
+  TUtils.ExecCmd(Comando);
+end;
+
+procedure TWindowMain.ActSwitchExecute(Sender: TObject);
+var
+  Repository: TRepository;
+  GitExecution: TGitExecution;
+  Branch: string;
+begin
+  Repository := TDAO.GetSelectedRepository;
+
+  Branch := Repository.Branch;
+
+  if InputQuery('Para qual branch você deseja mudar?', 'Branch:', Branch) then
+  begin
+    if Branch <> '' then
+    begin
+      Repository.Branch := Branch;
+
+      TDAO.EditSelected(Repository);
+
+      GitExecution := TGitExecution.Create;
+      GitExecution.Repository := Repository;
+      GitExecution.Action := gaSwitch;
+      GitExecution.Config := TConfig.GetGitConfig;
+
+      TGit.GitExec(GitExecution);
+
+      TDAO.SetLastAction('Switch');
+    end;
+  end;
+end;
+
 procedure TWindowMain.ActImportExecute(Sender: TObject);
 begin
+  OpenFile.FileTypes[0].DisplayName := 'JSON (*.json)';
+  OpenFile.FileTypes[0].FileMask := '*.json';
+
   if OpenFile.Execute then
   begin
     TDAO.Load(OpenFile.FileName);
@@ -307,6 +347,9 @@ end;
 
 procedure TWindowMain.ActExportExecute(Sender: TObject);
 begin
+  SaveFile.FileTypes[0].DisplayName := 'JSON (*.json)';
+  SaveFile.FileTypes[0].FileMask := '*.json';
+
   if SaveFile.Execute then
   begin
     TDAO.Save(SaveFile.FileName);
@@ -628,36 +671,6 @@ begin
   end;
 end;
 
-procedure TWindowMain.ActSwitchExecute(Sender: TObject);
-var
-  Repository: TRepository;
-  GitExecution: TGitExecution;
-  Branch: string;
-begin
-  Repository := TDAO.GetSelectedRepository;
-
-  Branch := Repository.Branch;
-
-  if InputQuery('Para qual branch você deseja mudar?', 'Branch:', Branch) then
-  begin
-    if Branch <> '' then
-    begin
-      Repository.Branch := Branch;
-
-      TDAO.EditSelected(Repository);
-
-      GitExecution := TGitExecution.Create;
-      GitExecution.Repository := Repository;
-      GitExecution.Action := gaSwitch;
-      GitExecution.Config := TConfig.GetGitConfig;
-
-      TGit.GitExec(GitExecution);
-
-      TDAO.SetLastAction('Switch');
-    end;
-  end;
-end;
-
 procedure TWindowMain.ActDiffExecute(Sender: TObject);
 var
   I: integer;
@@ -683,6 +696,33 @@ begin
   end;
 
   TDAO.SetLastAction('Diff');
+end;
+
+procedure TWindowMain.ActGitignoreExecute(Sender: TObject);
+var
+  Paths: TStringList;
+  Path: string;
+begin
+  OpenFile.FileTypes[0].DisplayName := 'Gitignore File (*.gitignore)';
+  OpenFile.FileTypes[0].FileMask := '*.gitignore';
+
+  if OpenFile.Execute then
+  begin
+    if TDialogs.YesNo('Tem certeza que deseja aplicar o .gitignore "' + OpenFile.FileName + '"' +
+    'aos ' + TDAO.CountCheckeds.ToString + ' repositórios marcados?') = mrYes then
+    begin
+      Paths := TDAO.GetCheckedFields('Path');
+
+      try
+        for Path in Paths do
+        begin
+          CopyFile(PWideChar(OpenFile.FileName), PWideChar(Path + '\.gitignore'), false);
+        end;
+      finally
+        Paths.Free;
+      end;
+    end;
+  end;
 end;
 
 //OTHERS
@@ -725,6 +765,7 @@ begin
   ActRestore.Enabled := AnyChecked;
   ActPush.Enabled := AnyChecked;
   ActDiff.Enabled := AnyChecked;
+  ActGitignore.Enabled := AnyChecked;
 
   if AnyRepository and (TDAO.CountCheckeds = 1) then
   begin
@@ -742,7 +783,7 @@ end;
 
 procedure TWindowMain.UpdateTotRepos;
 begin
-  TxtTotRepos.Caption := TDAO.Count.ToString;
+  TxtTotRepos.Caption := TDAO.GetIndex.ToString + ' / ' + TDAO.Count.ToString;
 end;
 
 procedure TWindowMain.SleepExec;
@@ -761,14 +802,6 @@ end;
 procedure TWindowMain.ActOpenDirExecute(Sender: TObject);
 begin
   TUtils.OpenOnExplorer(TDAO.GetSelectedField('Path'));
-end;
-
-procedure TWindowMain.ActGitBashExecute(Sender: TObject);
-var
-  Comando: string;
-begin
-  Comando := '/K cd "' + TDAO.GetSelectedField('Path') + '" && "' + TConfig.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin') + '\bash"';
-  TUtils.ExecCmd(Comando);
 end;
 
 end.
