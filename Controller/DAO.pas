@@ -17,30 +17,33 @@ type
     class procedure Load(Path: string; CleanChecked: boolean = true); overload;
     class procedure Save(Path: string; CleanChecked: boolean = true); overload;
 
-    class function GetField(Field: string): variant;
-    class procedure SetField(Field: string; Value: variant);
-
     class procedure Insert(Repository: TRepository);
-    class procedure Edit(Repository: TRepository);
+    class procedure EditSelected(Repository: TRepository);
     class procedure Delete;
 
     class procedure Search(Name: string);
 
-    class procedure SelectAll(Checked: boolean = true);
-    class function GetCheckeds(Field: string): TStringList;
-    class procedure SetCheckeds(Field, Value: string);
+    class procedure CheckAll(Checked: boolean = true);
 
+    class function GetSelectedField(Field: string): variant;
+    class procedure SetSelectedField(Field: string; Value: variant);
+    class function GetCheckedFields(Field: string): TStringList;
+    class procedure SetCheckedFields(Field, Value: string);
+
+    class function GetSelectedRepository: TRepository;
     class function GetCheckedRepositories: TRepositoryArray;
 
     class function ValueExists(Field: string; Value: Variant; ConsiderCurrent: boolean = true): boolean;
 
     class function Count: integer;
-    class function CountChecked: integer;
+    class function CountCheckeds: integer;
 
     class function GetIndex: integer;
     class procedure SetIndex(Index: integer);
 
     class procedure Refresh;
+
+    class procedure SetLastAction(Action: string);
   end;
 
 implementation
@@ -72,14 +75,18 @@ begin
       Table.First;
       while not Table.Eof do
       begin
-        SetField('Checked', false);
-        SetField('Message', '');
+        SetSelectedField('Checked', false);
+        SetSelectedField('Message', '');
         Table.Next;
       end;
       Table.First;
 
       Table.EnableControls;
     end;
+  end
+  else
+  begin
+    Table.Open;
   end;
 end;
 
@@ -96,8 +103,8 @@ begin
     Table.First;
     while not Table.Eof do
     begin
-      SetField('Checked', false);
-      SetField('Message', '');
+      SetSelectedField('Checked', false);
+      SetSelectedField('Message', '');
       Table.Next;
     end;
 
@@ -122,8 +129,8 @@ begin
     Table.First;
     while not Table.Eof do
     begin
-      SetField('Checked', false);
-      SetField('Message', '');
+      SetSelectedField('Checked', false);
+      SetSelectedField('Message', '');
       Table.Next;
     end;
     Table.First;
@@ -145,8 +152,8 @@ begin
     Table.First;
     while not Table.Eof do
     begin
-      SetField('Checked', false);
-      SetField('Message', '');
+      SetSelectedField('Checked', false);
+      SetSelectedField('Message', '');
       Table.Next;
     end;
 
@@ -160,41 +167,29 @@ begin
   Table.SaveToFile(Path, sfJSON);
 end;
 
-class function TDAO.GetField(Field: string): variant;
+class procedure TDAO.Insert(Repository: TRepository);
 begin
-  if not Table.FieldByName(Field).IsNull then
+  if TDAO.Count = 0 then
   begin
-    Result := Table.FieldByName(Field).AsVariant;
+    EditSelected(Repository);
   end
   else
   begin
-    Result := '';
+    Table.UpdateOptions.EnableInsert := true;
+    Table.Insert;
+    Table.FieldByName('Checked').AsVariant := false;
+    Table.FieldByName('Link').AsVariant := Repository.Link;
+    Table.FieldByName('Branch').AsVariant := Repository.Branch;
+    Table.FieldByName('Path').AsVariant := Repository.Path;
+    Table.FieldByName('Name').AsVariant := Repository.Name;
+    Table.FieldByName('Description').AsVariant := Repository.Desc;
+    Table.Post;
+    Save;
+    Table.UpdateOptions.EnableInsert := false;
   end;
 end;
 
-class procedure TDAO.SetField(Field: string; Value: variant);
-begin
-  Table.Edit;
-  Table.FieldByName(Field).AsVariant := Value;
-  Table.Post;
-end;
-
-class procedure TDAO.Insert(Repository: TRepository);
-begin
-  Table.UpdateOptions.EnableInsert := true;
-  Table.Insert;
-  Table.FieldByName('Checked').AsVariant := false;
-  Table.FieldByName('Link').AsVariant := Repository.Link;
-  Table.FieldByName('Branch').AsVariant := Repository.Branch;
-  Table.FieldByName('Path').AsVariant := Repository.Path;
-  Table.FieldByName('Name').AsVariant := Repository.Name;
-  Table.FieldByName('Description').AsVariant := Repository.Desc;
-  Table.Post;
-  Save;
-  Table.UpdateOptions.EnableInsert := false;
-end;
-
-class procedure TDAO.Edit(Repository: TRepository);
+class procedure TDAO.EditSelected(Repository: TRepository);
 begin
   Table.Edit;
   Table.FieldByName('Link').AsVariant := Repository.Link;
@@ -225,7 +220,7 @@ begin
   end;
 end;
 
-class procedure TDAO.SelectAll(Checked: boolean = true);
+class procedure TDAO.CheckAll(Checked: boolean = true);
 var
   Index: integer;
 begin
@@ -237,7 +232,7 @@ begin
 
   while not Table.Eof do
   begin
-    SetField('Checked', Checked);
+    SetSelectedField('Checked', Checked);
     Table.Next;
   end;
 
@@ -246,7 +241,26 @@ begin
   Table.EnableControls;
 end;
 
-class function TDAO.GetCheckeds(Field: string): TStringList;
+class function TDAO.GetSelectedField(Field: string): variant;
+begin
+  if not Table.FieldByName(Field).IsNull then
+  begin
+    Result := Table.FieldByName(Field).AsVariant;
+  end
+  else
+  begin
+    Result := '';
+  end;
+end;
+
+class procedure TDAO.SetSelectedField(Field: string; Value: variant);
+begin
+  Table.Edit;
+  Table.FieldByName(Field).AsVariant := Value;
+  Table.Post;
+end;
+
+class function TDAO.GetCheckedFields(Field: string): TStringList;
 var
   Index: integer;
 begin
@@ -260,9 +274,9 @@ begin
 
   while not Table.Eof do
   begin
-    if GetField('Checked') = true then
+    if GetSelectedField('Checked') = true then
     begin
-      Result.Add(GetField(Field));
+      Result.Add(GetSelectedField(Field));
     end;
     Table.Next;
   end;
@@ -272,7 +286,7 @@ begin
   Table.EnableControls;
 end;
 
-class procedure TDAO.SetCheckeds(Field, Value: string);
+class procedure TDAO.SetCheckedFields(Field, Value: string);
 var
   Index: integer;
 begin
@@ -284,9 +298,9 @@ begin
 
   while not Table.Eof do
   begin
-    if GetField('Checked') = true then
+    if GetSelectedField('Checked') = true then
     begin
-      SetField(Field, Value);
+      SetSelectedField(Field, Value);
     end;
     Table.Next;
   end;
@@ -298,25 +312,40 @@ begin
   Table.EnableControls;
 end;
 
+class function TDAO.GetSelectedRepository: TRepository;
+begin
+  Result := TRepository.Create;
+
+  Result.Link := GetSelectedField('Link');
+  Result.Branch := GetSelectedField('Branch');
+  Result.Path := GetSelectedField('Path');
+  Result.Name := GetSelectedField('Name');
+  Result.Desc := GetSelectedField('Description');
+  Result.LastAct := GetSelectedField('LastAction');
+  Result.Msg := GetSelectedField('Message');
+end;
+
 class function TDAO.GetCheckedRepositories: TRepositoryArray;
 var
   I: integer;
-  Links, Paths, Names, Descriptions, LastActs, Msgs: TStringList;
+  Links, Branchs, Paths, Names, Descriptions, LastActs, Msgs: TStringList;
 begin
-  SetLength(Result, GetCheckeds('Checked').Count);
+  SetLength(Result, GetCheckedFields('Checked').Count);
 
   try
-    Links := GetCheckeds('Link');
-    Paths := GetCheckeds('Path');
-    Names := GetCheckeds('Name');
-    Descriptions := GetCheckeds('Description');
-    LastActs := GetCheckeds('LastAction');
-    Msgs := GetCheckeds('Message');
+    Links := GetCheckedFields('Link');
+    Branchs := GetCheckedFields('Branch');
+    Paths := GetCheckedFields('Path');
+    Names := GetCheckedFields('Name');
+    Descriptions := GetCheckedFields('Description');
+    LastActs := GetCheckedFields('LastAction');
+    Msgs := GetCheckedFields('Message');
 
     for I := 0 to Length(Result) - 1 do
     begin
       Result[I] := TRepository.Create;
       Result[I].Link := Links[I];
+      Result[I].Branch := Branchs[I];
       Result[I].Path := Paths[I];
       Result[I].Name := Names[I];
       Result[I].Desc := Descriptions[I];
@@ -325,6 +354,7 @@ begin
     end;
   finally
     FreeAndNil(Links);
+    FreeAndNil(Branchs);
     FreeAndNil(Paths);
     FreeAndNil(Names);
     FreeAndNil(Descriptions);
@@ -373,11 +403,19 @@ end;
 class function TDAO.Count: integer;
 begin
   Result := Table.RecordCount;
+
+  if Result = 1 then
+  begin
+    Table.First;
+
+    if GetSelectedField('Link') = '' then
+      Result := 0;
+  end;
 end;
 
-class function TDAO.CountChecked: integer;
+class function TDAO.CountCheckeds: integer;
 begin
-  Result := GetCheckeds('Checked').Count;
+  Result := GetCheckedFields('Checked').Count;
 end;
 
 class function TDAO.GetIndex: integer;
@@ -393,6 +431,11 @@ end;
 class procedure TDAO.Refresh;
 begin
   Table.Refresh;
+end;
+
+class procedure TDAO.SetLastAction(Action: string);
+begin
+  SetCheckedFields('LastAction', Action);
 end;
 
 end.

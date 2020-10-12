@@ -222,16 +222,16 @@ object WindowMain: TWindowMain
     ExplicitTop = 386
   end
   object BtnSwitch: TSpeedButton
-    Left = 729
-    Top = 455
+    Left = 467
+    Top = 425
     Width = 97
-    Height = 33
+    Height = 24
     Action = ActSwitch
     Anchors = [akLeft, akBottom]
   end
   object BtnDiff: TSpeedButton
-    Left = 8
-    Top = 495
+    Left = 729
+    Top = 455
     Width = 97
     Height = 33
     Action = ActDiff
@@ -239,7 +239,7 @@ object WindowMain: TWindowMain
     Caption = 'Diff'
   end
   object SpeedButton3: TSpeedButton
-    Left = 111
+    Left = 8
     Top = 495
     Width = 97
     Height = 33
@@ -248,7 +248,7 @@ object WindowMain: TWindowMain
     OnClick = ActCloneExecute
   end
   object SpeedButton4: TSpeedButton
-    Left = 214
+    Left = 111
     Top = 495
     Width = 97
     Height = 33
@@ -257,7 +257,7 @@ object WindowMain: TWindowMain
     OnClick = ActCloneExecute
   end
   object SpeedButton5: TSpeedButton
-    Left = 317
+    Left = 214
     Top = 495
     Width = 97
     Height = 33
@@ -266,7 +266,7 @@ object WindowMain: TWindowMain
     OnClick = ActCloneExecute
   end
   object SpeedButton6: TSpeedButton
-    Left = 420
+    Left = 317
     Top = 494
     Width = 97
     Height = 33
@@ -275,7 +275,7 @@ object WindowMain: TWindowMain
     OnClick = ActCloneExecute
   end
   object SpeedButton7: TSpeedButton
-    Left = 523
+    Left = 420
     Top = 494
     Width = 97
     Height = 33
@@ -301,7 +301,7 @@ object WindowMain: TWindowMain
     ExplicitTop = 386
   end
   object SpeedButton1: TSpeedButton
-    Left = 626
+    Left = 523
     Top = 494
     Width = 97
     Height = 33
@@ -310,6 +310,15 @@ object WindowMain: TWindowMain
     OnClick = ActCloneExecute
   end
   object SpeedButton2: TSpeedButton
+    Left = 626
+    Top = 494
+    Width = 97
+    Height = 33
+    Anchors = [akLeft, akBottom]
+    Enabled = False
+    OnClick = ActCloneExecute
+  end
+  object SpeedButton8: TSpeedButton
     Left = 729
     Top = 494
     Width = 97

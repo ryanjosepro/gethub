@@ -28,8 +28,6 @@ type
     OpenFile: TFileOpenDialog;
     TxtDescription: TEdit;
     LblDescription: TLabel;
-    LblBranchh: TLabel;
-    TxtBranch: TEdit;
     procedure ActDBFileExecute(Sender: TObject);
     procedure ActDiscardExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
@@ -54,11 +52,10 @@ implementation
 
 procedure TWindowEditRepo.FormActivate(Sender: TObject);
 begin
-  TxtLink.Text := TDAO.GetField('Link');
-  TxtBranch.Text := TDAO.GetField('LastBranch');
-  TxtPath.Text := TDAO.GetField('Path');
-  TxtName.Text := TDAO.GetField('Name');
-  TxtDescription.Text := TDAO.GetField('Description');
+  TxtLink.Text := TDAO.GetSelectedField('Link');
+  TxtPath.Text := TDAO.GetSelectedField('Path');
+  TxtName.Text := TDAO.GetSelectedField('Name');
+  TxtDescription.Text := TDAO.GetSelectedField('Description');
   Done;
 end;
 
@@ -133,12 +130,11 @@ begin
   begin
     Repository := TRepository.Create;
     Repository.Link := TxtLink.Text;
-    Repository.Branch := TxtBranch.Text;
     Repository.Path := TxtPath.Text;
     Repository.Name := TxtName.Text;
     Repository.Desc := TxtDescription.Text;
 
-    TDAO.Edit(Repository);
+    TDAO.EditSelected(Repository);
     Done;
     Close;
   end

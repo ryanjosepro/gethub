@@ -111,7 +111,7 @@ end;
 
 procedure TRepository.SetBranch(const Value: string);
 begin
-  FBranch := Value;
+  FBranch := TUtils.IfEmpty(Value, 'master');
 end;
 
 procedure TRepository.SetDesc(const Value: string);

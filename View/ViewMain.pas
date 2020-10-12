@@ -74,6 +74,7 @@ type
     BtnGitBash: TSpeedButton;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
+    SpeedButton8: TSpeedButton;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -220,7 +221,7 @@ begin
   if Column.FieldName = CheckSelect.Field.FieldName then
   begin
     CellClicked := true;
-    TDAO.SetField('Checked', not CheckSelect.Checked);
+    TDAO.SetSelectedField('Checked', not CheckSelect.Checked);
   end;
 end;
 
@@ -231,7 +232,7 @@ begin
     if not CellClicked then
     begin
       GridRepositories.SetFocus;
-      TDAO.SetField('Checked', CheckSelect.Checked);
+      TDAO.SetSelectedField('Checked', CheckSelect.Checked);
     end;
     CellClicked := false;
     UpdateButtons;
@@ -279,7 +280,7 @@ var
   Arq: TextFile;
   TextTemp, TextOut: String;
 begin
-  AssignFile(Arq, TDAO.GetField('Path') + '\README.md');
+  AssignFile(Arq, TDAO.GetSelectedField('Path') + '\README.md');
 
   Reset(Arq);
 
@@ -338,6 +339,8 @@ begin
         TDirectory.CreateDirectory(Path);
 
         TGit.GitExec(GitExecution);
+
+        TDAO.SetLastAction('Clone');
       end
       else
       begin
@@ -356,6 +359,8 @@ begin
             TDirectory.CreateDirectory(Path);
 
             TGit.GitExec(GitExecution);
+
+            TDAO.SetLastAction('Clone');
           end;
         end;
       end;
@@ -367,8 +372,6 @@ begin
       SleepExec;
     end;
   end;
-
-  TDAO.SetCheckeds('LastAction', 'Clone');
 end;
 
 procedure TWindowMain.ActStatusExecute(Sender: TObject);
@@ -395,7 +398,7 @@ begin
     end;
   end;
 
-  TDAO.SetCheckeds('LastAction', 'Status');
+  TDAO.SetLastAction('Status');
 end;
 
 procedure TWindowMain.ActPullExecute(Sender: TObject);
@@ -422,7 +425,7 @@ begin
     end;
   end;
 
-  TDAO.SetCheckeds('LastAction', 'Pull');
+  TDAO.SetLastAction('Pull');
 end;
 
 procedure TWindowMain.ActAddExecute(Sender: TObject);
@@ -461,20 +464,22 @@ begin
         SleepExec;
       end;
     end;
+
+    TDAO.SetLastAction('Add');
   end
   else if DialogAnswer = mrNo then
   begin
-    GitExecution.Files := WindowFiles.ShowModal('Restore - ' + Repositories[0].Name, Repositories[0]);
+    GitExecution.Files := WindowFiles.ShowModal('Add - ' + Repositories[0].Name, Repositories[0]);
 
     if GitExecution.Files.Count > 0 then
     begin
       GitExecution.Repository := Repositories[0];
 
       TGit.GitExec(GitExecution);
+
+      TDAO.SetLastAction('Add');
     end;
   end;
-
-  TDAO.SetCheckeds('LastAction', 'Add');
 end;
 
 procedure TWindowMain.ActCommitExecute(Sender: TObject);
@@ -527,7 +532,7 @@ begin
       end;
     end;
 
-    TDAO.SetCheckeds('LastAction', 'Commit');
+    TDAO.SetLastAction('Commit');
   end;
 end;
 
@@ -562,9 +567,7 @@ begin
 
       TGit.GitExec(GitExecution);
 
-      TDAO.SetCheckeds('LastAction', 'Checkout');
-
-
+      TDAO.SetLastAction('Restore');
     end;
   end
   else if DialogAnswer = mrNo then
@@ -576,6 +579,8 @@ begin
       GitExecution.Repository := Repositories[0];
 
       TGit.GitExec(GitExecution);
+
+      TDAO.SetLastAction('Restore');
     end;
   end;
 end;
@@ -585,7 +590,7 @@ var
   I: integer;
   GitExecution: TGitExecution;
   Repositories: TRepositoryArray;
-  Branch: string;
+//  Branch: string;
   DialogAnswer: boolean;
 begin
   GitExecution := TGitExecution.Create;
@@ -596,16 +601,16 @@ begin
 
   DialogAnswer := true;
 
-  if Length(Repositories) = 1 then
-  begin
-    Branch := 'master';
-
-    DialogAnswer := InputQuery('Upstream', 'Branch', Branch);
-  end;
+//  if Length(Repositories) = 1 then
+//  begin
+//    Branch := Repositories[0].Branch;
+//
+//    DialogAnswer := InputQuery('Upstream', 'Branch', Branch);
+//  end;
 
   if DialogAnswer then
   begin
-    Repositories[0].Branch := Branch;
+//    Repositories[0].Branch := Branch;
 
     for I := 0 to Length(Repositories) - 1 do
     begin
@@ -619,7 +624,7 @@ begin
       end;
     end;
 
-    TDAO.SetCheckeds('LastAction', 'Push');
+    TDAO.SetLastAction('Push');
   end;
 end;
 
@@ -629,14 +634,18 @@ var
   GitExecution: TGitExecution;
   Branch: string;
 begin
-  Repository := TDAO.GetCheckedRepositories[0];
+  Repository := TDAO.GetSelectedRepository;
+
+  Branch := Repository.Branch;
 
   if InputQuery('Para qual branch você deseja mudar?', 'Branch:', Branch) then
   begin
-    Repository.Branch := Branch;
-
-    if Repository.Branch <> '' then
+    if Branch <> '' then
     begin
+      Repository.Branch := Branch;
+
+      TDAO.EditSelected(Repository);
+
       GitExecution := TGitExecution.Create;
       GitExecution.Repository := Repository;
       GitExecution.Action := gaSwitch;
@@ -644,7 +653,7 @@ begin
 
       TGit.GitExec(GitExecution);
 
-      TDAO.SetCheckeds('LastAction', 'Switch');
+      TDAO.SetLastAction('Switch');
     end;
   end;
 end;
@@ -673,14 +682,14 @@ begin
     end;
   end;
 
-  TDAO.SetCheckeds('LastAction', 'Diff');
+  TDAO.SetLastAction('Diff');
 end;
 
 //OTHERS
 
 procedure TWindowMain.CheckAllClick(Sender: TObject);
 begin
-  TDAO.SelectAll(CheckAll.Checked);
+  TDAO.CheckAll(CheckAll.Checked);
   UpdateButtons;
 end;
 
@@ -691,47 +700,43 @@ end;
 
 procedure TWindowMain.UpdateButtons;
 var
-  AnySelected: boolean;
+  AnyRepository, AnyChecked: boolean;
 begin
-  if TDAO.Count > 0 then
-  begin
-    CheckAll.Enabled := true;
-    CheckSelect.Enabled := true;
-    GridRepositories.Enabled := true;
-    ActOpenDir.Enabled := true;
-    ActEdit.Enabled := true;
-    ActDel.Enabled := true;
-    ActGitBash.Enabled := true;
-    ActDetails.Enabled := true;
-    ActExport.Enabled := true;
-  end;
+  AnyRepository := TDAO.Count > 0;
 
-  AnySelected := (TDAO.Count > 0) and (TDAO.CountChecked >= 1);
+  CheckAll.Enabled := AnyRepository;
+  CheckSelect.Enabled := AnyRepository;
+  GridRepositories.Enabled := AnyRepository;
+  ActOpenDir.Enabled := AnyRepository;
+  ActEdit.Enabled := AnyRepository;
+  ActDel.Enabled := AnyRepository;
+  ActGitBash.Enabled := AnyRepository;
+  ActDetails.Enabled := AnyRepository;
+  ActSwitch.Enabled := AnyRepository;
+  ActExport.Enabled := AnyRepository;
 
-  ActClone.Enabled := AnySelected;
-  ActStatus.Enabled := AnySelected;
-  ActPull.Enabled := AnySelected;
-  ActAdd.Enabled := AnySelected;
-  ActCommit.Enabled := AnySelected;
-  ActRestore.Enabled := AnySelected;
-  ActPush.Enabled := AnySelected;
-  ActDiff.Enabled := AnySelected;
+  AnyChecked := AnyRepository and (TDAO.CountCheckeds >= 1);
 
-  ActSwitch.Enabled := TDAO.CountChecked = 1;
+  ActClone.Enabled := AnyChecked;
+  ActStatus.Enabled := AnyChecked;
+  ActPull.Enabled := AnyChecked;
+  ActAdd.Enabled := AnyChecked;
+  ActCommit.Enabled := AnyChecked;
+  ActRestore.Enabled := AnyChecked;
+  ActPush.Enabled := AnyChecked;
+  ActDiff.Enabled := AnyChecked;
 
-  if (TDAO.Count > 0) and (TDAO.CountChecked = 1) then
+  if AnyRepository and (TDAO.CountCheckeds = 1) then
   begin
     ActAdd.Caption := 'Add (F7)*';
     ActRestore.Caption := 'Restore*';
     ActPush.Caption := 'Push(F9)*';
-    //ActDiff.Caption := 'Diff*';
   end
   else
   begin
     ActAdd.Caption := 'Add (F7)';
     ActRestore.Caption := 'Restore';
     ActPush.Caption := 'Push(F9)';
-    //ActDiff.Caption := 'Diff';
   end;
 end;
 
@@ -755,14 +760,14 @@ end;
 
 procedure TWindowMain.ActOpenDirExecute(Sender: TObject);
 begin
-  TUtils.OpenOnExplorer(TDAO.GetField('Path'));
+  TUtils.OpenOnExplorer(TDAO.GetSelectedField('Path'));
 end;
 
 procedure TWindowMain.ActGitBashExecute(Sender: TObject);
 var
   Comando: string;
 begin
-  Comando := '/K cd "' + TDAO.GetField('Path') + '" && "' + TConfig.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin') + '\bash"';
+  Comando := '/K cd "' + TDAO.GetSelectedField('Path') + '" && "' + TConfig.GetConfig('SYSTEM', 'GitBin', 'C:\Program Files\Git\Bin') + '\bash"';
   TUtils.ExecCmd(Comando);
 end;
 

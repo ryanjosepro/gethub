@@ -3,7 +3,7 @@ object WindowAddRepo: TWindowAddRepo
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Adicionar Reposit'#243'rio'
-  ClientHeight = 305
+  ClientHeight = 255
   ClientWidth = 341
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,12 +16,12 @@ object WindowAddRepo: TWindowAddRepo
   OnActivate = FormActivate
   DesignSize = (
     341
-    305)
+    255)
   PixelsPerInch = 96
   TextHeight = 13
   object LblName: TLabel
     Left = 8
-    Top = 159
+    Top = 109
     Width = 38
     Height = 16
     Caption = 'Nome:'
@@ -34,7 +34,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object LblPath: TLabel
     Left = 8
-    Top = 107
+    Top = 57
     Width = 55
     Height = 16
     Caption = 'Caminho:'
@@ -60,7 +60,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object BtnSave: TSpeedButton
     Left = 239
-    Top = 264
+    Top = 214
     Width = 97
     Height = 34
     Action = ActAdd
@@ -69,7 +69,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object BtnDiscard: TSpeedButton
     Left = 136
-    Top = 264
+    Top = 214
     Width = 97
     Height = 34
     Action = ActCancel
@@ -78,7 +78,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object BtnDir: TSpeedButton
     Left = 306
-    Top = 129
+    Top = 79
     Width = 27
     Height = 24
     Cursor = crHandPoint
@@ -89,7 +89,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object LblDescription: TLabel
     Left = 8
-    Top = 213
+    Top = 163
     Width = 60
     Height = 16
     Caption = 'Descri'#231#227'o:'
@@ -100,22 +100,9 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
   end
-  object LblBranchh: TLabel
-    Left = 8
-    Top = 55
-    Width = 44
-    Height = 16
-    Caption = 'Branch:'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
   object TxtPath: TEdit
     Left = 8
-    Top = 129
+    Top = 79
     Width = 298
     Height = 24
     Anchors = [akLeft, akTop, akRight]
@@ -132,7 +119,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object TxtName: TEdit
     Left = 8
-    Top = 181
+    Top = 131
     Width = 326
     Height = 24
     Anchors = [akLeft, akTop, akRight]
@@ -148,7 +135,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object CheckCloneRepo: TCheckBox
     Left = 8
-    Top = 275
+    Top = 225
     Width = 122
     Height = 23
     Anchors = [akLeft, akBottom]
@@ -160,11 +147,10 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 3
-    ExplicitTop = 238
   end
   object TxtDescription: TEdit
     Left = 8
-    Top = 235
+    Top = 185
     Width = 326
     Height = 24
     Anchors = [akLeft, akTop, akRight]
@@ -189,29 +175,11 @@ object WindowAddRepo: TWindowAddRepo
       'https://gitlab.com/'
       'https://bitbucket.org/')
   end
-  object TxtBranch: TEdit
-    Left = 8
-    Top = 77
-    Width = 325
-    Height = 24
-    Anchors = [akLeft, akTop, akRight]
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    MaxLength = 150
-    ParentFont = False
-    TabOrder = 5
-    Text = 'main'
-    OnChange = TxtChange
-    OnKeyDown = TxtPathKeyDown
-  end
   object Images: TImageList
     BlendColor = clWhite
     BkColor = clWhite
-    Left = 304
-    Top = 168
+    Left = 216
+    Top = 120
     Bitmap = {
       494C010101000800040010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
@@ -354,8 +322,8 @@ object WindowAddRepo: TWindowAddRepo
   end
   object Actions: TActionList
     Images = Images
-    Left = 256
-    Top = 168
+    Left = 168
+    Top = 120
     object ActDir: TAction
       ImageIndex = 0
       OnExecute = ActDirExecute
@@ -380,7 +348,7 @@ object WindowAddRepo: TWindowAddRepo
     FavoriteLinks = <>
     FileTypes = <>
     Options = [fdoPickFolders]
-    Left = 208
-    Top = 168
+    Left = 120
+    Top = 120
   end
 end
