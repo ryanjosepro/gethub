@@ -58,13 +58,13 @@ type
     BtnDel: TButton;
     BtnAdd: TButton;
     BtnCommit: TButton;
-    BtnCheckout: TButton;
+    BtnRestore: TButton;
     BtnPush: TButton;
     BtnPull: TButton;
     BtnStatus: TButton;
     BtnClone: TButton;
     BtnImport: TButton;
-    Btn: TButton;
+    BtnExport: TButton;
     BtnDetails: TButton;
     BtnSwitch: TButton;
     BtnDiff: TButton;

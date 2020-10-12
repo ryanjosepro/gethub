@@ -4211,7 +4211,7 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 3
+    TabOrder = 4
   end
   object BtnDel: TButton
     Left = 239
@@ -4228,7 +4228,7 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 4
+    TabOrder = 5
   end
   object BtnAdd: TButton
     Left = 317
@@ -4237,7 +4237,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActAdd
     Anchors = [akLeft, akBottom]
-    TabOrder = 5
+    TabOrder = 13
   end
   object BtnCommit: TButton
     Left = 420
@@ -4246,16 +4246,16 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActCommit
     Anchors = [akLeft, akBottom]
-    TabOrder = 6
+    TabOrder = 14
   end
-  object BtnCheckout: TButton
+  object BtnRestore: TButton
     Left = 523
     Top = 455
     Width = 97
     Height = 33
     Action = ActRestore
     Anchors = [akLeft, akBottom]
-    TabOrder = 7
+    TabOrder = 15
   end
   object BtnPush: TButton
     Left = 626
@@ -4264,7 +4264,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActPush
     Anchors = [akLeft, akBottom]
-    TabOrder = 8
+    TabOrder = 16
   end
   object BtnPull: TButton
     Left = 214
@@ -4273,7 +4273,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActPull
     Anchors = [akLeft, akBottom]
-    TabOrder = 9
+    TabOrder = 12
   end
   object BtnStatus: TButton
     Left = 111
@@ -4282,7 +4282,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActStatus
     Anchors = [akLeft, akBottom]
-    TabOrder = 10
+    TabOrder = 11
   end
   object BtnClone: TButton
     Left = 8
@@ -4291,7 +4291,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActClone
     Anchors = [akLeft, akBottom]
-    TabOrder = 11
+    TabOrder = 10
   end
   object BtnImport: TButton
     Left = 718
@@ -4308,9 +4308,9 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 12
+    TabOrder = 8
   end
-  object Btn: TButton
+  object BtnExport: TButton
     Left = 718
     Top = 424
     Width = 108
@@ -4325,7 +4325,7 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 13
+    TabOrder = 9
   end
   object BtnDetails: TButton
     Left = 8
@@ -4342,7 +4342,7 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 14
+    TabOrder = 3
   end
   object BtnSwitch: TButton
     Left = 467
@@ -4351,7 +4351,7 @@ object WindowMain: TWindowMain
     Height = 24
     Action = ActSwitch
     Anchors = [akLeft, akBottom]
-    TabOrder = 15
+    TabOrder = 7
   end
   object BtnDiff: TButton
     Left = 729
@@ -4361,7 +4361,7 @@ object WindowMain: TWindowMain
     Action = ActDiff
     Anchors = [akLeft, akBottom]
     Caption = 'Diff'
-    TabOrder = 16
+    TabOrder = 17
   end
   object BtnGitignore: TButton
     Left = 8
@@ -4370,7 +4370,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActGitignore
     Anchors = [akLeft, akBottom]
-    TabOrder = 17
+    TabOrder = 18
   end
   object SpeedButton4: TButton
     Left = 111
@@ -4379,7 +4379,7 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 18
+    TabOrder = 24
     OnClick = ActCloneExecute
   end
   object SpeedButton5: TButton
@@ -4389,7 +4389,7 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 19
+    TabOrder = 25
     OnClick = ActCloneExecute
   end
   object SpeedButton6: TButton
@@ -4399,7 +4399,7 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 20
+    TabOrder = 19
     OnClick = ActCloneExecute
   end
   object SpeedButton7: TButton
@@ -4409,7 +4409,7 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 21
+    TabOrder = 20
     OnClick = ActCloneExecute
   end
   object BtnGitBash: TButton
@@ -4427,7 +4427,7 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 22
+    TabOrder = 6
   end
   object SpeedButton1: TButton
     Left = 523
@@ -4436,7 +4436,7 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 23
+    TabOrder = 21
     OnClick = ActCloneExecute
   end
   object SpeedButton2: TButton
@@ -4446,7 +4446,7 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 24
+    TabOrder = 22
     OnClick = ActCloneExecute
   end
   object SpeedButton8: TButton
@@ -4456,7 +4456,7 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 25
+    TabOrder = 23
     OnClick = ActCloneExecute
   end
   object Actions: TActionList
