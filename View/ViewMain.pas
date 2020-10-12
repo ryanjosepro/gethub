@@ -24,7 +24,6 @@ type
     ActAdd: TAction;
     ActConfigs: TAction;
     ActRestore: TAction;
-    LblLogo: TLabel;
     BtnConfigs: TSpeedButton;
     BtnAddRepository: TSpeedButton;
     OpenFile: TFileOpenDialog;

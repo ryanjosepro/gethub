@@ -4038,24 +4038,8 @@ object WindowMain: TWindowMain
     536)
   PixelsPerInch = 96
   TextHeight = 13
-  object LblLogo: TLabel
-    Left = 8
-    Top = 6
-    Width = 816
-    Height = 56
-    Alignment = taCenter
-    Anchors = [akLeft, akTop, akRight]
-    AutoSize = False
-    Caption = 'GETHUB'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -40
-    Font.Name = 'Kristen ITC'
-    Font.Style = []
-    ParentFont = False
-  end
   object BtnConfigs: TSpeedButton
-    Left = 764
+    Left = 77
     Top = 8
     Width = 57
     Height = 54
@@ -4064,7 +4048,6 @@ object WindowMain: TWindowMain
     Flat = True
     ParentShowHint = False
     ShowHint = True
-    ExplicitLeft = 512
   end
   object BtnAddRepository: TSpeedButton
     Left = 8
@@ -4294,8 +4277,8 @@ object WindowMain: TWindowMain
     TabOrder = 10
   end
   object BtnImport: TButton
-    Left = 718
-    Top = 393
+    Left = 713
+    Top = 6
     Width = 108
     Height = 25
     Action = ActImport
@@ -4311,8 +4294,8 @@ object WindowMain: TWindowMain
     TabOrder = 8
   end
   object BtnExport: TButton
-    Left = 718
-    Top = 424
+    Left = 713
+    Top = 37
     Width = 108
     Height = 25
     Action = ActExport
@@ -5134,7 +5117,7 @@ object WindowMain: TWindowMain
       end>
     Options = []
     Title = 'Importar Reposit'#243'rios'
-    Left = 88
+    Left = 392
     Top = 16
   end
   object Source: TDataSource
@@ -5152,7 +5135,7 @@ object WindowMain: TWindowMain
       end>
     Options = []
     Title = 'Exportar Reposit'#243'rios'
-    Left = 144
+    Left = 448
     Top = 16
   end
   object MenuRepos: TPopupMenu
