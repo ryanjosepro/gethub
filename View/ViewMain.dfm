@@ -4031,7 +4031,6 @@ object WindowMain: TWindowMain
   OldCreateOrder = False
   Position = poMainFormCenter
   OnActivate = FormActivate
-  OnClick = ActGitignoreExecute
   OnClose = FormClose
   DesignSize = (
     829
@@ -5116,7 +5115,7 @@ object WindowMain: TWindowMain
         FileMask = '*.json'
       end>
     Options = []
-    Title = 'Importar Reposit'#243'rios'
+    Title = 'Abrir Arquivo'
     Left = 392
     Top = 16
   end
