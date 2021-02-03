@@ -28,9 +28,9 @@ object DataModuleConn: TDataModuleConn
       Size = 60
     end
     object TablePath: TStringField
-      DisplayWidth = 150
+      DisplayWidth = 300
       FieldName = 'Path'
-      Size = 70
+      Size = 300
     end
     object TableName: TStringField
       FieldName = 'Name'
