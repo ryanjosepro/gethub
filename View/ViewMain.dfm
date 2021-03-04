@@ -4354,7 +4354,7 @@ object WindowMain: TWindowMain
     Anchors = [akLeft, akBottom]
     TabOrder = 18
   end
-  object SpeedButton4: TButton
+  object SpeedButton1: TButton
     Left = 111
     Top = 495
     Width = 97
@@ -4364,7 +4364,7 @@ object WindowMain: TWindowMain
     TabOrder = 24
     OnClick = ActCloneExecute
   end
-  object SpeedButton5: TButton
+  object SpeedButton2: TButton
     Left = 214
     Top = 495
     Width = 97
@@ -4374,7 +4374,7 @@ object WindowMain: TWindowMain
     TabOrder = 25
     OnClick = ActCloneExecute
   end
-  object SpeedButton6: TButton
+  object SpeedButton3: TButton
     Left = 317
     Top = 494
     Width = 97
@@ -4384,7 +4384,7 @@ object WindowMain: TWindowMain
     TabOrder = 19
     OnClick = ActCloneExecute
   end
-  object SpeedButton7: TButton
+  object SpeedButton4: TButton
     Left = 420
     Top = 494
     Width = 97
@@ -4411,7 +4411,7 @@ object WindowMain: TWindowMain
     ShowHint = True
     TabOrder = 6
   end
-  object SpeedButton1: TButton
+  object SpeedButton5: TButton
     Left = 523
     Top = 494
     Width = 97
@@ -4421,7 +4421,7 @@ object WindowMain: TWindowMain
     TabOrder = 21
     OnClick = ActCloneExecute
   end
-  object SpeedButton2: TButton
+  object SpeedButton6: TButton
     Left = 626
     Top = 494
     Width = 97
@@ -4431,7 +4431,7 @@ object WindowMain: TWindowMain
     TabOrder = 22
     OnClick = ActCloneExecute
   end
-  object SpeedButton8: TButton
+  object SpeedButton7: TButton
     Left = 729
     Top = 494
     Width = 97

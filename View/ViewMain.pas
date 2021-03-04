@@ -68,14 +68,14 @@ type
     BtnSwitch: TButton;
     BtnDiff: TButton;
     BtnGitignore: TButton;
+    SpeedButton1: TButton;
+    SpeedButton2: TButton;
+    SpeedButton3: TButton;
     SpeedButton4: TButton;
+    BtnGitBash: TButton;
     SpeedButton5: TButton;
     SpeedButton6: TButton;
     SpeedButton7: TButton;
-    BtnGitBash: TButton;
-    SpeedButton1: TButton;
-    SpeedButton2: TButton;
-    SpeedButton8: TButton;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -352,6 +352,8 @@ begin
   if SaveFile.Execute then
   begin
     TDAO.Save(SaveFile.FileName);
+    123
+
     ShowMessage('Exportado com sucesso!');
   end;
 end;
