@@ -129,7 +129,7 @@ object WindowEditRepo: TWindowEditRepo
     Font.Height = -13
     Font.Name = 'Tahoma'
     Font.Style = []
-    MaxLength = 150
+    MaxLength = 300
     ParentFont = False
     TabOrder = 1
     OnChange = TxtChange

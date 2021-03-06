@@ -15,7 +15,6 @@ type
   TDataModuleConn = class(TDataModule)
     JSON: TFDStanStorageJSONLink;
     Table: TFDMemTable;
-    TableChecked: TBooleanField;
     TableLink: TStringField;
     TablePath: TStringField;
     TableName: TStringField;
@@ -23,6 +22,7 @@ type
     TableMsg: TStringField;
     TableDescription: TStringField;
     TableBranch: TStringField;
+    TableChecked: TBooleanField;
   end;
 
 var

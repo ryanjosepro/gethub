@@ -26,6 +26,8 @@ type
     class procedure CheckAll(Checked: boolean = true);
 
     class function GetSelectedField(Field: string): variant;
+    class function GetSelectedStringField(Field: string): string;
+
     class procedure SetSelectedField(Field: string; Value: variant);
     class function GetCheckedFields(Field: string): TStringList;
     class procedure SetCheckedFields(Field, Value: string);
@@ -246,6 +248,18 @@ begin
   if not Table.FieldByName(Field).IsNull then
   begin
     Result := Table.FieldByName(Field).AsVariant;
+  end
+  else
+  begin
+    Result := '';
+  end;
+end;
+
+class function TDAO.GetSelectedStringField(Field: string): string;
+begin
+  if not Table.FieldByName(Field).IsNull then
+  begin
+    Result := Table.FieldByName(Field).AsString;
   end
   else
   begin
