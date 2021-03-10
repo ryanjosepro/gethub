@@ -374,6 +374,7 @@ begin
 
   for I := 0 to Length(Repositories) - 1 do
   begin
+
     with Repositories[I] do
     begin
       GitExecution.Repository := Repositories[I];
