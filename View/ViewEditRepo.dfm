@@ -3,7 +3,7 @@ object WindowEditRepo: TWindowEditRepo
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Editar Reposit'#243'rio'
-  ClientHeight = 258
+  ClientHeight = 303
   ClientWidth = 341
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,12 +17,12 @@ object WindowEditRepo: TWindowEditRepo
   OnClose = FormClose
   DesignSize = (
     341
-    258)
+    303)
   PixelsPerInch = 96
   TextHeight = 13
   object LblName: TLabel
     Left = 8
-    Top = 112
+    Top = 151
     Width = 38
     Height = 16
     Caption = 'Nome:'
@@ -35,7 +35,7 @@ object WindowEditRepo: TWindowEditRepo
   end
   object LblPath: TLabel
     Left = 8
-    Top = 60
+    Top = 99
     Width = 55
     Height = 16
     Caption = 'Caminho:'
@@ -48,7 +48,7 @@ object WindowEditRepo: TWindowEditRepo
   end
   object LblLink: TLabel
     Left = 8
-    Top = 8
+    Top = 47
     Width = 113
     Height = 16
     Caption = 'Link do Reposit'#243'rio:'
@@ -61,7 +61,7 @@ object WindowEditRepo: TWindowEditRepo
   end
   object BtnSave: TSpeedButton
     Left = 236
-    Top = 216
+    Top = 261
     Width = 97
     Height = 34
     Action = ActSave
@@ -71,7 +71,7 @@ object WindowEditRepo: TWindowEditRepo
   end
   object BtnDiscard: TSpeedButton
     Left = 133
-    Top = 216
+    Top = 261
     Width = 97
     Height = 34
     Action = ActDiscard
@@ -80,18 +80,18 @@ object WindowEditRepo: TWindowEditRepo
   end
   object BtnDBFile: TSpeedButton
     Left = 306
-    Top = 82
+    Top = 121
     Width = 27
     Height = 24
     Cursor = crHandPoint
     Action = ActDBFile
-    Anchors = [akTop]
+    Anchors = [akTop, akRight]
     ParentShowHint = False
     ShowHint = True
   end
   object LblDescription: TLabel
     Left = 8
-    Top = 164
+    Top = 203
     Width = 60
     Height = 16
     Caption = 'Descri'#231#227'o:'
@@ -104,7 +104,7 @@ object WindowEditRepo: TWindowEditRepo
   end
   object TxtLink: TEdit
     Left = 8
-    Top = 30
+    Top = 69
     Width = 326
     Height = 24
     Anchors = [akLeft, akTop, akRight]
@@ -120,7 +120,7 @@ object WindowEditRepo: TWindowEditRepo
   end
   object TxtPath: TEdit
     Left = 8
-    Top = 82
+    Top = 121
     Width = 298
     Height = 24
     Anchors = [akLeft, akTop, akRight]
@@ -136,7 +136,7 @@ object WindowEditRepo: TWindowEditRepo
   end
   object TxtName: TEdit
     Left = 8
-    Top = 134
+    Top = 173
     Width = 326
     Height = 24
     Anchors = [akLeft, akTop, akRight]
@@ -152,7 +152,7 @@ object WindowEditRepo: TWindowEditRepo
   end
   object TxtDescription: TEdit
     Left = 8
-    Top = 186
+    Top = 225
     Width = 326
     Height = 24
     Anchors = [akLeft, akTop, akRight]
@@ -166,11 +166,26 @@ object WindowEditRepo: TWindowEditRepo
     TabOrder = 3
     OnChange = TxtChange
   end
+  object CheckActive: TCheckBox
+    Left = 8
+    Top = 8
+    Width = 50
+    Height = 23
+    Caption = 'Ativo'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+    OnClick = TxtChange
+  end
   object Images: TImageList
     BlendColor = clWhite
     BkColor = clWhite
     Left = 208
-    Top = 56
+    Top = 95
     Bitmap = {
       494C010101000800040010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
@@ -314,7 +329,7 @@ object WindowEditRepo: TWindowEditRepo
   object Actions: TActionList
     Images = Images
     Left = 160
-    Top = 56
+    Top = 95
     object ActDBFile: TAction
       ImageIndex = 0
       OnExecute = ActDBFileExecute
@@ -340,6 +355,6 @@ object WindowEditRepo: TWindowEditRepo
     FileTypes = <>
     Options = [fdoPickFolders]
     Left = 112
-    Top = 56
+    Top = 95
   end
 end

@@ -76,6 +76,10 @@ type
     SpeedButton5: TButton;
     SpeedButton6: TButton;
     SpeedButton7: TButton;
+    BtnPageDown: TSpeedButton;
+    BtnPageUp: TSpeedButton;
+    TxtSearch: TEdit;
+    ActGoToSearch: TAction;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -106,6 +110,12 @@ type
     procedure ActDiffExecute(Sender: TObject);
     procedure TxtSearchChange(Sender: TObject);
     procedure ActGitignoreExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure BtnPageUpClick(Sender: TObject);
+    procedure BtnPageDownClick(Sender: TObject);
+    procedure ActGoToSearchExecute(Sender: TObject);
+    procedure GridRepositoriesMouseWheel(Sender: TObject; Shift: TShiftState;
+      WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
@@ -115,6 +125,7 @@ type
 var
   WindowMain: TWindowMain;
   CellClicked: boolean = false;
+  MouseScrooled: boolean = false;
 
 implementation
 
@@ -122,7 +133,7 @@ implementation
 
 procedure TWindowMain.FormActivate(Sender: TObject);
 begin
-  GridRepositories.SetFocus;
+//  GridRepositories.SetFocus;
   TDAO.Load;
   Source.DataSet := TDAO.Table;
   TConfig.SetGlobalGitAccount;
@@ -148,36 +159,75 @@ begin
   Application.ProcessMessages;
 end;
 
+procedure TWindowMain.FormCreate(Sender: TObject);
+begin
+
+end;
+
 //GRID DRAWN
 
-procedure TWindowMain.GridRepositoriesDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+procedure TWindowMain.GridRepositoriesDrawColumnCell(Sender: TObject; const Rect: TRect;
+DataCol: Integer; Column: TColumn; State: TGridDrawState);
 const
   IsChecked : array[Boolean] of Integer =(DFCS_BUTTONCHECK, DFCS_BUTTONCHECK or DFCS_CHECKED);
-var
-  DrawState: Integer;
-  DrawRect: TRect;
 begin
-  if (gdFocused in State) then
+  if TDAO.Count <> 0 then
   begin
-    CheckSelect.Visible := true;
-    CheckSelect.Left := 13 + GridRepositories.Left + 2;
-    CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
-    CheckSelect.Width := 15;
-    CheckSelect.Height := Rect.Bottom - Rect.Top;
-
-    UpdateTotRepos;
-  end
-  else
-  begin
-    if (Column.Field.FieldName = CheckSelect.DataField) then
+    //Se a linha atual está selecionada
+    if (gdFocused in State) or MouseScrooled then
     begin
-      DrawRect:=Rect;
-      InflateRect(DrawRect,-1,-1);
-      DrawState := ISChecked[Column.Field.AsBoolean];
-      GridRepositories.Canvas.FillRect(Rect);
-      DrawFrameControl(GridRepositories.Canvas.Handle, DrawRect, DFC_BUTTON, DrawState);
+      //Se estiver, o Checkbox CheckSelect é direcionado para ela
+      CheckSelect.Visible := true;
+
+      CheckSelect.Left := 13 + GridRepositories.Left + 2;
+      CheckSelect.Top := Rect.Top + GridRepositories.top + 2;
+      CheckSelect.Width := 15;
+      CheckSelect.Height := Rect.Bottom - Rect.Top;
+
+      UpdateTotRepos;
+
+      MouseScrooled := false;
+    end
+    else
+    begin
+      //Se a cell é um campo Checked
+      if (Column.Field.FieldName = CheckSelect.DataField) then
+      begin
+        //Se for é desenhado um checkbox
+        var DrawRect := Rect;
+        InflateRect(DrawRect,-1,-1);
+
+        //Verifica se será checked ou não
+        var DrawState := ISChecked[Column.Field.AsBoolean];
+        GridRepositories.Canvas.FillRect(Rect);
+
+        DrawFrameControl(GridRepositories.Canvas.Handle, DrawRect, DFC_BUTTON, DrawState);
+      end;
+
+      //Verifica se o repositório não está ativo
+      if TDAO.GetSelectedField('Active') = false then
+      begin
+        //Se a cell é um campo Name
+        if Column.Field.FieldName = 'Name' then
+        begin
+          var DrawRect := Rect;
+          InflateRect(DrawRect,-1,-1);
+
+          GridRepositories.Canvas.FillRect(Rect);
+          GridRepositories.Canvas.Font.Color := clGrayText;
+
+  //        DrawFrameControl(GridRepositories.Canvas.Handle, DrawRect, DFC_CAPTION, DrawState);
+          DrawText(GridRepositories.Canvas.Handle, Column.Field.Value, -1, DrawRect, 0);
+        end;
+      end;
     end;
   end;
+end;
+
+procedure TWindowMain.GridRepositoriesMouseWheel(Sender: TObject;
+Shift: TShiftState; WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+begin
+  GridRepositories.SetFocus;
 end;
 
 procedure TWindowMain.GridRepositoriesKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -729,6 +779,11 @@ end;
 
 //OTHERS
 
+procedure TWindowMain.ActGoToSearchExecute(Sender: TObject);
+begin
+  TxtSearch.SetFocus;
+end;
+
 procedure TWindowMain.CheckAllClick(Sender: TObject);
 begin
   TDAO.CheckAll(CheckAll.Checked);
@@ -795,8 +850,18 @@ end;
 
 procedure TWindowMain.TxtSearchChange(Sender: TObject);
 begin
-  //TDAO.Search(TxtSearch.Text);
-  Application.ProcessMessages;
+  TDAO.Search(TxtSearch.Text);
+//  Application.ProcessMessages;
+end;
+
+procedure TWindowMain.BtnPageUpClick(Sender: TObject);
+begin
+  TDAO.Table.First;
+end;
+
+procedure TWindowMain.BtnPageDownClick(Sender: TObject);
+begin
+  TDAO.Table.Last;
 end;
 
 //POPUP MENU

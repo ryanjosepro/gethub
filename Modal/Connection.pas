@@ -23,6 +23,7 @@ type
     TableDescription: TStringField;
     TableBranch: TStringField;
     TableChecked: TBooleanField;
+    TableActive: TBooleanField;
   end;
 
 var

@@ -5,7 +5,7 @@ object WindowMain: TWindowMain
   BorderStyle = bsSingle
   Caption = 'Gethub'
   ClientHeight = 536
-  ClientWidth = 829
+  ClientWidth = 833
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -4032,27 +4032,27 @@ object WindowMain: TWindowMain
   Position = poMainFormCenter
   OnActivate = FormActivate
   OnClose = FormClose
+  OnCreate = FormCreate
   DesignSize = (
-    829
+    833
     536)
   PixelsPerInch = 96
   TextHeight = 13
   object BtnConfigs: TSpeedButton
-    Left = 77
+    Left = 74
     Top = 8
     Width = 57
-    Height = 54
+    Height = 45
     Action = ActConfigs
-    Anchors = [akTop, akRight]
     Flat = True
     ParentShowHint = False
     ShowHint = True
   end
   object BtnAddRepository: TSpeedButton
-    Left = 8
+    Left = 12
     Top = 8
     Width = 57
-    Height = 54
+    Height = 45
     Action = ActAddRepository
     Flat = True
     ParentShowHint = False
@@ -4073,16 +4073,46 @@ object WindowMain: TWindowMain
     Width = 3
     Height = 13
   end
+  object BtnPageDown: TSpeedButton
+    Left = 796
+    Top = 406
+    Width = 32
+    Height = 32
+    Anchors = [akRight, akBottom]
+    Caption = #9661
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -27
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    OnClick = BtnPageDownClick
+  end
+  object BtnPageUp: TSpeedButton
+    Left = 796
+    Top = 42
+    Width = 32
+    Height = 33
+    Anchors = [akTop, akRight]
+    Caption = #9651
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -27
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    OnClick = BtnPageUpClick
+  end
   object GridRepositories: TDBGrid
     Left = 8
-    Top = 68
-    Width = 816
+    Top = 81
+    Width = 820
     Height = 319
     Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = Source
     Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     PopupMenu = MenuRepos
-    TabOrder = 0
+    TabOrder = 1
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
@@ -4092,6 +4122,7 @@ object WindowMain: TWindowMain
     OnDrawColumnCell = GridRepositoriesDrawColumnCell
     OnKeyDown = GridRepositoriesKeyDown
     OnKeyPress = GridRepositoriesKeyPress
+    OnMouseWheel = GridRepositoriesMouseWheel
     Columns = <
       item
         Expanded = False
@@ -4136,6 +4167,7 @@ object WindowMain: TWindowMain
         Expanded = False
         FieldName = 'LastAction'
         ReadOnly = True
+        Title.Alignment = taCenter
         Title.Caption = #218'ltima A'#231#227'o'
         Width = 68
         Visible = True
@@ -4151,10 +4183,10 @@ object WindowMain: TWindowMain
       end>
   end
   object CheckSelect: TDBCheckBox
-    Left = 23
-    Top = 86
-    Width = 14
-    Height = 21
+    Left = 22
+    Top = 84
+    Width = 15
+    Height = 15
     Ctl3D = True
     DataField = 'Checked'
     DataSource = Source
@@ -4165,17 +4197,17 @@ object WindowMain: TWindowMain
     Font.Style = []
     ParentCtl3D = False
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 3
     ValueChecked = ''
     ValueUnchecked = ''
     OnClick = CheckSelectClick
   end
   object CheckAll: TCheckBox
-    Left = 23
-    Top = 71
-    Width = 13
-    Height = 16
-    TabOrder = 1
+    Left = 22
+    Top = 84
+    Width = 15
+    Height = 15
+    TabOrder = 2
     OnClick = CheckAllClick
   end
   object BtnEdit: TButton
@@ -4193,7 +4225,7 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 4
+    TabOrder = 7
   end
   object BtnDel: TButton
     Left = 239
@@ -4210,7 +4242,7 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 5
+    TabOrder = 8
   end
   object BtnAdd: TButton
     Left = 317
@@ -4219,7 +4251,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActAdd
     Anchors = [akLeft, akBottom]
-    TabOrder = 13
+    TabOrder = 14
   end
   object BtnCommit: TButton
     Left = 420
@@ -4228,7 +4260,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActCommit
     Anchors = [akLeft, akBottom]
-    TabOrder = 14
+    TabOrder = 15
   end
   object BtnRestore: TButton
     Left = 523
@@ -4237,7 +4269,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActRestore
     Anchors = [akLeft, akBottom]
-    TabOrder = 15
+    TabOrder = 16
   end
   object BtnPush: TButton
     Left = 626
@@ -4246,7 +4278,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActPush
     Anchors = [akLeft, akBottom]
-    TabOrder = 16
+    TabOrder = 17
   end
   object BtnPull: TButton
     Left = 214
@@ -4255,7 +4287,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActPull
     Anchors = [akLeft, akBottom]
-    TabOrder = 12
+    TabOrder = 13
   end
   object BtnStatus: TButton
     Left = 111
@@ -4264,7 +4296,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActStatus
     Anchors = [akLeft, akBottom]
-    TabOrder = 11
+    TabOrder = 12
   end
   object BtnClone: TButton
     Left = 8
@@ -4273,11 +4305,11 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActClone
     Anchors = [akLeft, akBottom]
-    TabOrder = 10
+    TabOrder = 11
   end
   object BtnImport: TButton
-    Left = 713
-    Top = 6
+    Left = 606
+    Top = 8
     Width = 108
     Height = 25
     Action = ActImport
@@ -4290,11 +4322,11 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 8
+    TabOrder = 4
   end
   object BtnExport: TButton
-    Left = 713
-    Top = 37
+    Left = 720
+    Top = 8
     Width = 108
     Height = 25
     Action = ActExport
@@ -4307,7 +4339,7 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 9
+    TabOrder = 5
   end
   object BtnDetails: TButton
     Left = 8
@@ -4324,7 +4356,7 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 3
+    TabOrder = 6
   end
   object BtnSwitch: TButton
     Left = 467
@@ -4333,7 +4365,7 @@ object WindowMain: TWindowMain
     Height = 24
     Action = ActSwitch
     Anchors = [akLeft, akBottom]
-    TabOrder = 7
+    TabOrder = 10
   end
   object BtnDiff: TButton
     Left = 729
@@ -4343,7 +4375,7 @@ object WindowMain: TWindowMain
     Action = ActDiff
     Anchors = [akLeft, akBottom]
     Caption = 'Diff'
-    TabOrder = 17
+    TabOrder = 18
   end
   object BtnGitignore: TButton
     Left = 8
@@ -4352,7 +4384,7 @@ object WindowMain: TWindowMain
     Height = 33
     Action = ActGitignore
     Anchors = [akLeft, akBottom]
-    TabOrder = 18
+    TabOrder = 19
   end
   object SpeedButton1: TButton
     Left = 111
@@ -4361,7 +4393,7 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 24
+    TabOrder = 20
     OnClick = ActCloneExecute
   end
   object SpeedButton2: TButton
@@ -4371,7 +4403,7 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 25
+    TabOrder = 21
     OnClick = ActCloneExecute
   end
   object SpeedButton3: TButton
@@ -4381,7 +4413,7 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 19
+    TabOrder = 22
     OnClick = ActCloneExecute
   end
   object SpeedButton4: TButton
@@ -4391,7 +4423,7 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 20
+    TabOrder = 23
     OnClick = ActCloneExecute
   end
   object BtnGitBash: TButton
@@ -4409,7 +4441,7 @@ object WindowMain: TWindowMain
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 6
+    TabOrder = 9
   end
   object SpeedButton5: TButton
     Left = 523
@@ -4418,7 +4450,7 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 21
+    TabOrder = 24
     OnClick = ActCloneExecute
   end
   object SpeedButton6: TButton
@@ -4428,7 +4460,7 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 22
+    TabOrder = 25
     OnClick = ActCloneExecute
   end
   object SpeedButton7: TButton
@@ -4438,13 +4470,21 @@ object WindowMain: TWindowMain
     Height = 33
     Anchors = [akLeft, akBottom]
     Enabled = False
-    TabOrder = 23
+    TabOrder = 26
     OnClick = ActCloneExecute
+  end
+  object TxtSearch: TEdit
+    Left = 8
+    Top = 59
+    Width = 489
+    Height = 21
+    TabOrder = 0
+    OnChange = TxtSearchChange
   end
   object Actions: TActionList
     Images = Images
-    Left = 640
-    Top = 16
+    Left = 344
+    Top = 7
     object ActAddRepository: TAction
       Hint = 'Adicionar Reposit'#243'rio'
       ImageIndex = 1
@@ -4455,6 +4495,11 @@ object WindowMain: TWindowMain
       Hint = 'Configura'#231#245'es'
       ImageIndex = 0
       OnExecute = ActConfigsExecute
+    end
+    object ActGoToSearch: TAction
+      Caption = 'ActGoToSearch'
+      ShortCut = 16454
+      OnExecute = ActGoToSearchExecute
     end
     object ActCheckAll: TAction
       ShortCut = 16449
@@ -4567,8 +4612,8 @@ object WindowMain: TWindowMain
   object Images: TImageList
     Height = 32
     Width = 32
-    Left = 592
-    Top = 16
+    Left = 296
+    Top = 7
     Bitmap = {
       494C010103001400040020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040
@@ -5116,8 +5161,8 @@ object WindowMain: TWindowMain
       end>
     Options = []
     Title = 'Abrir Arquivo'
-    Left = 392
-    Top = 16
+    Left = 176
+    Top = 8
   end
   object Source: TDataSource
     DataSet = DataModuleConn.Table
@@ -5134,8 +5179,8 @@ object WindowMain: TWindowMain
       end>
     Options = []
     Title = 'Exportar Reposit'#243'rios'
-    Left = 448
-    Top = 16
+    Left = 232
+    Top = 8
   end
   object MenuRepos: TPopupMenu
     Left = 72

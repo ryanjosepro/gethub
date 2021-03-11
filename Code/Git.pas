@@ -20,6 +20,7 @@ type
     FMsg: string;
     FLastAct: string;
     FDesc: string;
+    FActive: boolean;
     procedure SetLink(const Value: string);
     procedure SetBranch(const Value: string);
     procedure SetLastAct(const Value: string);
@@ -27,6 +28,7 @@ type
     procedure SetName(const Value: string);
     procedure SetPath(const Value: string);
     procedure SetDesc(const Value: string);
+    procedure SetActive(const Value: boolean);
 
   public
     property Link: string read FLink write SetLink;
@@ -36,6 +38,7 @@ type
     property Desc: string read FDesc write SetDesc;
     property LastAct: string read FLastAct write SetLastAct;
     property Msg: string read FMsg write SetMsg;
+    property Active: boolean read FActive write SetActive;
     constructor Create;
   end;
 
@@ -127,6 +130,11 @@ end;
 procedure TRepository.SetMsg(const Value: string);
 begin
   FMsg := Value;
+end;
+
+procedure TRepository.SetActive(const Value: boolean);
+begin
+  FActive := Value;
 end;
 
 { TGitConfig }

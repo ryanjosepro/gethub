@@ -179,12 +179,13 @@ begin
   begin
     Table.UpdateOptions.EnableInsert := true;
     Table.Insert;
-    Table.FieldByName('Checked').AsVariant := false;
-    Table.FieldByName('Link').AsVariant := Repository.Link;
-    Table.FieldByName('Branch').AsVariant := Repository.Branch;
-    Table.FieldByName('Path').AsVariant := Repository.Path;
-    Table.FieldByName('Name').AsVariant := Repository.Name;
-    Table.FieldByName('Description').AsVariant := Repository.Desc;
+    Table.FieldByName('Checked').AsBoolean := false;
+    Table.FieldByName('Link').AsString := Repository.Link;
+    Table.FieldByName('Branch').AsString:= Repository.Branch;
+    Table.FieldByName('Path').AsString := Repository.Path;
+    Table.FieldByName('Name').AsString := Repository.Name;
+    Table.FieldByName('Description').AsString := Repository.Desc;
+    Table.FieldByName('Active').AsBoolean := Repository.Active;
     Table.Post;
     Save;
     Table.UpdateOptions.EnableInsert := false;
@@ -194,11 +195,12 @@ end;
 class procedure TDAO.EditSelected(Repository: TRepository);
 begin
   Table.Edit;
-  Table.FieldByName('Link').AsVariant := Repository.Link;
-  Table.FieldByName('Branch').AsVariant := Repository.Branch;
-  Table.FieldByName('Path').AsVariant := Repository.Path;
-  Table.FieldByName('Name').AsVariant := Repository.Name;
-  Table.FieldByName('Description').AsVariant := Repository.Desc;
+  Table.FieldByName('Link').AsString := Repository.Link;
+  Table.FieldByName('Branch').AsString:= Repository.Branch;
+  Table.FieldByName('Path').AsString := Repository.Path;
+  Table.FieldByName('Name').AsString := Repository.Name;
+  Table.FieldByName('Description').AsString := Repository.Desc;
+  Table.FieldByName('Active').AsBoolean := Repository.Active;
   Table.Post;
   Save;
 end;
@@ -245,13 +247,16 @@ end;
 
 class function TDAO.GetSelectedField(Field: string): variant;
 begin
-  if not Table.FieldByName(Field).IsNull then
+  if Count <> 0 then
   begin
-    Result := Table.FieldByName(Field).AsVariant;
-  end
-  else
-  begin
-    Result := '';
+    if not Table.FieldByName(Field).IsNull then
+    begin
+      Result := Table.FieldByName(Field).AsVariant;
+    end
+    else
+    begin
+      Result := '';
+    end;
   end;
 end;
 
@@ -422,7 +427,7 @@ begin
   begin
     Table.First;
 
-    if GetSelectedField('Link') = '' then
+    if GetSelectedStringField('Link') = '' then
       Result := 0;
   end;
 end;

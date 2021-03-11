@@ -3,7 +3,7 @@ object WindowAddRepo: TWindowAddRepo
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Adicionar Reposit'#243'rio'
-  ClientHeight = 255
+  ClientHeight = 303
   ClientWidth = 341
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,12 +16,12 @@ object WindowAddRepo: TWindowAddRepo
   OnActivate = FormActivate
   DesignSize = (
     341
-    255)
+    303)
   PixelsPerInch = 96
   TextHeight = 13
   object LblName: TLabel
     Left = 8
-    Top = 109
+    Top = 148
     Width = 38
     Height = 16
     Caption = 'Nome:'
@@ -34,7 +34,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object LblPath: TLabel
     Left = 8
-    Top = 57
+    Top = 96
     Width = 55
     Height = 16
     Caption = 'Caminho:'
@@ -47,7 +47,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object LblLink: TLabel
     Left = 8
-    Top = 8
+    Top = 47
     Width = 113
     Height = 16
     Caption = 'Link do Reposit'#243'rio:'
@@ -60,7 +60,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object BtnSave: TSpeedButton
     Left = 239
-    Top = 214
+    Top = 262
     Width = 97
     Height = 34
     Action = ActAdd
@@ -69,7 +69,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object BtnDiscard: TSpeedButton
     Left = 136
-    Top = 214
+    Top = 262
     Width = 97
     Height = 34
     Action = ActCancel
@@ -78,18 +78,18 @@ object WindowAddRepo: TWindowAddRepo
   end
   object BtnDir: TSpeedButton
     Left = 306
-    Top = 79
+    Top = 118
     Width = 27
     Height = 24
     Cursor = crHandPoint
     Action = ActDir
-    Anchors = [akTop]
+    Anchors = [akTop, akRight]
     ParentShowHint = False
     ShowHint = True
   end
   object LblDescription: TLabel
     Left = 8
-    Top = 163
+    Top = 202
     Width = 60
     Height = 16
     Caption = 'Descri'#231#227'o:'
@@ -102,7 +102,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object TxtPath: TEdit
     Left = 8
-    Top = 79
+    Top = 118
     Width = 298
     Height = 24
     Anchors = [akLeft, akTop, akRight]
@@ -119,7 +119,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object TxtName: TEdit
     Left = 8
-    Top = 131
+    Top = 170
     Width = 326
     Height = 24
     Anchors = [akLeft, akTop, akRight]
@@ -135,7 +135,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object CheckCloneRepo: TCheckBox
     Left = 8
-    Top = 225
+    Top = 273
     Width = 122
     Height = 23
     Anchors = [akLeft, akBottom]
@@ -147,10 +147,11 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     TabOrder = 3
+    ExplicitTop = 225
   end
   object TxtDescription: TEdit
     Left = 8
-    Top = 185
+    Top = 224
     Width = 326
     Height = 24
     Anchors = [akLeft, akTop, akRight]
@@ -166,7 +167,7 @@ object WindowAddRepo: TWindowAddRepo
   end
   object TxtLink: TComboBox
     Left = 8
-    Top = 30
+    Top = 69
     Width = 325
     Height = 21
     TabOrder = 4
@@ -175,11 +176,27 @@ object WindowAddRepo: TWindowAddRepo
       'https://gitlab.com/'
       'https://bitbucket.org/')
   end
+  object CheckActive: TCheckBox
+    Left = 8
+    Top = 8
+    Width = 50
+    Height = 23
+    Caption = 'Ativo'
+    Checked = True
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    State = cbChecked
+    TabOrder = 5
+  end
   object Images: TImageList
     BlendColor = clWhite
     BkColor = clWhite
     Left = 216
-    Top = 120
+    Top = 159
     Bitmap = {
       494C010101000800040010001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
@@ -323,7 +340,7 @@ object WindowAddRepo: TWindowAddRepo
   object Actions: TActionList
     Images = Images
     Left = 168
-    Top = 120
+    Top = 159
     object ActDir: TAction
       ImageIndex = 0
       OnExecute = ActDirExecute
@@ -349,6 +366,6 @@ object WindowAddRepo: TWindowAddRepo
     FileTypes = <>
     Options = [fdoPickFolders]
     Left = 120
-    Top = 120
+    Top = 159
   end
 end

@@ -28,6 +28,7 @@ type
     OpenFile: TFileOpenDialog;
     TxtDescription: TEdit;
     LblDescription: TLabel;
+    CheckActive: TCheckBox;
     procedure ActDBFileExecute(Sender: TObject);
     procedure ActDiscardExecute(Sender: TObject);
     procedure ActEscExecute(Sender: TObject);
@@ -56,6 +57,7 @@ begin
   TxtPath.Text := TDAO.GetSelectedField('Path');
   TxtName.Text := TDAO.GetSelectedField('Name');
   TxtDescription.Text := TDAO.GetSelectedField('Description');
+  CheckActive.Checked := TDAO.GetSelectedField('Active');
   Done;
 end;
 
@@ -133,6 +135,7 @@ begin
     Repository.Path := TxtPath.Text;
     Repository.Name := TxtName.Text;
     Repository.Desc := TxtDescription.Text;
+    Repository.Active := CheckActive.Checked;
 
     TDAO.EditSelected(Repository);
     Done;

@@ -29,6 +29,7 @@ type
     LblDescription: TLabel;
     TxtDescription: TEdit;
     TxtLink: TComboBox;
+    CheckActive: TCheckBox;
     procedure ActDirExecute(Sender: TObject);
     procedure ActAddExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
@@ -105,6 +106,7 @@ begin
     Repository.Path := TxtPath.Text;
     Repository.Name := TxtName.Text;
     Repository.Desc := TxtDescription.Text;
+    Repository.Active := CheckActive.Checked;
 
     TDAO.Insert(Repository);
 
