@@ -10,7 +10,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.DBGrids, Vcl.CheckLst, Vcl.ButtonGroup,
   Datasnap.DSHTTP, IOUtils, Vcl.Menus,
   ViewConfigs, ViewAddRepo, ViewEditRepo, ViewFiles, Config, MyDialogs, MyUtils, DAO, Git,
-  NsEditBtn, NsDbGrid, Connection;
+  NsEditBtn, NsDbGrid, Connection, Vcl.ExtCtrls;
 
 type
   TWindowMain = class(TForm)
@@ -80,6 +80,7 @@ type
     BtnPageUp: TSpeedButton;
     TxtSearch: TEdit;
     ActGoToSearch: TAction;
+    RadioGroupActives: TRadioGroup;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -110,12 +111,14 @@ type
     procedure ActDiffExecute(Sender: TObject);
     procedure TxtSearchChange(Sender: TObject);
     procedure ActGitignoreExecute(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure BtnPageUpClick(Sender: TObject);
     procedure BtnPageDownClick(Sender: TObject);
     procedure ActGoToSearchExecute(Sender: TObject);
     procedure GridRepositoriesMouseWheel(Sender: TObject; Shift: TShiftState;
       WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+    procedure TxtSearchKeyPress(Sender: TObject; var Key: Char);
+    procedure FormCreate(Sender: TObject);
+    procedure RadioGroupActivesClick(Sender: TObject);
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
@@ -124,8 +127,9 @@ type
 
 var
   WindowMain: TWindowMain;
+
+  {Variável para saber se uma checkbox foi clicada externamente, sem a linha estar selecionada}
   CellClicked: boolean = false;
-  MouseScrooled: boolean = false;
 
 implementation
 
@@ -133,12 +137,12 @@ implementation
 
 procedure TWindowMain.FormActivate(Sender: TObject);
 begin
-//  GridRepositories.SetFocus;
   TDAO.Load;
   Source.DataSet := TDAO.Table;
   TConfig.SetGlobalGitAccount;
   UpdateButtons;
   UpdateTotRepos;
+  TDAO.Search(TxtSearch.Text, TRepositoriesFilterStatus(RadioGroupActives.ItemIndex));
 end;
 
 procedure TWindowMain.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -161,7 +165,7 @@ end;
 
 procedure TWindowMain.FormCreate(Sender: TObject);
 begin
-
+  //
 end;
 
 //GRID DRAWN
@@ -171,10 +175,10 @@ DataCol: Integer; Column: TColumn; State: TGridDrawState);
 const
   IsChecked : array[Boolean] of Integer =(DFCS_BUTTONCHECK, DFCS_BUTTONCHECK or DFCS_CHECKED);
 begin
-  if TDAO.Count <> 0 then
+//  if TDAO.Count > 0 then
   begin
     //Se a linha atual está selecionada
-    if (gdFocused in State) or MouseScrooled then
+    if (gdFocused in State) then
     begin
       //Se estiver, o Checkbox CheckSelect é direcionado para ela
       CheckSelect.Visible := true;
@@ -185,8 +189,6 @@ begin
       CheckSelect.Height := Rect.Bottom - Rect.Top;
 
       UpdateTotRepos;
-
-      MouseScrooled := false;
     end
     else
     begin
@@ -205,22 +207,22 @@ begin
       end;
 
       //Verifica se o repositório não está ativo
-      if TDAO.GetSelectedField('Active') = false then
-      begin
-        //Se a cell é um campo Name
-        if Column.Field.FieldName = 'Name' then
-        begin
-          var DrawRect := Rect;
-          InflateRect(DrawRect,-1,-1);
-
-          GridRepositories.Canvas.FillRect(Rect);
-          GridRepositories.Canvas.Font.Color := clGrayText;
-
-  //        DrawFrameControl(GridRepositories.Canvas.Handle, DrawRect, DFC_CAPTION, DrawState);
-          DrawText(GridRepositories.Canvas.Handle, Column.Field.Value, -1, DrawRect, 0);
-        end;
-      end;
+//      if TDAO.GetSelectedField('Active') = false then
+//      begin
+//        //Se a cell é um campo Name
+//        if Column.Field.FieldName = 'Name' then
+//        begin
+//          var DrawRect := Rect;
+//          InflateRect(DrawRect,-1,-1);
+//
+//          GridRepositories.Canvas.FillRect(Rect);
+//          GridRepositories.Canvas.Font.Color := clGrayText;
+//
+//          DrawText(GridRepositories.Canvas.Handle, Column.Field.Value, -1, DrawRect, 0);
+//        end;
+//      end;
     end;
+
   end;
 end;
 
@@ -234,14 +236,18 @@ procedure TWindowMain.GridRepositoriesKeyDown(Sender: TObject; var Key: Word; Sh
 begin
   case Key of
   38:
+    //Se a tecla UpArrow é pressionada no primeiro registro
     if TDAO.GetIndex = 1 then
     begin
+      //O cursor vai para o último registro
       TDAO.Table.Last;
       Key := Word(#0);
     end;
   40:
+    //Se a tecla DownArrow é pressionada no último registro
     if TDAO.GetIndex = TDAO.Count then
     begin
+      //O cursor vai para o primeiro registro
       TDAO.Table.First;
       Key := Word(#0);
     end;
@@ -253,10 +259,13 @@ end;
 
 procedure TWindowMain.GridRepositoriesKeyPress(Sender: TObject; var Key: Char);
 begin
+  //Tab
   if (key = Chr(9)) then
   begin
     Exit;
   end;
+
+  //Direciona foco para o CheckSelect
   if (GridRepositories.SelectedField.FieldName = CheckSelect.DataField) then
   begin
     CheckSelect.SetFocus;
@@ -270,6 +279,7 @@ begin
   begin
     CellClicked := true;
     TDAO.SetSelectedField('Checked', not CheckSelect.Checked);
+    UpdateButtons;
   end;
 end;
 
@@ -282,9 +292,11 @@ begin
       GridRepositories.SetFocus;
       TDAO.SetSelectedField('Checked', CheckSelect.Checked);
     end;
+
     CellClicked := false;
     UpdateButtons;
   end;
+
   TDAO.Table.Edit;
 end;
 
@@ -779,20 +791,52 @@ end;
 
 //OTHERS
 
-procedure TWindowMain.ActGoToSearchExecute(Sender: TObject);
-begin
-  TxtSearch.SetFocus;
-end;
-
 procedure TWindowMain.CheckAllClick(Sender: TObject);
 begin
   TDAO.CheckAll(CheckAll.Checked);
   UpdateButtons;
 end;
 
-procedure TWindowMain.ActEscExecute(Sender: TObject);
+
+procedure TWindowMain.ActGoToSearchExecute(Sender: TObject);
 begin
-  Close;
+  TxtSearch.SetFocus;
+end;
+
+procedure TWindowMain.TxtSearchChange(Sender: TObject);
+begin
+//  TDAO.Search(TxtSearch.Text);
+//  Application.ProcessMessages;
+end;
+
+procedure TWindowMain.TxtSearchKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Char(Key) = #13 then
+  begin
+    TDAO.Search(TxtSearch.Text, TRepositoriesFilterStatus(RadioGroupActives.ItemIndex));
+  end;
+end;
+
+procedure TWindowMain.RadioGroupActivesClick(Sender: TObject);
+begin
+  TDAO.Search(TxtSearch.Text, TRepositoriesFilterStatus(RadioGroupActives.ItemIndex));
+end;
+
+
+procedure TWindowMain.BtnPageUpClick(Sender: TObject);
+begin
+  TDAO.Table.First;
+end;
+
+procedure TWindowMain.BtnPageDownClick(Sender: TObject);
+begin
+  TDAO.Table.Last;
+end;
+
+
+procedure TWindowMain.SleepExec;
+begin
+  Sleep(StrToInt(TConfig.GetConfig('OPTIONS', 'ExecTime', '0')));
 end;
 
 procedure TWindowMain.UpdateButtons;
@@ -843,25 +887,10 @@ begin
   TxtTotRepos.Caption := TDAO.GetIndex.ToString + ' / ' + TDAO.Count.ToString;
 end;
 
-procedure TWindowMain.SleepExec;
-begin
-  Sleep(StrToInt(TConfig.GetConfig('OPTIONS', 'ExecTime', '0')));
-end;
 
-procedure TWindowMain.TxtSearchChange(Sender: TObject);
+procedure TWindowMain.ActEscExecute(Sender: TObject);
 begin
-  TDAO.Search(TxtSearch.Text);
-//  Application.ProcessMessages;
-end;
-
-procedure TWindowMain.BtnPageUpClick(Sender: TObject);
-begin
-  TDAO.Table.First;
-end;
-
-procedure TWindowMain.BtnPageDownClick(Sender: TObject);
-begin
-  TDAO.Table.Last;
+  Close;
 end;
 
 //POPUP MENU

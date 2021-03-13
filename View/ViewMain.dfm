@@ -4,8 +4,8 @@ object WindowMain: TWindowMain
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Gethub'
-  ClientHeight = 536
-  ClientWidth = 833
+  ClientHeight = 529
+  ClientWidth = 828
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -4034,8 +4034,8 @@ object WindowMain: TWindowMain
   OnClose = FormClose
   OnCreate = FormCreate
   DesignSize = (
-    833
-    536)
+    828
+    529)
   PixelsPerInch = 96
   TextHeight = 13
   object BtnConfigs: TSpeedButton
@@ -4049,7 +4049,7 @@ object WindowMain: TWindowMain
     ShowHint = True
   end
   object BtnAddRepository: TSpeedButton
-    Left = 12
+    Left = 8
     Top = 8
     Width = 57
     Height = 45
@@ -4060,7 +4060,7 @@ object WindowMain: TWindowMain
   end
   object LblTotRepos: TLabel
     Left = 8
-    Top = 406
+    Top = 399
     Width = 63
     Height = 13
     Anchors = [akLeft, akBottom]
@@ -4069,46 +4069,122 @@ object WindowMain: TWindowMain
   end
   object TxtTotRepos: TLabel
     Left = 77
-    Top = 406
+    Top = 399
     Width = 3
     Height = 13
+    Anchors = [akLeft, akBottom]
   end
   object BtnPageDown: TSpeedButton
-    Left = 796
-    Top = 406
+    Left = 791
+    Top = 393
     Width = 32
     Height = 32
     Anchors = [akRight, akBottom]
-    Caption = #9661
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -27
     Font.Name = 'Tahoma'
     Font.Style = []
+    Glyph.Data = {
+      42040000424D4204000000000000420000002800000010000000100000000100
+      200003000000000400006F0000006F00000000000000000000000000FF0000FF
+      0000FF000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000080
+      8004023648DC02394BD700555503FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00008080040235
+      47DC0581ABFF0581ABFF02384AD700555503FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000808004023648DC0581
+      ABFF07C1FFFF07C1FFFF0581ABFF02384AD700555503FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000808004023749DB0581ABFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF0581ABFF02384AD700555503FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF000080800402374ADA0581ABFF07C1FFFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF07C1FFFF0581ABFF023749D600555503FFFF
+      FF00FFFFFF00FFFFFF000080800402384AD90581ABFF07C1FFFF07C1FFFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF07C1FFFF07C1FFFF0581ABFF023749D60055
+      5503FFFFFF00FFFFFF0002384AD7024156FF057FA8FF057FA8FF069FD2FF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF06A1D5FF057EA7FF057EA7FF024156FF0233
+      44D5FFFFFF00FFFFFF00024E687D024D6592024D6592024D6592023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FF024D6592024D6592024D65920254
+      6E7FFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00011E28FD0242
+      57FF024257FF024257FF024257FF011F29FDFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00}
     ParentFont = False
     OnClick = BtnPageDownClick
+    ExplicitLeft = 796
+    ExplicitTop = 426
   end
   object BtnPageUp: TSpeedButton
-    Left = 796
-    Top = 42
+    Left = 791
+    Top = 61
     Width = 32
     Height = 33
-    Anchors = [akTop, akRight]
-    Caption = #9651
+    HelpContext = 1
+    Anchors = [akRight, akBottom]
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -27
     Font.Name = 'Tahoma'
     Font.Style = []
+    Glyph.Data = {
+      42040000424D4204000000000000420000002800000010000000100000000100
+      200003000000000400006F0000006F00000000000000000000000000FF0000FF
+      0000FF000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00011E28FD0242
+      57FF024257FF024257FF024257FF011F29FDFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FFFFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF0002526C7D024D6592024D6592024D6592023C4FFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF024257FF024D6592024D6592024D6592024C
+      667FFFFFFF00FFFFFF00013140DA024156FF057EA7FF057EA7FF069FD2FF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF06A1D5FF057EA7FF057EA7FF024156FF0239
+      4CDAFFFFFF00FFFFFF0000666605013445DB0581ABFF07C1FFFF07C1FFFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF07C1FFFF07C1FFFF0581ABFF02394CDA0080
+      8004FFFFFF00FFFFFF00FFFFFF0000666605013446DC0581ABFF07C1FFFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF07C1FFFF0581ABFF02394CDA00808004FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000666605013446DC0581ABFF07C1
+      FFFF07C1FFFF07C1FFFF07C1FFFF0581ABFF023A4BD900808004FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000666605013546DC0581
+      ABFF07C1FFFF07C1FFFF0581ABFF02384BD900808004FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00006666050135
+      46DD0581ABFF0581ABFF02384BD900808004FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000066
+      6605023648DC02394BD700808004FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00}
     ParentFont = False
     OnClick = BtnPageUpClick
+    ExplicitLeft = 796
+    ExplicitTop = 94
   end
   object GridRepositories: TDBGrid
     Left = 8
-    Top = 81
-    Width = 820
-    Height = 319
-    Anchors = [akLeft, akTop, akRight, akBottom]
+    Top = 94
+    Width = 815
+    Height = 299
+    Anchors = [akLeft, akRight, akBottom]
     DataSource = Source
     Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     PopupMenu = MenuRepos
@@ -4184,9 +4260,10 @@ object WindowMain: TWindowMain
   end
   object CheckSelect: TDBCheckBox
     Left = 22
-    Top = 84
+    Top = 96
     Width = 15
     Height = 15
+    Anchors = [akLeft, akBottom]
     Ctl3D = True
     DataField = 'Checked'
     DataSource = Source
@@ -4204,15 +4281,16 @@ object WindowMain: TWindowMain
   end
   object CheckAll: TCheckBox
     Left = 22
-    Top = 84
+    Top = 96
     Width = 15
     Height = 15
+    Anchors = [akLeft, akBottom]
     TabOrder = 2
     OnClick = CheckAllClick
   end
   object BtnEdit: TButton
     Left = 122
-    Top = 425
+    Top = 418
     Width = 111
     Height = 25
     Action = ActEdit
@@ -4229,7 +4307,7 @@ object WindowMain: TWindowMain
   end
   object BtnDel: TButton
     Left = 239
-    Top = 425
+    Top = 418
     Width = 108
     Height = 25
     Action = ActDel
@@ -4246,7 +4324,7 @@ object WindowMain: TWindowMain
   end
   object BtnAdd: TButton
     Left = 317
-    Top = 456
+    Top = 449
     Width = 97
     Height = 33
     Action = ActAdd
@@ -4255,7 +4333,7 @@ object WindowMain: TWindowMain
   end
   object BtnCommit: TButton
     Left = 420
-    Top = 456
+    Top = 449
     Width = 97
     Height = 33
     Action = ActCommit
@@ -4264,7 +4342,7 @@ object WindowMain: TWindowMain
   end
   object BtnRestore: TButton
     Left = 523
-    Top = 455
+    Top = 448
     Width = 97
     Height = 33
     Action = ActRestore
@@ -4273,7 +4351,7 @@ object WindowMain: TWindowMain
   end
   object BtnPush: TButton
     Left = 626
-    Top = 455
+    Top = 448
     Width = 97
     Height = 33
     Action = ActPush
@@ -4282,7 +4360,7 @@ object WindowMain: TWindowMain
   end
   object BtnPull: TButton
     Left = 214
-    Top = 456
+    Top = 449
     Width = 97
     Height = 33
     Action = ActPull
@@ -4291,7 +4369,7 @@ object WindowMain: TWindowMain
   end
   object BtnStatus: TButton
     Left = 111
-    Top = 456
+    Top = 449
     Width = 97
     Height = 33
     Action = ActStatus
@@ -4300,7 +4378,7 @@ object WindowMain: TWindowMain
   end
   object BtnClone: TButton
     Left = 8
-    Top = 456
+    Top = 449
     Width = 97
     Height = 33
     Action = ActClone
@@ -4308,12 +4386,12 @@ object WindowMain: TWindowMain
     TabOrder = 11
   end
   object BtnImport: TButton
-    Left = 606
+    Left = 601
     Top = 8
     Width = 108
     Height = 25
     Action = ActImport
-    Anchors = [akRight, akBottom]
+    Anchors = [akTop, akRight]
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -4325,12 +4403,12 @@ object WindowMain: TWindowMain
     TabOrder = 4
   end
   object BtnExport: TButton
-    Left = 720
+    Left = 715
     Top = 8
     Width = 108
     Height = 25
     Action = ActExport
-    Anchors = [akRight, akBottom]
+    Anchors = [akTop, akRight]
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -4343,7 +4421,7 @@ object WindowMain: TWindowMain
   end
   object BtnDetails: TButton
     Left = 8
-    Top = 425
+    Top = 418
     Width = 108
     Height = 25
     Action = ActDetails
@@ -4360,7 +4438,7 @@ object WindowMain: TWindowMain
   end
   object BtnSwitch: TButton
     Left = 467
-    Top = 425
+    Top = 418
     Width = 97
     Height = 24
     Action = ActSwitch
@@ -4368,8 +4446,8 @@ object WindowMain: TWindowMain
     TabOrder = 10
   end
   object BtnDiff: TButton
-    Left = 729
-    Top = 455
+    Left = 726
+    Top = 448
     Width = 97
     Height = 33
     Action = ActDiff
@@ -4379,7 +4457,7 @@ object WindowMain: TWindowMain
   end
   object BtnGitignore: TButton
     Left = 8
-    Top = 495
+    Top = 488
     Width = 97
     Height = 33
     Action = ActGitignore
@@ -4388,7 +4466,7 @@ object WindowMain: TWindowMain
   end
   object SpeedButton1: TButton
     Left = 111
-    Top = 495
+    Top = 488
     Width = 97
     Height = 33
     Anchors = [akLeft, akBottom]
@@ -4398,7 +4476,7 @@ object WindowMain: TWindowMain
   end
   object SpeedButton2: TButton
     Left = 214
-    Top = 495
+    Top = 488
     Width = 97
     Height = 33
     Anchors = [akLeft, akBottom]
@@ -4408,7 +4486,7 @@ object WindowMain: TWindowMain
   end
   object SpeedButton3: TButton
     Left = 317
-    Top = 494
+    Top = 487
     Width = 97
     Height = 33
     Anchors = [akLeft, akBottom]
@@ -4418,7 +4496,7 @@ object WindowMain: TWindowMain
   end
   object SpeedButton4: TButton
     Left = 420
-    Top = 494
+    Top = 487
     Width = 97
     Height = 33
     Anchors = [akLeft, akBottom]
@@ -4428,7 +4506,7 @@ object WindowMain: TWindowMain
   end
   object BtnGitBash: TButton
     Left = 353
-    Top = 425
+    Top = 418
     Width = 108
     Height = 25
     Action = ActGitBash
@@ -4445,7 +4523,7 @@ object WindowMain: TWindowMain
   end
   object SpeedButton5: TButton
     Left = 523
-    Top = 494
+    Top = 487
     Width = 97
     Height = 33
     Anchors = [akLeft, akBottom]
@@ -4455,7 +4533,7 @@ object WindowMain: TWindowMain
   end
   object SpeedButton6: TButton
     Left = 626
-    Top = 494
+    Top = 487
     Width = 97
     Height = 33
     Anchors = [akLeft, akBottom]
@@ -4464,8 +4542,8 @@ object WindowMain: TWindowMain
     OnClick = ActCloneExecute
   end
   object SpeedButton7: TButton
-    Left = 729
-    Top = 494
+    Left = 726
+    Top = 487
     Width = 97
     Height = 33
     Anchors = [akLeft, akBottom]
@@ -4474,12 +4552,34 @@ object WindowMain: TWindowMain
     OnClick = ActCloneExecute
   end
   object TxtSearch: TEdit
-    Left = 8
-    Top = 59
+    Left = 284
+    Top = 68
     Width = 489
     Height = 21
+    Anchors = [akLeft, akBottom]
     TabOrder = 0
     OnChange = TxtSearchChange
+    OnKeyPress = TxtSearchKeyPress
+  end
+  object RadioGroupActives: TRadioGroup
+    Left = 8
+    Top = 60
+    Width = 270
+    Height = 31
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 0
+    Margins.Bottom = 0
+    Anchors = [akLeft, akBottom]
+    Caption = 'Filtro'
+    Columns = 3
+    ItemIndex = 0
+    Items.Strings = (
+      'Ativos'
+      'Inativos'
+      'Todos')
+    TabOrder = 27
+    OnClick = RadioGroupActivesClick
   end
   object Actions: TActionList
     Images = Images

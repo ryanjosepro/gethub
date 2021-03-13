@@ -8,6 +8,8 @@ uses
   MyUtils, Connection, Git;
 
 type
+  TRepositoriesFilterStatus = (rfOnlyActives, rfOnlyInactives, rfAll);
+
   TDAO = class
   public
     class function Table: TFDMemTable;
@@ -21,7 +23,7 @@ type
     class procedure EditSelected(Repository: TRepository);
     class procedure Delete;
 
-    class procedure Search(Name: string);
+    class procedure Search(Name: string; FilterStatus: TRepositoriesFilterStatus);
 
     class procedure CheckAll(Checked: boolean = true);
 
@@ -211,17 +213,21 @@ begin
   Save;
 end;
 
-class procedure TDAO.Search(Name: string);
+class procedure TDAO.Search(Name: string; FilterStatus: TRepositoriesFilterStatus);
+var
+  ActivesFilter: string;
 begin
-  if Name <> '' then
-  begin
-    Table.Filter := 'Name like ''%' + Name + '%''';
-    Table.Filtered := true;
-  end
-  else
-  begin
-    Table.Filtered := false;
+ case FilterStatus of
+    rfOnlyActives:
+      ActivesFilter := ' Active = true';
+    rfOnlyInactives:
+      ActivesFilter := ' Active = false';
+    rfAll:
+      ActivesFilter := ' Active = true or Active = false'
   end;
+
+  Table.Filter := 'Name like ''%' + Name + '%'' and ' + ActivesFilter;
+  Table.Filtered := true;
 end;
 
 class procedure TDAO.CheckAll(Checked: boolean = true);

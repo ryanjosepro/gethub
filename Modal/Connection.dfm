@@ -7,6 +7,7 @@ object DataModuleConn: TDataModuleConn
     Top = 240
   end
   object Table: TFDMemTable
+    FieldOptions.AutoCreateMode = acCombineComputed
     FieldDefs = <>
     IndexDefs = <>
     FetchOptions.AssignedValues = [evMode]
