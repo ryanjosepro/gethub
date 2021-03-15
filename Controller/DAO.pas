@@ -14,10 +14,10 @@ type
   public
     class function Table: TFDMemTable;
     class procedure Load(CleanChecked: boolean = true); overload;
-    class procedure Save(CleanChecked: boolean = true); overload;
+    class procedure Save(CleanChecked: boolean = false); overload;
 
-    class procedure Load(Path: string; CleanChecked: boolean = true); overload;
-    class procedure Save(Path: string; CleanChecked: boolean = true); overload;
+    class procedure Load(FileName: string; CleanChecked: boolean = true); overload;
+    class procedure Save(FileName: string; CleanChecked: boolean = false); overload;
 
     class procedure Insert(Repository: TRepository);
     class procedure EditSelected(Repository: TRepository);
@@ -27,13 +27,12 @@ type
 
     class procedure CheckAll(Checked: boolean = true);
 
+    class procedure SetAllFields(Field: string; Value: Variant);
     class function GetSelectedField(Field: string): variant;
     class function GetSelectedStringField(Field: string): string;
-
-    class procedure SetSelectedField(Field: string; Value: variant);
+    class procedure SetSelectedField(Field: string; Value: Variant);
     class function GetCheckedFields(Field: string): TStringList;
-    class procedure SetCheckedFields(Field, Value: string);
-
+    class procedure SetCheckedFields(Field: string; Value: Variant);
     class function GetSelectedRepository: TRepository;
     class function GetCheckedRepositories: TRepositoryArray;
 
@@ -48,12 +47,15 @@ type
     class procedure Refresh;
 
     class procedure SetLastAction(Action: string);
+
+    class procedure EnableFiltered;
+    class procedure DisableFiltered;
   end;
 
 implementation
 
 var
-  DataPath: string = 'Data.json';
+  DataFileName: string = 'Data.json';
 
 { TDAO }
 
@@ -62,11 +64,12 @@ begin
   Result := DataModuleConn.Table;
 end;
 
+
 class procedure TDAO.Load(CleanChecked: boolean = true);
 var
   Path: string;
 begin
-  Path := ExtractFilePath(Application.ExeName) + DataPath;
+  Path := ExtractFilePath(Application.ExeName) + DataFileName;
 
   if FileExists(Path) then
   begin
@@ -94,17 +97,18 @@ begin
   end;
 end;
 
-class procedure TDAO.Save(CleanChecked: boolean = true);
-var
-  Index: integer;
+class procedure TDAO.Save(CleanChecked: boolean = false);
 begin
+  Table.DisableControls;
+
+  DisableFiltered;
+
   if CleanChecked then
   begin
-    Index := GetIndex;
-
-    Table.DisableControls;
+    var Index := GetIndex;
 
     Table.First;
+
     while not Table.Eof do
     begin
       SetSelectedField('Checked', false);
@@ -113,18 +117,18 @@ begin
     end;
 
     SetIndex(Index);
-
-    Table.EnableControls;
   end;
 
-  //TUtils.CreateIfNotExistsDir(TUtils.AppPath + 'Data');
+  Table.SaveToFile(TUtils.AppPath + DataFileName, sfJSON);
 
-  Table.SaveToFile(TUtils.AppPath + DataPath, sfJSON);
+  EnableFiltered;
+
+  Table.EnableControls;
 end;
 
-class procedure TDAO.Load(Path: string; CleanChecked: boolean = true);
+class procedure TDAO.Load(FileName: string; CleanChecked: boolean = true);
 begin
-  Table.LoadFromFile(Path, sfJSON);
+  Table.LoadFromFile(FileName, sfJSON);
 
   if CleanChecked then
   begin
@@ -143,17 +147,18 @@ begin
   end;
 end;
 
-class procedure TDAO.Save(Path: string; CleanChecked: boolean = true);
-var
-  Index: integer;
+class procedure TDAO.Save(FileName: string; CleanChecked: boolean = false);
 begin
+  Table.DisableControls;
+
+  DisableFiltered;
+
   if CleanChecked then
   begin
-    Index := GetIndex;
-
-    Table.DisableControls;
+    var Index := GetIndex;
 
     Table.First;
+
     while not Table.Eof do
     begin
       SetSelectedField('Checked', false);
@@ -162,14 +167,17 @@ begin
     end;
 
     SetIndex(Index);
-
-    Table.EnableControls;
   end;
 
-  TUtils.CreateIfNotExistsDir(Path);
+  TUtils.CreateIfNotExistsDir(ExtractFileDir(FileName));
 
-  Table.SaveToFile(Path, sfJSON);
+  Table.SaveToFile(FileName, sfJSON);
+
+  EnableFiltered;
+
+  Table.EnableControls;
 end;
+
 
 class procedure TDAO.Insert(Repository: TRepository);
 begin
@@ -228,7 +236,12 @@ begin
 
   Table.Filter := 'Name like ''%' + Name + '%'' and ' + ActivesFilter;
   Table.Filtered := true;
+
+  Table.Last;
+
+  Table.First;
 end;
+
 
 class procedure TDAO.CheckAll(Checked: boolean = true);
 var
@@ -249,6 +262,37 @@ begin
   SetIndex(Index);
 
   Table.EnableControls;
+end;
+
+
+class procedure TDAO.SetAllFields(Field: string; Value: Variant);
+var
+  Index: integer;
+begin
+  Index := GetIndex;
+
+  try
+    Table.DisableControls;
+
+    Table.Filtered := false;
+
+    Table.First;
+
+    while not Table.Eof do
+    begin
+      SetSelectedField(Field, Value);
+
+      Table.Next;
+    end;
+
+    Save;
+  finally
+    Table.Filtered := true;
+
+    SetIndex(Index);
+
+    Table.EnableControls;
+  end;
 end;
 
 class function TDAO.GetSelectedField(Field: string): variant;
@@ -311,30 +355,35 @@ begin
   Table.EnableControls;
 end;
 
-class procedure TDAO.SetCheckedFields(Field, Value: string);
+class procedure TDAO.SetCheckedFields(Field: string; Value: Variant);
 var
   Index: integer;
 begin
   Index := GetIndex;
 
-  Table.DisableControls;
+  try
+    Table.DisableControls;
 
-  Table.First;
+    Table.Filtered := false;
 
-  while not Table.Eof do
-  begin
-    if GetSelectedField('Checked') = true then
+    Table.First;
+
+    while not Table.Eof do
     begin
-      SetSelectedField(Field, Value);
+      if GetSelectedField('Checked') = true then
+        SetSelectedField(Field, Value);
+
+      Table.Next;
     end;
-    Table.Next;
+
+    Save;
+  finally
+    Table.Filtered := true;
+
+    SetIndex(Index);
+
+    Table.EnableControls;
   end;
-
-  Save(false);
-
-  SetIndex(Index);
-
-  Table.EnableControls;
 end;
 
 class function TDAO.GetSelectedRepository: TRepository;
@@ -388,6 +437,7 @@ begin
   end;
 end;
 
+
 class function TDAO.ValueExists(Field: string; Value: Variant; ConsiderCurrent: boolean = true): boolean;
 var
   Index, Cont: integer;
@@ -425,6 +475,7 @@ begin
   Table.EnableControls;
 end;
 
+
 class function TDAO.Count: integer;
 begin
   Result := Table.RecordCount;
@@ -443,6 +494,7 @@ begin
   Result := GetCheckedFields('Checked').Count;
 end;
 
+
 class function TDAO.GetIndex: integer;
 begin
   Result := Table.RecNo;
@@ -453,6 +505,7 @@ begin
   Table.RecNo := Index;
 end;
 
+
 class procedure TDAO.Refresh;
 begin
   Table.Refresh;
@@ -461,6 +514,16 @@ end;
 class procedure TDAO.SetLastAction(Action: string);
 begin
   SetCheckedFields('LastAction', Action);
+end;
+
+class procedure TDAO.EnableFiltered;
+begin
+  Table.Filtered := true;
+end;
+
+class procedure TDAO.DisableFiltered;
+begin
+  Table.Filtered := false;
 end;
 
 end.

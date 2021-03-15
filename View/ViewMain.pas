@@ -81,6 +81,10 @@ type
     TxtSearch: TEdit;
     ActGoToSearch: TAction;
     RadioGroupActives: TRadioGroup;
+    ActActiveSelecteds: TAction;
+    ActInactiveSelecteds: TAction;
+    AtivarMarcados1: TMenuItem;
+    InativarMarcados1: TMenuItem;
     procedure ActConfigsExecute(Sender: TObject);
     procedure ActEditExecute(Sender: TObject);
     procedure ActDelExecute(Sender: TObject);
@@ -114,11 +118,11 @@ type
     procedure BtnPageUpClick(Sender: TObject);
     procedure BtnPageDownClick(Sender: TObject);
     procedure ActGoToSearchExecute(Sender: TObject);
-    procedure GridRepositoriesMouseWheel(Sender: TObject; Shift: TShiftState;
-      WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+    procedure GridRepositoriesMouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
     procedure TxtSearchKeyPress(Sender: TObject; var Key: Char);
-    procedure FormCreate(Sender: TObject);
     procedure RadioGroupActivesClick(Sender: TObject);
+    procedure ActActiveSelectedsExecute(Sender: TObject);
+    procedure ActInactiveSelectedsExecute(Sender: TObject);
   private
     procedure UpdateButtons;
     procedure UpdateTotRepos;
@@ -128,7 +132,7 @@ type
 var
   WindowMain: TWindowMain;
 
-  {Variável para saber se uma checkbox foi clicada externamente, sem a linha estar selecionada}
+  //Variável para saber se uma checkbox foi clicada externamente, sem a linha estar selecionada
   CellClicked: boolean = false;
 
 implementation
@@ -139,10 +143,16 @@ procedure TWindowMain.FormActivate(Sender: TObject);
 begin
   TDAO.Load;
   Source.DataSet := TDAO.Table;
+
   TConfig.SetGlobalGitAccount;
+
+  TDAO.Search(TxtSearch.Text, TRepositoriesFilterStatus(RadioGroupActives.ItemIndex));
+
   UpdateButtons;
   UpdateTotRepos;
-  TDAO.Search(TxtSearch.Text, TRepositoriesFilterStatus(RadioGroupActives.ItemIndex));
+
+  if GridRepositories.Enabled then
+    GridRepositories.SetFocus;
 end;
 
 procedure TWindowMain.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -163,11 +173,6 @@ begin
   Application.ProcessMessages;
 end;
 
-procedure TWindowMain.FormCreate(Sender: TObject);
-begin
-  //
-end;
-
 //GRID DRAWN
 
 procedure TWindowMain.GridRepositoriesDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -175,8 +180,6 @@ DataCol: Integer; Column: TColumn; State: TGridDrawState);
 const
   IsChecked : array[Boolean] of Integer =(DFCS_BUTTONCHECK, DFCS_BUTTONCHECK or DFCS_CHECKED);
 begin
-//  if TDAO.Count > 0 then
-  begin
     //Se a linha atual está selecionada
     if (gdFocused in State) then
     begin
@@ -207,23 +210,21 @@ begin
       end;
 
       //Verifica se o repositório não está ativo
-//      if TDAO.GetSelectedField('Active') = false then
-//      begin
-//        //Se a cell é um campo Name
-//        if Column.Field.FieldName = 'Name' then
-//        begin
-//          var DrawRect := Rect;
-//          InflateRect(DrawRect,-1,-1);
-//
-//          GridRepositories.Canvas.FillRect(Rect);
-//          GridRepositories.Canvas.Font.Color := clGrayText;
-//
-//          DrawText(GridRepositories.Canvas.Handle, Column.Field.Value, -1, DrawRect, 0);
-//        end;
-//      end;
-    end;
+      if (TDAO.Count > 0) and (TDAO.GetSelectedField('Active') = false) then
+      begin
+        //Se a cell é um campo Name
+        if Column.Field.FieldName = 'Name' then
+        begin
+          var DrawRect := Rect;
+          InflateRect(DrawRect,-1,-1);
 
-  end;
+          GridRepositories.Canvas.FillRect(Rect);
+          GridRepositories.Canvas.Font.Color := clGrayText;
+
+          DrawText(GridRepositories.Canvas.Handle, Column.Field.Value, -1, DrawRect, 0);
+        end;
+      end;
+    end;
 end;
 
 procedure TWindowMain.GridRepositoriesMouseWheel(Sender: TObject;
@@ -420,23 +421,28 @@ begin
   end;
 end;
 
+procedure TWindowMain.ActActiveSelectedsExecute(Sender: TObject);
+begin
+  TDAO.SetCheckedFields('Active', true);
+end;
+
+procedure TWindowMain.ActInactiveSelectedsExecute(Sender: TObject);
+begin
+  TDAO.SetCheckedFields('Active', false);
+end;
+
 //GIT COMMANDS
 
 procedure TWindowMain.ActCloneExecute(Sender: TObject);
-var
-  I: integer;
-  Repositories: TRepositoryArray;
-  GitExecution: TGitExecution;
 begin
-  Repositories := TDAO.GetCheckedRepositories;
+  var Repositories := TDAO.GetCheckedRepositories;
 
-  GitExecution := TGitExecution.Create;
+  var GitExecution := TGitExecution.Create;
   GitExecution.Action := gaClone;
   GitExecution.Config := TConfig.GetGitConfig;
 
-  for I := 0 to Length(Repositories) - 1 do
+  for var I := 0 to Length(Repositories) - 1 do
   begin
-
     with Repositories[I] do
     begin
       GitExecution.Repository := Repositories[I];
@@ -482,18 +488,14 @@ begin
 end;
 
 procedure TWindowMain.ActStatusExecute(Sender: TObject);
-var
-  I: integer;
-  Repositories: TRepositoryArray;
-  GitExecution: TGitExecution;
 begin
-  Repositories := TDAO.GetCheckedRepositories;
+  var Repositories := TDAO.GetCheckedRepositories;
 
-  GitExecution := TGitExecution.Create;
+  var GitExecution := TGitExecution.Create;
   GitExecution.Action := gaStatus;
   GitExecution.Config := TConfig.GetGitConfig;
 
-  for I := 0 to Length(Repositories) - 1 do
+  for var I := 0 to Length(Repositories) - 1 do
   begin
     GitExecution.Repository := Repositories[I];
 
@@ -806,7 +808,6 @@ end;
 procedure TWindowMain.TxtSearchChange(Sender: TObject);
 begin
 //  TDAO.Search(TxtSearch.Text);
-//  Application.ProcessMessages;
 end;
 
 procedure TWindowMain.TxtSearchKeyPress(Sender: TObject; var Key: Char);
@@ -820,6 +821,9 @@ end;
 procedure TWindowMain.RadioGroupActivesClick(Sender: TObject);
 begin
   TDAO.Search(TxtSearch.Text, TRepositoriesFilterStatus(RadioGroupActives.ItemIndex));
+
+  if GridRepositories.Enabled then
+    GridRepositories.SetFocus;
 end;
 
 
@@ -867,6 +871,21 @@ begin
   ActPush.Enabled := AnyChecked;
   ActDiff.Enabled := AnyChecked;
   ActGitignore.Enabled := AnyChecked;
+
+  ActActiveSelecteds.Enabled := false;
+  ActInactiveSelecteds.Enabled := false;
+
+  case RadioGroupActives.ItemIndex of
+  0:
+    ActInactiveSelecteds.Enabled := AnyChecked;
+  1:
+    ActActiveSelecteds.Enabled := AnyChecked;
+  2:
+  begin
+    ActActiveSelecteds.Enabled := AnyChecked;
+    ActInactiveSelecteds.Enabled := AnyChecked;
+  end;
+  end;
 
   if AnyRepository and (TDAO.CountCheckeds = 1) then
   begin

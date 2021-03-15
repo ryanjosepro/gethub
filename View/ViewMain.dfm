@@ -4032,7 +4032,6 @@ object WindowMain: TWindowMain
   Position = poMainFormCenter
   OnActivate = FormActivate
   OnClose = FormClose
-  OnCreate = FormCreate
   DesignSize = (
     828
     529)
@@ -4552,8 +4551,8 @@ object WindowMain: TWindowMain
     OnClick = ActCloneExecute
   end
   object TxtSearch: TEdit
-    Left = 284
-    Top = 68
+    Left = 281
+    Top = 67
     Width = 489
     Height = 21
     Anchors = [akLeft, akBottom]
@@ -4707,6 +4706,14 @@ object WindowMain: TWindowMain
     object ActEsc: TAction
       ShortCut = 27
       OnExecute = ActEscExecute
+    end
+    object ActActiveSelecteds: TAction
+      Caption = 'Ativar Marcados'
+      OnExecute = ActActiveSelectedsExecute
+    end
+    object ActInactiveSelecteds: TAction
+      Caption = 'Inativar Marcados'
+      OnExecute = ActInactiveSelectedsExecute
     end
   end
   object Images: TImageList
@@ -5301,6 +5308,14 @@ object WindowMain: TWindowMain
     end
     object Switch1: TMenuItem
       Action = ActSwitch
+    end
+    object AtivarMarcados1: TMenuItem
+      Action = ActActiveSelecteds
+      Enabled = False
+    end
+    object InativarMarcados1: TMenuItem
+      Action = ActInactiveSelecteds
+      Enabled = False
     end
   end
 end
