@@ -387,7 +387,7 @@ begin
 
       TGit.GitExec(GitExecution);
 
-      TDAO.SetLastAction('Switch');
+      TDAO.SetLastActionToSelected('Switch');
     end;
   end;
 end;
@@ -453,7 +453,7 @@ begin
 
         TGit.GitExec(GitExecution);
 
-        TDAO.SetLastAction('Clone');
+        TDAO.SetLastActionToCheckeds('Clone');
       end
       else
       begin
@@ -473,7 +473,7 @@ begin
 
             TGit.GitExec(GitExecution);
 
-            TDAO.SetLastAction('Clone');
+            TDAO.SetLastActionToCheckeds('Clone');
           end;
         end;
       end;
@@ -507,7 +507,7 @@ begin
     end;
   end;
 
-  TDAO.SetLastAction('Status');
+  TDAO.SetLastActionToCheckeds('Status');
 end;
 
 procedure TWindowMain.ActPullExecute(Sender: TObject);
@@ -534,7 +534,7 @@ begin
     end;
   end;
 
-  TDAO.SetLastAction('Pull');
+  TDAO.SetLastActionToCheckeds('Pull');
 end;
 
 procedure TWindowMain.ActAddExecute(Sender: TObject);
@@ -574,7 +574,7 @@ begin
       end;
     end;
 
-    TDAO.SetLastAction('Add');
+    TDAO.SetLastActionToCheckeds('Add');
   end
   else if DialogAnswer = mrNo then
   begin
@@ -586,7 +586,7 @@ begin
 
       TGit.GitExec(GitExecution);
 
-      TDAO.SetLastAction('Add');
+      TDAO.SetLastActionToCheckeds('Add');
     end;
   end;
 end;
@@ -641,7 +641,7 @@ begin
       end;
     end;
 
-    TDAO.SetLastAction('Commit');
+    TDAO.SetLastActionToCheckeds('Commit');
   end;
 end;
 
@@ -676,7 +676,7 @@ begin
 
       TGit.GitExec(GitExecution);
 
-      TDAO.SetLastAction('Restore');
+      TDAO.SetLastActionToCheckeds('Restore');
     end;
   end
   else if DialogAnswer = mrNo then
@@ -689,7 +689,7 @@ begin
 
       TGit.GitExec(GitExecution);
 
-      TDAO.SetLastAction('Restore');
+      TDAO.SetLastActionToCheckeds('Restore');
     end;
   end;
 end;
@@ -733,7 +733,7 @@ begin
       end;
     end;
 
-    TDAO.SetLastAction('Push');
+    TDAO.SetLastActionToCheckeds('Push');
   end;
 end;
 
@@ -761,7 +761,7 @@ begin
     end;
   end;
 
-  TDAO.SetLastAction('Diff');
+  TDAO.SetLastActionToCheckeds('Diff');
 end;
 
 procedure TWindowMain.ActGitignoreExecute(Sender: TObject);

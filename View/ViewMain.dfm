@@ -4552,7 +4552,7 @@ object WindowMain: TWindowMain
   end
   object TxtSearch: TEdit
     Left = 281
-    Top = 67
+    Top = 70
     Width = 489
     Height = 21
     Anchors = [akLeft, akBottom]
@@ -4636,8 +4636,9 @@ object WindowMain: TWindowMain
       OnExecute = ActGitBashExecute
     end
     object ActSwitch: TAction
-      Caption = 'Switch'
+      Caption = 'Switch (F10)'
       Enabled = False
+      ShortCut = 121
       OnExecute = ActSwitchExecute
     end
     object ActImport: TAction

@@ -31,6 +31,7 @@ type
     class function GetSelectedField(Field: string): variant;
     class function GetSelectedStringField(Field: string): string;
     class procedure SetSelectedField(Field: string; Value: Variant);
+
     class function GetCheckedFields(Field: string): TStringList;
     class procedure SetCheckedFields(Field: string; Value: Variant);
     class function GetSelectedRepository: TRepository;
@@ -46,7 +47,8 @@ type
 
     class procedure Refresh;
 
-    class procedure SetLastAction(Action: string);
+    class procedure SetLastActionToSelected(LastAction: string);
+    class procedure SetLastActionToCheckeds(LastAction: string);
 
     class procedure EnableFiltered;
     class procedure DisableFiltered;
@@ -397,12 +399,13 @@ begin
   Result.Desc := GetSelectedField('Description');
   Result.LastAct := GetSelectedField('LastAction');
   Result.Msg := GetSelectedField('Message');
+  Result.Active := GetSelectedField('Active');
 end;
 
 class function TDAO.GetCheckedRepositories: TRepositoryArray;
 var
   I: integer;
-  Links, Branchs, Paths, Names, Descriptions, LastActs, Msgs: TStringList;
+  Links, Branchs, Paths, Names, Descriptions, LastActs, Msgs, Actives: TStringList;
 begin
   SetLength(Result, GetCheckedFields('Checked').Count);
 
@@ -414,6 +417,7 @@ begin
     Descriptions := GetCheckedFields('Description');
     LastActs := GetCheckedFields('LastAction');
     Msgs := GetCheckedFields('Message');
+    Actives := GetCheckedFields('Active');
 
     for I := 0 to Length(Result) - 1 do
     begin
@@ -425,6 +429,7 @@ begin
       Result[I].Desc := Descriptions[I];
       Result[I].LastAct := LastActs[I];
       Result[I].Msg := Msgs[I];
+      Result[I].Active := StrToBool(Actives[I]);
     end;
   finally
     FreeAndNil(Links);
@@ -511,9 +516,14 @@ begin
   Table.Refresh;
 end;
 
-class procedure TDAO.SetLastAction(Action: string);
+class procedure TDAO.SetLastActionToSelected(LastAction: string);
 begin
-  SetCheckedFields('LastAction', Action);
+  SetSelectedField('LastAction', LastAction)
+end;
+
+class procedure TDAO.SetLastActionToCheckeds(LastAction: string);
+begin
+  SetCheckedFields('LastAction', LastAction);
 end;
 
 class procedure TDAO.EnableFiltered;

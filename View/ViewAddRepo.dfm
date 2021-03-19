@@ -113,7 +113,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     MaxLength = 300
     ParentFont = False
-    TabOrder = 0
+    TabOrder = 2
     OnChange = TxtChange
     OnKeyDown = TxtPathKeyDown
   end
@@ -130,7 +130,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     MaxLength = 30
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 3
     OnChange = TxtChange
   end
   object CheckCloneRepo: TCheckBox
@@ -146,8 +146,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 3
-    ExplicitTop = 225
+    TabOrder = 5
   end
   object TxtDescription: TEdit
     Left = 8
@@ -162,7 +161,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     MaxLength = 40
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 4
     OnChange = TxtChange
   end
   object TxtLink: TComboBox
@@ -170,7 +169,7 @@ object WindowAddRepo: TWindowAddRepo
     Top = 69
     Width = 325
     Height = 21
-    TabOrder = 4
+    TabOrder = 1
     Items.Strings = (
       'https://github.com/'
       'https://gitlab.com/'
@@ -190,7 +189,7 @@ object WindowAddRepo: TWindowAddRepo
     Font.Style = []
     ParentFont = False
     State = cbChecked
-    TabOrder = 5
+    TabOrder = 0
   end
   object Images: TImageList
     BlendColor = clWhite

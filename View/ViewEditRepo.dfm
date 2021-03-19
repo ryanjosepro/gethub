@@ -115,7 +115,7 @@ object WindowEditRepo: TWindowEditRepo
     Font.Style = []
     MaxLength = 60
     ParentFont = False
-    TabOrder = 0
+    TabOrder = 1
     OnChange = TxtChange
   end
   object TxtPath: TEdit
@@ -131,7 +131,7 @@ object WindowEditRepo: TWindowEditRepo
     Font.Style = []
     MaxLength = 300
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 2
     OnChange = TxtChange
   end
   object TxtName: TEdit
@@ -147,7 +147,7 @@ object WindowEditRepo: TWindowEditRepo
     Font.Style = []
     MaxLength = 30
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 3
     OnChange = TxtChange
   end
   object TxtDescription: TEdit
@@ -163,7 +163,7 @@ object WindowEditRepo: TWindowEditRepo
     Font.Style = []
     MaxLength = 40
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 4
     OnChange = TxtChange
   end
   object CheckActive: TCheckBox
@@ -178,7 +178,7 @@ object WindowEditRepo: TWindowEditRepo
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 0
     OnClick = TxtChange
   end
   object Images: TImageList
